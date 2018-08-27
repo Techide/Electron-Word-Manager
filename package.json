@@ -1,5 +1,6 @@
 {
   "name": "electron-word-manager",
+  "productName": "Jiu Jutsu Gradueringer",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +8,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "electron": "electron .",
+    "electron:build": "ng build --aot && electron ."
   },
   "private": true,
   "dependencies": {
@@ -33,6 +36,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.2.1",
+    "electron": "^2.0.8",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~1.7.1",
