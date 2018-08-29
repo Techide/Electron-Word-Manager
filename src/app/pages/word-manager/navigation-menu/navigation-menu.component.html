@@ -1,1 +1,7 @@
-<button (click)="onClick()">Choose File</button>
+<div class="menu-grid">
+    <div *ngFor="let item of graduations">
+        <div class="item-template">
+            {{item.name}}
+        </div>
+    </div>
+</div>

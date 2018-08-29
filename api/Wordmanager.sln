@@ -5,11 +5,16 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordManager.Api", "WordManager.Api\WordManager.Api.csproj", "{EE44614E-719B-4971-AB96-D1C59D381B5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wordmanager.Data", "Wordmanager.Data\Wordmanager.Data.csproj", "{F6A51AAB-573B-4E7E-8426-A5CE19882EB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wordmanager.Data", "Wordmanager.Data\Wordmanager.Data.csproj", "{F6A51AAB-573B-4E7E-8426-A5CE19882EB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordManager.Domain", "WordManager.Domain\WordManager.Domain.csproj", "{8E9BC10A-4383-4AE3-9EDE-05EC5CC80D8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordManager.Domain", "WordManager.Domain\WordManager.Domain.csproj", "{8E9BC10A-4383-4AE3-9EDE-05EC5CC80D8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordManager.Common", "WordManager.Common\WordManager.Common.csproj", "{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordManager.Common", "WordManager.Common\WordManager.Common.csproj", "{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F2DE2F70-63CC-4005-BA83-CD571AA07E0B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

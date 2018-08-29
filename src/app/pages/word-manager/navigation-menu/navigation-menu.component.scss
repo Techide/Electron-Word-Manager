@@ -1,0 +1,10 @@
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 0 12px;
+  border: 1px solid gray;
+}
+
+.item-template {
+  margin: 3px 0;
+}

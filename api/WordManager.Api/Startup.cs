@@ -17,6 +17,13 @@ namespace WordManager.Api {
     public void ConfigureServices(IServiceCollection services) {
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
       services.AddCQS();
+      services.AddCors(x => {
+        x.AddDefaultPolicy(policy => {
+          policy.AllowAnyHeader();
+          policy.AllowAnyMethod();
+          policy.AllowAnyOrigin();
+        });
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -25,6 +32,7 @@ namespace WordManager.Api {
         app.UseDeveloperExceptionPage();
       }
 
+      app.UseCors();
       app.UseMvc();
     }
   }
