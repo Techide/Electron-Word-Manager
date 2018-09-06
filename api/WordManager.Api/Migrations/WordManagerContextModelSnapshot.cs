@@ -16,84 +16,86 @@ namespace WordManager.Api.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.2-rtm-30932");
 
-            modelBuilder.Entity("Wordmanager.Data.Models.Entities.Curriculum", b =>
+            modelBuilder.Entity("Wordmanager.Data.Models.Entities.Category", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<long>("FromLanguageId");
-
-                    b.Property<long>("GraduationId");
-
-                    b.Property<long>("IntoLanguageId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FromLanguageId");
-
-                    b.HasIndex("GraduationId");
-
-                    b.HasIndex("IntoLanguageId");
-
-                    b.ToTable("Curricula");
-                });
-
-            modelBuilder.Entity("Wordmanager.Data.Models.Entities.Graduation", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Level");
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Level")
-                        .IsUnique();
-
-                    b.ToTable("Graduations");
+                    b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("Wordmanager.Data.Models.Entities.Language", b =>
+            modelBuilder.Entity("Wordmanager.Data.Models.Entities.Curriculum", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CountryCode");
+                    b.Property<string>("Color");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<int>("Rank");
+
+                    b.Property<long>("RankTypeId");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages");
+                    b.HasIndex("RankTypeId");
+
+                    b.HasIndex("Rank", "RankTypeId")
+                        .IsUnique();
+
+                    b.ToTable("Curricula");
                 });
 
-            modelBuilder.Entity("Wordmanager.Data.Models.Entities.Translation", b =>
+            modelBuilder.Entity("Wordmanager.Data.Models.Entities.Description", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long>("WordId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WordId")
+                        .IsUnique();
+
+                    b.ToTable("Descriptions");
+                });
+
+            modelBuilder.Entity("Wordmanager.Data.Models.Entities.Part", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<long>("CurriculumId");
 
-                    b.Property<long>("FromWordId");
+                    b.Property<long>("NameId");
 
-                    b.Property<long>("IntoWordId");
-
-                    b.Property<byte[]>("Pronounciation");
+                    b.Property<long?>("ParentPartId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CurriculumId");
 
-                    b.HasIndex("FromWordId")
-                        .IsUnique();
+                    b.HasIndex("NameId");
 
-                    b.HasIndex("IntoWordId")
-                        .IsUnique();
+                    b.HasIndex("ParentPartId");
 
-                    b.ToTable("Translations");
+                    b.ToTable("Parts");
+                });
+
+            modelBuilder.Entity("Wordmanager.Data.Models.Entities.RankType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RankTypes");
                 });
 
             modelBuilder.Entity("Wordmanager.Data.Models.Entities.Word", b =>
@@ -101,60 +103,58 @@ namespace WordManager.Api.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long>("LanguageId");
-
-                    b.Property<string>("Value")
+                    b.Property<string>("Name")
                         .IsRequired();
+
+                    b.Property<long?>("PartId");
+
+                    b.Property<byte[]>("Pronounciation");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
+                    b.HasIndex("PartId");
 
                     b.ToTable("Words");
                 });
 
             modelBuilder.Entity("Wordmanager.Data.Models.Entities.Curriculum", b =>
                 {
-                    b.HasOne("Wordmanager.Data.Models.Entities.Language", "FromLanguage")
-                        .WithMany("FromGraduation")
-                        .HasForeignKey("FromLanguageId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Wordmanager.Data.Models.Entities.Graduation", "Graduation")
+                    b.HasOne("Wordmanager.Data.Models.Entities.RankType", "RankType")
                         .WithMany("Curricula")
-                        .HasForeignKey("GraduationId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Wordmanager.Data.Models.Entities.Language", "IntoLanguage")
-                        .WithMany("IntoGraduation")
-                        .HasForeignKey("IntoLanguageId")
+                        .HasForeignKey("RankTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Wordmanager.Data.Models.Entities.Translation", b =>
+            modelBuilder.Entity("Wordmanager.Data.Models.Entities.Description", b =>
+                {
+                    b.HasOne("Wordmanager.Data.Models.Entities.Word", "Word")
+                        .WithOne("Description")
+                        .HasForeignKey("Wordmanager.Data.Models.Entities.Description", "WordId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Wordmanager.Data.Models.Entities.Part", b =>
                 {
                     b.HasOne("Wordmanager.Data.Models.Entities.Curriculum", "Curriculum")
-                        .WithMany("Translations")
+                        .WithMany("Parts")
                         .HasForeignKey("CurriculumId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Wordmanager.Data.Models.Entities.Word", "FromWord")
-                        .WithOne("FromTranslation")
-                        .HasForeignKey("Wordmanager.Data.Models.Entities.Translation", "FromWordId")
+                    b.HasOne("Wordmanager.Data.Models.Entities.Category", "Name")
+                        .WithMany("Parts")
+                        .HasForeignKey("NameId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Wordmanager.Data.Models.Entities.Word", "IntoWord")
-                        .WithOne("IntoTranslation")
-                        .HasForeignKey("Wordmanager.Data.Models.Entities.Translation", "IntoWordId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Wordmanager.Data.Models.Entities.Part", "ParentPart")
+                        .WithMany("SubParts")
+                        .HasForeignKey("ParentPartId");
                 });
 
             modelBuilder.Entity("Wordmanager.Data.Models.Entities.Word", b =>
                 {
-                    b.HasOne("Wordmanager.Data.Models.Entities.Language", "Language")
+                    b.HasOne("Wordmanager.Data.Models.Entities.Part")
                         .WithMany("Words")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PartId");
                 });
 #pragma warning restore 612, 618
         }

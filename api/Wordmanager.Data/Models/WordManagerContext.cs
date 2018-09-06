@@ -1,29 +1,37 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
 using Wordmanager.Data.Models.Entities;
 
-namespace Wordmanager.Data.Models {
-  public class WordManagerContext : DbContext {
+namespace Wordmanager.Data.Models
+{
+    public class WordManagerContext : DbContext
+    {
 
-    static WordManagerContext() {
-      Batteries_V2.Init();
+        static WordManagerContext()
+        {
+            Batteries_V2.Init();
+        }
+
+        public WordManagerContext() { }
+
+        public DbSet<Curriculum> Curricula { get; set; }
+        public DbSet<Description> Descriptions { get; set; }
+        public DbSet<Part> Parts { get; set; }
+        //public DbSet<PartCategory> PartCategories { get; set; }
+        public DbSet<Word> Words { get; set; }
+        public DbSet<RankType> RankTypes { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=WordManagerDataBase.db", options => { options.MigrationsAssembly("WordManager.Api"); });
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Curriculum>().HasIndex(x => new { x.Rank, x.RankTypeId }).IsUnique(true);
+            //modelBuilder.Entity<PartCategory>().HasIndex(x => new { x.PartId, x.WordId }).IsUnique(true);
+            modelBuilder.Entity<Part>().HasMany(x => x.SubParts).WithOne(x => x.ParentPart).HasForeignKey(x => x.ParentPartId);
+            base.OnModelCreating(modelBuilder);
+        }
     }
-
-    public WordManagerContext() { }
-
-    public DbSet<Graduation> Graduations { get; set; }
-    public DbSet<Curriculum> Curricula { get; set; }
-    public DbSet<Word> Words { get; set; }
-    public DbSet<Language> Languages { get; set; }
-    public DbSet<Translation> Translations { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-      optionsBuilder.UseSqlite("Data Source=WordManagerDataBase.db", options => { options.MigrationsAssembly("WordManager.Api"); });
-    }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder) {
-      modelBuilder.Entity<Graduation>().HasIndex(x => x.Level).IsUnique(true);
-      base.OnModelCreating(modelBuilder);
-    }
-  }
 }

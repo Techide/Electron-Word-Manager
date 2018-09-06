@@ -1,0 +1,53 @@
+@import '~src/variables';
+
+.page-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 1em;
+  padding: 12px;
+}
+
+.page-title {
+  font-size: 2em;
+  font-weight: 700;
+  align-self: center;
+  text-align: center;
+  padding-bottom: 36px;
+  grid-row: 2;
+  grid-column-start: span 2;
+  text-shadow: 0 0 6px #000, 0 0 3px #000;
+}
+
+.round-button {
+  outline: none;
+  height: 28px;
+  width: 28px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  align-self: start;
+  grid-row: 1;
+  grid-column-start: span 2;
+
+  & .arrow-image {
+    height: 36px;
+    width: 36px;
+    transform: translate(-5px, -5px);
+    background-image: url('/assets/left-arrows.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: background-image $globalTransitionTiming ease-in-out;
+  }
+
+  &:focus-within {
+    & .arrow-image {
+      height: 36px;
+      width: 36px;
+      transform: translate(-5px, -5px);
+      background-image: url('/assets/left-arrows.focused.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+}

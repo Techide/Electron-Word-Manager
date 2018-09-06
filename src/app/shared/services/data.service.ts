@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CurriculumRepository } from '../repositories/curriculum.repository';
-import { GraduationRepository } from '../repositories/graduation.repository';
+import { RankTypeRepository } from '../repositories/rank-type.repository';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,6 @@ import { GraduationRepository } from '../repositories/graduation.repository';
 export class DataService {
   constructor(
     public curriculumns: CurriculumRepository,
-    public graduations: GraduationRepository
+    public ranks: RankTypeRepository
   ) {}
 }

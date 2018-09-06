@@ -1,0 +1,41 @@
+@import '~src/variables';
+
+:host {
+  border-radius: 3px;
+  .user-button {
+    box-shadow: 0 0 6px 0 black;
+    box-sizing: border-box;
+    background-color: map-get($globalMainColors, main);
+    transition-property: background-color, border;
+    transition: $globalTransitionTiming ease-in;
+    border-radius: inherit;
+    width: inherit;
+    height: inherit;
+    outline: inherit;
+    border: 1px solid transparent;
+
+    &:hover {
+      background-color: map-get($globalMainColors, main-highlight);
+      cursor: pointer;
+
+      & .user-button-icon {
+        opacity: 1;
+      }
+    }
+
+    &:focus {
+      border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
+      box-shadow: 0 0 6px -1px white;
+    }
+
+    & .user-button-content-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+
+      & .user-button-content {
+        grid-column: 2;
+      }
+
+    }
+  }
+}

@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { UserButtonComponent } from './components/user-button/user-button.component';
 
 @NgModule({
   imports: [
@@ -18,8 +19,9 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    UserButtonComponent
   ],
-  declarations: []
+  declarations: [UserButtonComponent]
 })
 export class SharedModule {}

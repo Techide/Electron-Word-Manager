@@ -9,15 +9,20 @@ function createWindow() {
   win = new BrowserWindow({
     width: 600,
     height: 600,
+    minHeight: 420,
+    minWidth: 320,
+    title: 'Ju Jutsu Pensum',
     backgroundColor: '#ffffff',
     icon: `file://${__dirname}/dist/assets/logo.png`
   });
+
+  win.setMenu(null);
 
   // win.loadURL(`file://${__dirname}/dist/index.html`)
   win.loadURL(`http://localhost:4200`);
 
   //// uncomment below to open the DevTools.
-  // win.webContents.openDevTools()
+  win.webContents.openDevTools();
 
   ipcMain.on('getFilePath', (e, args) => {
     dialog.showOpenDialog(win, { properties: ['openFile'] }, files => {

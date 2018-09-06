@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'variables';
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+
+$shadow-pixels: 1px;
+
+* {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  border: none;
+  color: $globalTextColor;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: map-get($globalBackgroundColors, main);
+  overflow: hidden;
+}
+
+button,
+input {
+  outline-width: 0;
+}
+
+input {
+  background-color: transparent;
+}
+
+button {
+  padding: 0;
+}
+
+.text-outline {
+  text-shadow: 0 0 $shadow-pixels #000, 0 0 $shadow-pixels #000; //, 0 0 $shadow-pixels #000;
+}

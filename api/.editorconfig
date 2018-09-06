@@ -57,7 +57,7 @@ dotnet_naming_symbols.constant_fields.applicable_kinds            = field
 dotnet_naming_symbols.constant_fields.applicable_accessibilities  = * 
 dotnet_naming_symbols.constant_fields.required_modifiers          = const
 # Custom naming conventions
-otnet_naming_rule.private_or_internal_field_starts_with_underscore.severity              = error
+dotnet_naming_rule.private_or_internal_field_starts_with_underscore.severity              = error
 dotnet_naming_rule.private_or_internal_field_starts_with_underscore.symbols               = private_or_internal_field_symbols
 dotnet_naming_rule.private_or_internal_field_starts_with_underscore.style                 = begins_underscore_camel_case_style
 dotnet_naming_symbols.private_or_internal_field_symbols.applicable_kinds                  = field

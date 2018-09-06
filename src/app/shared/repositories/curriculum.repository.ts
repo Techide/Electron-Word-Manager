@@ -10,24 +10,7 @@ export class CurriculumRepository extends BaseRepository {
     super('http://localhost:5000/api/curriculums');
   }
 
-  getByGraduationAndLanguages(
-    graduationId: number,
-    fromLanguageId: number,
-    intoLanguageId: number
-  ) {
-    this.client
-      .post(this.API_URL, {
-        GraduationId: graduationId,
-        FromLanguageId: fromLanguageId,
-        IntoLanguageId: intoLanguageId
-      })
-      .subscribe(
-        res => {
-          console.log(res);
-        },
-        err => {
-          console.error(err);
-        }
-      );
+  getByRankType(rankTypeId: number) {
+    this.client.post(this.API_URL, { id: rankTypeId }).toPromise();
   }
 }

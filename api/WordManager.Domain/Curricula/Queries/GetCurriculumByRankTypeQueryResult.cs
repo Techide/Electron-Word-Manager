@@ -1,9 +1,9 @@
-using System.Linq;
+﻿using System.Linq;
 using WordManager.Common.DTO;
 
 namespace WordManager.Domain.Curricula.Queries {
-  public class GetCurriculumByGraduationAndLanguageQueryResult {
-    public GetCurriculumByGraduationAndLanguageQueryResult(IQueryable<CurriculumDTO> curricula) {
+  public class GetCurriculumByRankTypeQueryResult {
+    public GetCurriculumByRankTypeQueryResult(IQueryable<CurriculumDTO> curricula) {
       Curricula = curricula;
     }
 
