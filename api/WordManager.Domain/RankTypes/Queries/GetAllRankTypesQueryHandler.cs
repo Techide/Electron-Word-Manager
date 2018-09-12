@@ -3,7 +3,7 @@ using DP.CqsLite;
 using Wordmanager.Data.Models;
 using WordManager.Domain.Extensions;
 
-namespace WordManager.Domain.RankTypes
+namespace WordManager.Domain
 {
     public class GetAllRankTypesQueryHandler : IQueryHandler<GetAllRankTypesQuery, GetAllRankTypesQueryResult>
     {

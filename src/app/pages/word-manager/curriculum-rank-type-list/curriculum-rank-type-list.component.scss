@@ -1,0 +1,70 @@
+@import '~src/variables';
+
+$picture-dimension: 24px;
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: auto;
+  padding: 12px;
+
+  & .curriculum-selection-title {
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+    & .list-title {
+      line-height: $picture-dimension;
+    }
+
+    & .list-add-button {
+      height: $picture-dimension;
+      width: $picture-dimension;
+      background-image: url('/assets/add.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+  }
+
+  & .card-grid {
+    display: grid;
+    grid-template-columns: auto;
+    padding: 12px;
+    grid-row-gap: 1em;
+
+    & .curriculum-card-item {
+      padding: 20px;
+      cursor: pointer;
+      background-color: map-get($globalMainColors, main);
+      border: 1px solid transparent;
+      border-radius: 3px;
+      box-shadow: $globalBoxShadow;
+      box-sizing: border-box;
+      transition-property: all;
+      transition: $globalTransitionTiming ease-in;
+      outline: none;
+
+      &:focus {
+        border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
+        box-shadow: 0 0 6px 0 white;
+      }
+
+      &:hover {
+        background-color: map-get($globalMainColors, main-highlight);
+      }
+
+      &:active {
+        border: 1px solid white;
+      }
+
+      & .card-level {
+        padding: 3px 1em;
+        color: inherit;
+      }
+
+      & .card-color {
+        padding: 3px 1em;
+        color: inherit;
+      }
+    }
+  }
+}

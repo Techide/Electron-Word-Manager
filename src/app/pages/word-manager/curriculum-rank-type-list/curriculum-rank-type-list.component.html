@@ -1,0 +1,22 @@
+<div class="menu-grid"
+     *ngIf="doneLoading">
+    <div class="curriculum-selection-title"
+         *ngIf="anyItems(); else createButtonTemplate">
+         <div class="list-title">
+             Graduering
+         </div>
+         <div class="list-add-button"></div>
+        </div>
+    <ng-template #createButtonTemplate>
+        <button class="curriculum-create-button">Opret graduering</button>
+    </ng-template>
+    <div class="card-grid">
+        <button class="curriculum-card-item"
+                tabindex="0"
+                (click)="onCardClicked(item.Id)"
+                *ngFor="let item of curricula; index as idx;">
+            <div class="card-level text-outline">Grad: {{item.Rank}}. {{item.RankType.toUpperCase()}}</div>
+            <div class="card-color text-outline">Bælte: {{item.Color}}</div>
+        </button>
+    </div>
+</div>

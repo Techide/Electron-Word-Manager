@@ -1,0 +1,85 @@
+@import '~src/variables';
+
+.page-grid {
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-rows: min-content;
+  padding: 12px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.card-container {
+  overflow-y: auto;
+  height: -webkit-fill-available;
+  min-width: 474px;
+}
+
+.details-layout-grid {
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-rows: auto;
+  grid-row-gap: 1em;
+  padding: 12px;
+}
+
+.part {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  box-shadow: $globalBoxShadow;
+  border-radius: 3px;
+  background-color: map-get($globalMainColors, main);
+  transition: $globalElementTransition;
+  &:hover {
+    background-color: map-get($globalMainColors, main-highlight);
+  }
+}
+
+.part-content {
+  grid-column: 1 / 4;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1em;
+  padding: 20px;
+
+  & .name {
+    grid-column: 1;
+
+    & .has-sound:hover {
+      cursor: pointer;
+      color: purple;
+    }
+  }
+}
+
+.word {
+  grid-column: 2;
+}
+
+.subpart {
+  grid-column: 1 / 4;
+
+  .subpart-divider {
+    grid-column: 1 / 4;
+    width: 100%;
+    height: 1px;
+    background-color: map-get($globalBackgroundColors, main);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0.4em;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:window-inactive {
+  background-color: map-get($globalMainColors, main);
+  transition: background-color $globalTransitionTiming ease-in-out;
+  border-radius: 0.2em;
+
+  &:hover {
+    background-color: map-get($globalMainColors, main-highlight);
+    cursor: pointer;
+  }
+}

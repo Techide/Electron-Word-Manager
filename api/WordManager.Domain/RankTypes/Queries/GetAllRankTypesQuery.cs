@@ -1,6 +1,6 @@
 ﻿using DP.CqsLite;
 
-namespace WordManager.Domain.RankTypes
+namespace WordManager.Domain
 {
     public class GetAllRankTypesQuery : IQuery<GetAllRankTypesQueryResult>
     {

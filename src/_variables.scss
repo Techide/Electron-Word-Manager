@@ -13,5 +13,6 @@ $globalBackgroundColors: (
   main: #343434
 );
 $globalErrorColor: #98291a;
-
-$globalTransitionTiming: 0.2s;
+$globalTransitionTiming: 0.075s;
+$globalElementTransition: background-color $globalTransitionTiming ease-in-out;
+$globalBoxShadow: 0 0 4px -1px #000;

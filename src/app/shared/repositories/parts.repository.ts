@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseRepository } from './base-repository.abstract';
 import { ICurriculum } from '../interfaces/curriculum.interface';
+import { IPart } from '../interfaces/part.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CurriculumRepository extends BaseRepository {
+export class PartsRepository extends BaseRepository {
   constructor(private client: HttpClient) {
-    super('http://localhost:5000/api/curricula');
+    super('http://localhost:5000/api/parts');
   }
 
-  getByRankType(rankTypeId: number): Promise<ICurriculum[]> {
+  getByCurriculumId(curriculumId: number): Promise<IPart[]> {
     return this.client
-      .post<ICurriculum[]>(this.API_URL + '/' + rankTypeId, {})
-      .toPromise<ICurriculum[]>();
+      .get<IPart[]>(this.API_URL + '/' + curriculumId, {})
+      .toPromise<IPart[]>();
   }
 }

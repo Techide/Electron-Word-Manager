@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace WordManager.Common.DTO {
-  public class CurriculumDTO {
+﻿namespace WordManager.Common.DTO
+{
+    public class CurriculumDTO
+    {
         public long Id { get; set; }
 
         public int Rank { get; set; }
@@ -10,7 +10,7 @@ namespace WordManager.Common.DTO {
 
         public string Color { get; set; }
 
-        public IEnumerable<PartDTO> Parts { get; set; }
+        //public IEnumerable<PartDTO> Parts { get; set; }
 
     }
 }

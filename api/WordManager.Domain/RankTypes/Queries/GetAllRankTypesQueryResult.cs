@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using WordManager.Common.DTO;
 
-namespace WordManager.Domain.RankTypes
+namespace WordManager.Domain
 {
     public class GetAllRankTypesQueryResult
     {

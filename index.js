@@ -3,7 +3,7 @@ const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 let win;
 
 function createWindow() {
-  app.setName('mooh');
+  app.setName('Ju Jutsu Curriculum App');
 
   // Create the browser window.
   win = new BrowserWindow({
@@ -12,8 +12,8 @@ function createWindow() {
     minHeight: 420,
     minWidth: 320,
     title: 'Ju Jutsu Pensum',
-    backgroundColor: '#ffffff',
-    icon: `file://${__dirname}/dist/assets/logo.png`
+    backgroundColor: '#343434',
+    icon: `file://${__dirname}/src/app/favicon.ico`
   });
 
   win.setMenu(null);

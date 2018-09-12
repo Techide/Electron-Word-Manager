@@ -1,1 +1,41 @@
-Curriculum Details View
+<div class="page-grid">
+
+    <div>Detaljer</div>
+
+    <div class="card-container">
+
+        <div class="details-layout-grid">
+            <div class="part"
+                 *ngFor="let item of parts">
+                <div class="part-content">
+                    <div class="name">
+                        <span>
+                            {{item.Name}}
+                        </span>
+                    </div>
+                    <div class="word"
+                         *ngFor="let word of item.Words">
+                        {{word.Name}}
+                        <div class="description">{{word.Description}}</div>
+                    </div>
+                </div>
+                <div class="subpart"
+                     *ngFor="let inner of item.SubParts">
+                    <div class="part-content">
+                        <div class="subpart-divider"></div>
+                        <div class="name">
+                            <span>
+                                {{inner.Name}}
+                            </span>
+                        </div>
+                        <div class="word"
+                             *ngFor="let innerWord of inner.Words">
+                            {{innerWord.Name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -3,16 +3,17 @@
 :host {
   border-radius: 3px;
   .user-button {
-    box-shadow: 0 0 6px 0 black;
+    display: block;
+    box-shadow: $globalBoxShadow;
     box-sizing: border-box;
     background-color: map-get($globalMainColors, main);
-    transition-property: background-color, border;
-    transition: $globalTransitionTiming ease-in;
     border-radius: inherit;
     width: inherit;
     height: inherit;
     outline: inherit;
     border: 1px solid transparent;
+    transition-property: background-color, border;
+    transition: $globalTransitionTiming ease-in;
 
     &:hover {
       background-color: map-get($globalMainColors, main-highlight);
@@ -25,17 +26,19 @@
 
     &:focus {
       border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
-      box-shadow: 0 0 6px -1px white;
+      box-shadow: 0 0 6px 0 white;
     }
 
     & .user-button-content-container {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
+      align-content: center;
+      height: 100%;
 
       & .user-button-content {
-        grid-column: 2;
+      align-content: center;
+      grid-column: 2;
       }
-
     }
   }
 }

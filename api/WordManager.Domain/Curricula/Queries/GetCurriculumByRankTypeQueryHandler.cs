@@ -3,7 +3,7 @@ using DP.CqsLite;
 using Wordmanager.Data.Models;
 using WordManager.Common.DTO;
 
-namespace WordManager.Domain.Curricula.Queries
+namespace WordManager.Domain
 {
     public class GetCurriculumByRankTypeQueryHandler : IQueryHandler<GetCurriculumByRankTypeQuery, GetCurriculumByRankTypeQueryResult>
     {

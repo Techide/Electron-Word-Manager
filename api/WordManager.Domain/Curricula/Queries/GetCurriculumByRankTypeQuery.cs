@@ -1,6 +1,6 @@
 ﻿using DP.CqsLite;
 
-namespace WordManager.Domain.Curricula.Queries
+namespace WordManager.Domain
 {
     public class GetCurriculumByRankTypeQuery : IQuery<GetCurriculumByRankTypeQueryResult>
     {

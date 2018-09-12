@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Curricula\Commands\" />
+    <Folder Include="Parts\Commands\" />
     <Folder Include="RankTypes\Commands\" />
   </ItemGroup>
 

@@ -3,8 +3,10 @@
 .page-grid {
   display: grid;
   grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-gap: 1em;
   padding: 12px;
+  height: 100%;
 }
 
 .page-title {
@@ -31,7 +33,7 @@
   & .arrow-image {
     height: 36px;
     width: 36px;
-    transform: translate(-5px, -5px);
+    transform: translate(-5px, 0);
     background-image: url('/assets/left-arrows.svg');
     background-position: center;
     background-repeat: no-repeat;
@@ -39,15 +41,9 @@
     transition: background-image $globalTransitionTiming ease-in-out;
   }
 
-  &:focus-within {
+  &:hover {
     & .arrow-image {
-      height: 36px;
-      width: 36px;
-      transform: translate(-5px, -5px);
       background-image: url('/assets/left-arrows.focused.svg');
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: contain;
     }
   }
 }

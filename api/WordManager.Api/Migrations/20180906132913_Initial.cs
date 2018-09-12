@@ -61,22 +61,22 @@ namespace WordManager.Api.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CurriculumId = table.Column<long>(nullable: false),
-                    NameId = table.Column<long>(nullable: false),
+                    CategoryId = table.Column<long>(nullable: false),
                     ParentPartId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Parts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Parts_Curricula_CurriculumId",
-                        column: x => x.CurriculumId,
-                        principalTable: "Curricula",
+                        name: "FK_Parts_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Parts_Category_NameId",
-                        column: x => x.NameId,
-                        principalTable: "Category",
+                        name: "FK_Parts_Curricula_CurriculumId",
+                        column: x => x.CurriculumId,
+                        principalTable: "Curricula",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -145,14 +145,14 @@ namespace WordManager.Api.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Parts_CategoryId",
+                table: "Parts",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Parts_CurriculumId",
                 table: "Parts",
                 column: "CurriculumId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Parts_NameId",
-                table: "Parts",
-                column: "NameId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Parts_ParentPartId",
@@ -177,10 +177,10 @@ namespace WordManager.Api.Migrations
                 name: "Parts");
 
             migrationBuilder.DropTable(
-                name: "Curricula");
+                name: "Category");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Curricula");
 
             migrationBuilder.DropTable(
                 name: "RankTypes");

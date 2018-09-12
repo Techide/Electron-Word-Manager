@@ -22,7 +22,11 @@ namespace WordManager.Api
         {
             services.AddMvc()
                       .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                      .AddJsonOptions(o => { o.SerializerSettings.ContractResolver = new DefaultContractResolver(); });
+                      .AddJsonOptions(o =>
+                      {
+                          o.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                          o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                      });
             services.AddCQS();
             services.AddCors(x =>
             {

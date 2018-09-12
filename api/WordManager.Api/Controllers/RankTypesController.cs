@@ -1,7 +1,7 @@
 ﻿using System;
 using DP.CqsLite;
 using Microsoft.AspNetCore.Mvc;
-using WordManager.Domain.RankTypes;
+using WordManager.Domain;
 
 namespace WordManager.Api.Controllers
 {

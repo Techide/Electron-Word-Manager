@@ -69,17 +69,17 @@ namespace WordManager.Api.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long>("CurriculumId");
+                    b.Property<long>("CategoryId");
 
-                    b.Property<long>("NameId");
+                    b.Property<long>("CurriculumId");
 
                     b.Property<long?>("ParentPartId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CurriculumId");
+                    b.HasIndex("CategoryId");
 
-                    b.HasIndex("NameId");
+                    b.HasIndex("CurriculumId");
 
                     b.HasIndex("ParentPartId");
 
@@ -135,14 +135,14 @@ namespace WordManager.Api.Migrations
 
             modelBuilder.Entity("Wordmanager.Data.Models.Entities.Part", b =>
                 {
+                    b.HasOne("Wordmanager.Data.Models.Entities.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Wordmanager.Data.Models.Entities.Curriculum", "Curriculum")
                         .WithMany("Parts")
                         .HasForeignKey("CurriculumId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Wordmanager.Data.Models.Entities.Category", "Name")
-                        .WithMany("Parts")
-                        .HasForeignKey("NameId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Wordmanager.Data.Models.Entities.Part", "ParentPart")
