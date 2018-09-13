@@ -2,12 +2,10 @@
   <div class="page-title">Ju Jutsu Pensum</div>
   <div class="rank-selection-title">Vælg pensum</div>
   <div class="rank-selection-grid">
-    <ewm-user-button class="back-button"
+    <ewm-user-button class="rank-selection-button"
                      (click)="onClicked(rank.Id)"
                      *ngFor="let rank of ranks">
-      <div class="text-outline">
-        {{rank.Name.toUpperCase()}}
-      </div>
+      {{rank.Name.toUpperCase()}}
     </ewm-user-button>
   </div>
 

@@ -6,22 +6,23 @@ $picture-dimension: 24px;
   display: grid;
   grid-template-columns: auto;
   padding: 12px;
+  min-width: 222px;
 
   & .curriculum-selection-title {
     display: grid;
     grid-template-columns: 1fr auto;
 
     & .list-title {
-      line-height: $picture-dimension;
     }
 
     & .list-add-button {
-      height: $picture-dimension;
-      width: $picture-dimension;
-      background-image: url('/assets/add.svg');
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: center;
+      i {
+        cursor: pointer;
+      }
+
+      i:hover {
+        color: darkorange;
+      }
     }
   }
 
@@ -30,6 +31,41 @@ $picture-dimension: 24px;
     grid-template-columns: auto;
     padding: 12px;
     grid-row-gap: 1em;
+
+    & .list-empty-item {
+      & .no-data-label {
+        color: gray;
+        margin-bottom: 1em;
+      }
+
+      & .empty-item-card {
+        cursor: pointer;
+        padding: 1em;
+        background-color: map-get($globalMainColors, main);
+        border: 1px solid transparent;
+        border-radius: 3px;
+        display: flex;
+        transition: $globalElementTransition;
+        outline: none;
+
+        &:hover {
+          background-color: map-get($globalMainColors, main-highlight);
+        }
+
+        &:focus {
+          border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
+          box-shadow: 0 0 6px 0 white;
+        }
+
+        & .empty-item-icon {
+          flex: 1;
+          text-align: right;
+          & i {
+            color: inherit;
+          }
+        }
+      }
+    }
 
     & .curriculum-card-item {
       padding: 20px;
@@ -59,11 +95,13 @@ $picture-dimension: 24px;
       & .card-level {
         padding: 3px 1em;
         color: inherit;
+        text-align: center;
       }
 
       & .card-color {
         padding: 3px 1em;
         color: inherit;
+        text-align: center;
       }
     }
   }

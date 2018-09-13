@@ -1,4 +1,4 @@
-using DP.CqsLite;
+﻿using DP.CqsLite;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -11,10 +11,9 @@ namespace WordManager.Domain {
 
     public static IServiceCollection AddCQS(this IServiceCollection services) {
 
-      //services.AddTransient(typeof(IQueryHandler<GetAllGraduationsQuery, IQueryable<GraduationDTO>>), typeof(GetAllGraduationsQueryHandler));
-      //services.AddTransient(typeof(IQueryHandler<GetCurriculumByGraduationAndLanguageQuery, GetCurriculumByGraduationAndLanguageQueryResult>), typeof(GetCurriculumByGraduationAndLanguageQueryHandler));
       services.Scan(Assembly.GetExecutingAssembly(), typeof(IQueryHandler<,>), ServiceLifetime.Transient);
-      services.AddSQLite();
+      services.Scan(Assembly.GetExecutingAssembly(), typeof(ICommandHandler<>), ServiceLifetime.Transient);
+            services.AddSQLite();
 
       return services;
     }

@@ -1,0 +1,33 @@
+<div class="menu-grid"
+     *ngIf="doneLoading">
+    <div class="curriculum-selection-title">
+        <div class="list-title">
+            Graduering
+        </div>
+        <div class="list-add-button"
+             *ngIf="anyItems()">
+            <i class="fa fa-plus-circle"
+               (click)="createCardClicked()"></i>
+        </div>
+    </div>
+    <div class="card-grid">
+        <div class="list-empty-item"
+             *ngIf="anyItems() == false">
+            <div class="no-data-label">Ingen gradueringer fundet</div>
+            <div class="empty-item-card"
+                 tabindex="0">
+                <div class="empty-item-text">Tilføj graduering</div>
+                <div class="empty-item-icon">
+                    <i class="fa fa-plus-circle "></i>
+                </div>
+            </div>
+        </div>
+        <button class="curriculum-card-item"
+                tabindex="0"
+                (click)="onCardClicked(item.Id)"
+                *ngFor="let item of curricula; index as idx;">
+            <div class="card-level">{{item.Rank}}.{{item.RankType.toUpperCase()}}</div>
+            <div class="card-color">{{item.Color}} bælte</div>
+        </button>
+    </div>
+</div>

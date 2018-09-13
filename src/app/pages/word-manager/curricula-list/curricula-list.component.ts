@@ -8,11 +8,11 @@ import * as sorting from '../../../shared/helpers/numerical-sorting.helper';
 import { ICurriculum } from '../../../shared/interfaces/curriculum.interface';
 
 @Component({
-  selector: 'ewm-curriculum-rank-type-list',
-  templateUrl: './curriculum-rank-type-list.component.html',
-  styleUrls: ['./curriculum-rank-type-list.component.scss']
+  selector: 'ewm-curricula-list',
+  templateUrl: './curricula-list.component.html',
+  styleUrls: ['./curricula-list.component.scss']
 })
-export class CurriculumRankTypeListComponent implements OnInit {
+export class CurriculaListComponent implements OnInit {
   curricula: ICurriculum[];
 
   doneLoading = false;
@@ -49,5 +49,9 @@ export class CurriculumRankTypeListComponent implements OnInit {
       relativeTo: this.route,
       skipLocationChange: true
     });
+  }
+
+  createCardClicked() {
+    console.log('hey');
   }
 }

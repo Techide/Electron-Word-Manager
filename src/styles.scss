@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'variables';
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+@import '../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss';
 
 $shadow-pixels: 1px;
 
@@ -19,6 +20,7 @@ body {
   background-color: map-get($globalBackgroundColors, main);
   overflow: hidden;
   height: 100%;
+  min-width: 320px;
 }
 
 button,
@@ -32,8 +34,4 @@ input {
 
 button {
   padding: 0;
-}
-
-.text-outline {
-  // text-shadow: 0 0 $shadow-pixels #000, 0 0 $shadow-pixels #000; //, 0 0 $shadow-pixels #000;
 }

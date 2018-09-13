@@ -3,9 +3,8 @@
 .page-grid {
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto 1fr;
   grid-gap: 1em;
-  padding: 12px;
   height: 100%;
 }
 
@@ -14,36 +13,18 @@
   font-weight: 700;
   align-self: center;
   text-align: center;
-  padding-bottom: 36px;
-  grid-row: 2;
+  padding: 36px;
   grid-column-start: span 2;
   text-shadow: 0 0 6px #000, 0 0 3px #000;
 }
 
 .round-button {
+  position: absolute;
+  top: 12px;
+  left: 12px;
   outline: none;
-  height: 28px;
-  width: 28px;
+  height: 2.4em;
+  width: 2.4em;
   border: 1px solid transparent;
   border-radius: 50%;
-  align-self: start;
-  grid-row: 1;
-  grid-column-start: span 2;
-
-  & .arrow-image {
-    height: 36px;
-    width: 36px;
-    transform: translate(-5px, 0);
-    background-image: url('/assets/left-arrows.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    transition: background-image $globalTransitionTiming ease-in-out;
-  }
-
-  &:hover {
-    & .arrow-image {
-      background-image: url('/assets/left-arrows.focused.svg');
-    }
-  }
 }

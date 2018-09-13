@@ -24,8 +24,6 @@
 }
 
 .part {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
   box-shadow: $globalBoxShadow;
   border-radius: 3px;
   background-color: map-get($globalMainColors, main);
@@ -36,7 +34,6 @@
 }
 
 .part-content {
-  grid-column: 1 / 4;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1em;

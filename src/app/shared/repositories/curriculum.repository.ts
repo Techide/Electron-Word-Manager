@@ -13,7 +13,11 @@ export class CurriculumRepository extends BaseRepository {
 
   getByRankType(rankTypeId: number): Promise<ICurriculum[]> {
     return this.client
-      .post<ICurriculum[]>(this.API_URL + '/' + rankTypeId, {})
+      .get<ICurriculum[]>(this.API_URL + '/' + rankTypeId, {})
       .toPromise<ICurriculum[]>();
+  }
+
+  create(curriculum: ICurriculum): void {
+    this.client.post(this.API_URL, curriculum).toPromise();
   }
 }
