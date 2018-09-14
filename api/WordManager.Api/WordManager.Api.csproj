@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="DP.CqsLite" Version="1.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.0.100" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>

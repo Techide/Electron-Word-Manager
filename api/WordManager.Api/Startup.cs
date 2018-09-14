@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
+using WordManager.Api.Validators;
 using WordManager.Domain;
 
 namespace WordManager.Api
@@ -21,13 +24,18 @@ namespace WordManager.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                      .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                      .AddJsonOptions(o =>
-                      {
-                          o.SerializerSettings.ContractResolver = new DefaultContractResolver();
-                          o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                      });
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(o =>
+                {
+                    o.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                    o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                })
+                .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining(typeof(CreateCurriculumValidator)));
+
+            ValidatorOptions.LanguageManager.Culture = new System.Globalization.CultureInfo("da");
+
             services.AddCQS();
+
             services.AddCors(x =>
             {
                 x.AddDefaultPolicy(policy =>

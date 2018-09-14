@@ -13,8 +13,9 @@ function createWindow() {
     minWidth: 320,
     title: 'Ju Jutsu Pensum',
     backgroundColor: '#343434',
-    icon: `file://${__dirname}/src/app/favicon.ico`
+    icon: `${__dirname}/dist/favicon.ico`
   });
+  // icon: `file://${__dirname}/dist/favicon.ico`
 
   win.setMenu(null);
 
@@ -50,7 +51,6 @@ app.on('window-all-closed', function() {
 });
 
 app.on('activate', function() {
-  // macOS specific close process
   if (win === null) {
     createWindow();
   }

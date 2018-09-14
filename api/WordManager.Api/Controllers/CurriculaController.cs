@@ -1,4 +1,5 @@
-﻿using DP.CqsLite;
+﻿using System;
+using DP.CqsLite;
 using Microsoft.AspNetCore.Mvc;
 using WordManager.Common.DTO;
 using WordManager.Domain;
@@ -10,22 +11,25 @@ namespace WordManager.Api.Controllers
     [ApiController]
     public class CurriculaController : ControllerBase
     {
-        private readonly IQueryHandler<GetCurriculumByRankTypeQuery, GetCurriculumByRankTypeQueryResult> _queryHandler;
+        private readonly IQueryHandler<GetCurriculaByRankTypeQuery, GetCurriculaByRankTypeQueryResult> _queryHandler;
+        private readonly IQueryHandler<GetCurriculumByRankAndTypeQuery, GetCurriculumByRankAndTypeQueryResult> _getCurriculumQueryHandler;
         private readonly ICommandHandler<CreateCurriculumCommand> _createNewCommandHandler;
 
         public CurriculaController(
-            IQueryHandler<GetCurriculumByRankTypeQuery, GetCurriculumByRankTypeQueryResult> queryHandler,
+            IQueryHandler<GetCurriculaByRankTypeQuery, GetCurriculaByRankTypeQueryResult> getCurriculaQueryHandler,
+            IQueryHandler<GetCurriculumByRankAndTypeQuery, GetCurriculumByRankAndTypeQueryResult> getCurriculumQueryHandler,
             ICommandHandler<CreateCurriculumCommand> createNewCommandHandler
             )
         {
-            _queryHandler = queryHandler ?? throw new System.ArgumentNullException(nameof(queryHandler));
+            _queryHandler = getCurriculaQueryHandler ?? throw new System.ArgumentNullException(nameof(getCurriculaQueryHandler));
+            _getCurriculumQueryHandler = getCurriculumQueryHandler ?? throw new System.ArgumentNullException(nameof(getCurriculumQueryHandler));
             _createNewCommandHandler = createNewCommandHandler ?? throw new System.ArgumentNullException(nameof(createNewCommandHandler));
         }
 
         [HttpGet("{id}")]
         public ActionResult GetByRankTypeId(ulong id)
         {
-            var result = _queryHandler.Handle(new GetCurriculumByRankTypeQuery((long)id));
+            var result = _queryHandler.Handle(new GetCurriculaByRankTypeQuery((long)id));
             return Ok(result.Curricula);
         }
 
@@ -34,12 +38,27 @@ namespace WordManager.Api.Controllers
         {
             if (curriculum == null)
             {
-                return BadRequest();
+                return Ok();
             }
 
-            _createNewCommandHandler.Handle(new CreateCurriculumCommand(curriculum));
+            var test = _getCurriculumQueryHandler.Handle(new GetCurriculumByRankAndTypeQuery(curriculum));
+            if (test.Curriculum != null)
+            {
+                ModelState.AddModelError("Dual_Rank_&_RankTypeName", "Graduering findes allerede");
+                return ValidationProblem();
+            }
 
-            return CreatedAtRoute(RouteData.Values, curriculum);
+            try
+            {
+                _createNewCommandHandler.Handle(new CreateCurriculumCommand(curriculum));
+                return CreatedAtRoute(RouteData.Values, curriculum);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Log exception;
+                return BadRequest("Unknown error");
+            }
+
         }
     }
 }

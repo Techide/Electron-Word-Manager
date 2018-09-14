@@ -1,27 +1,36 @@
-<div class="form-title">OPRET GRADUERING</div>
-<form>
-  <div class="form-field">
-    <div>
-      Grad:
+<form #curriculaForm="ngForm">
+  <div class="form-title">OPRET GRADUERING</div>
+  <div class="form-body">
+
+    <div class="form-field">
+      <div class="info-label">
+        Grad:
+      </div>
+      <div class="info-field">
+        {{model.RankType}}
+      </div>
     </div>
-    <div>
-      {{rankTypeName}}
+    <div class="form-field">
+      <label for="rank">Niveau:</label>
+      <input type="number"
+             id="rank"
+             placeholder="Indtast hvilket niveau graduering har"
+             min="1"
+             [(ngModel)]="model.Rank"
+             name="rank">
+    </div>
+    <div class="form-field">
+      <label for="color">Bælte:</label>
+      <input type="text"
+             id="color"
+             placeholder="Indtast farven på bæltet ved bestået graduering"
+             [(ngModel)]="model.Color"
+             name="color">
     </div>
   </div>
-  <div class="form-field">
-    <label for="rank">Niveau:</label>
-    <input type="number"
-           id="rank"
-           placeholder="Indtast hvilket niveau graduering har"
-           min="1"
-           [(value)]="rank">
+  <div class="form-footer">
+    <a class="form-button"
+       tabindex="0"
+       (click)="submitForm()">Gem</a>
   </div>
-  <div class="form-field">
-    <label for="color">Bælte:</label>
-    <input type="text"
-           id="color"
-           placeholder="Indtast farven på bæltet ved bestået graduering"
-           [(value)]="belt">
-  </div>
-  <ewm-user-button>Gem</ewm-user-button>
 </form>

@@ -1,11 +1,10 @@
 @import '~src/variables';
 
 .form-title {
-//   padding-top: 1em;
-  padding-bottom: 1em;
   font-size: 1.2em;
   border-bottom: 1px solid map-get($globalMainColors, main);
   margin-bottom: 1em;
+  cursor: default;
 }
 
 .form-field {
@@ -14,17 +13,64 @@
   grid-auto-rows: 1fr;
   grid-template-columns: 80px 1fr;
 
+  & .info-label {
+    cursor: default;
+    grid-column: 1;
+  }
+
+  & .info-field {
+    cursor: default;
+    grid-column: 2;
+  }
+
   & label {
     grid-column: 1;
+    transition-property: color;
+    transition: $globalTransitionTiming ease-in-out;
+    cursor: text;
   }
   & input {
     grid-column: 2;
     border-bottom: 1px solid map-get($globalMainColors, main);
     transition-property: border-color;
     transition: $globalTransitionTiming ease-in-out;
+  }
+
+  &:focus-within {
+    & input {
+      border-bottom-color: map-get($globalMainColors, main-highlight);
+    }
+    & label {
+      color: map-get($globalMainColors, main-highlight);
+    }
+  }
+}
+
+.form-footer {
+  display: grid;
+  // border-top: 1px solid map-get($globalMainColors, main);
+  padding-top: 1em;
+  margin-top: 1em;
+  grid-template-columns: 1fr auto;
+
+  & .form-button {
+    grid-column: 2;
+    cursor: pointer;
+    padding: 0.5em 1em;
+    background-color: map-get($globalMainColors, main);
+    border: 1px solid transparent;
+    border-radius: 3px;
+    display: flex;
+    transition: $globalElementTransition;
+    outline: none;
+
+    &:hover {
+      background-color: map-get($globalMainColors, main-highlight);
+    }
 
     &:focus {
-      border-bottom-color: map-get($globalMainColors, main-highlight);
+      border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
+      box-shadow: 0 0 6px 0 white;
     }
   }
 }

@@ -17,7 +17,7 @@ export class CurriculumRepository extends BaseRepository {
       .toPromise<ICurriculum[]>();
   }
 
-  create(curriculum: ICurriculum): void {
-    this.client.post(this.API_URL, curriculum).toPromise();
+  create(curriculum: ICurriculum) {
+    return this.client.post(this.API_URL, curriculum).toPromise();
   }
 }

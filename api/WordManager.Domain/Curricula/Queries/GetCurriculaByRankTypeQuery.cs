@@ -2,9 +2,9 @@
 
 namespace WordManager.Domain
 {
-    public class GetCurriculumByRankTypeQuery : IQuery<GetCurriculumByRankTypeQueryResult>
+    public class GetCurriculaByRankTypeQuery : IQuery<GetCurriculaByRankTypeQueryResult>
     {
-        public GetCurriculumByRankTypeQuery(long rankTypeId)
+        public GetCurriculaByRankTypeQuery(long rankTypeId)
         {
             RankTypeId = rankTypeId;
         }

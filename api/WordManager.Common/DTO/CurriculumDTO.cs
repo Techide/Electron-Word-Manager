@@ -10,7 +10,5 @@
 
         public string Color { get; set; }
 
-        //public IEnumerable<PartDTO> Parts { get; set; }
-
     }
 }

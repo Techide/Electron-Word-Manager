@@ -1,5 +1,6 @@
 ﻿using DP.CqsLite;
 using Microsoft.AspNetCore.Mvc;
+using WordManager.Common.DTO;
 using WordManager.Domain;
 
 namespace WordManager.Api.Controllers
@@ -25,7 +26,7 @@ namespace WordManager.Api.Controllers
 
         // POST: api/Parts
         [HttpPost]
-        public ActionResult Post([FromBody] string value)
+        public ActionResult Post(PartDTO part)
         {
             return Ok();
         }

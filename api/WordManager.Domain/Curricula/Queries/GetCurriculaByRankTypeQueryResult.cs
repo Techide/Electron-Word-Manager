@@ -2,8 +2,8 @@
 using WordManager.Common.DTO;
 
 namespace WordManager.Domain {
-  public class GetCurriculumByRankTypeQueryResult {
-    public GetCurriculumByRankTypeQueryResult(IQueryable<CurriculumDTO> curricula) {
+  public class GetCurriculaByRankTypeQueryResult {
+    public GetCurriculaByRankTypeQueryResult(IQueryable<CurriculumDTO> curricula) {
       Curricula = curricula;
     }
 

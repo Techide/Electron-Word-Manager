@@ -1,5 +1,7 @@
 @import '~src/variables';
 
+$formPadding: 16px;
+
 :host {
   display: none;
 
@@ -19,15 +21,16 @@
       position: relative;
       grid-column: 2;
       width: auto;
-      padding: 12px;
+      padding: $formPadding;
       margin: 40px;
       background-color: map-get($globalBackgroundColors, main);
 
       & .close-button {
         position: absolute;
-        top: 12px;
-        right: 12px;
+        top: $formPadding;
+        right: $formPadding;
         transition: color $globalTransitionTiming ease-in-out;
+        cursor: pointer;
 
         &:hover {
           color: orange;
