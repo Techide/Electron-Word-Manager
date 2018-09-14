@@ -1,8 +1,12 @@
 <div class="page-grid">
-  <ewm-user-button class="round-button"
+  <div class="back-button">
+    <i class="fa fa-2x fa-angle-double-left"
+    tabindex="0"
+       (click)="onBackButtonClicked()"></i>
+  </div>
+  <!-- <ewm-user-button class="round-button"
                    (click)="onBackButtonClicked()">
-    <i class="fa fa-2x fa-angle-double-left"></i>
-  </ewm-user-button>
+  </ewm-user-button> -->
   <div class="page-title">PENSUM</div>
   <ewm-curricula-list></ewm-curricula-list>
   <div>

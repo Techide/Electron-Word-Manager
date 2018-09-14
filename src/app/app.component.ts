@@ -11,8 +11,7 @@ export class AppComponent {
   title = 'Jiu Jutsu Gradueringer';
 
   constructor(private storage: StorageService, private router: Router) {
-    const rankType = this.storage.get(StorageService.Keys.RANK_TYPE);
-    if (rankType) {
+    if (this.storage.get(StorageService.Keys.RANK_TYPE)) {
       this.storage.set(StorageService.Keys.INITIAL_RANK_TYPE, true);
     }
   }

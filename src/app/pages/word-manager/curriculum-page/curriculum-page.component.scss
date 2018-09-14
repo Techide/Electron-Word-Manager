@@ -18,13 +18,40 @@
   text-shadow: 0 0 6px #000, 0 0 3px #000;
 }
 
-.round-button {
+.back-button {
   position: absolute;
   top: 12px;
   left: 12px;
-  outline: none;
-  height: 2.4em;
-  width: 2.4em;
-  border: 1px solid transparent;
-  border-radius: 50%;
+  // height: 2.4em;
+  // width: 2.4em;
+
+  & i {
+    outline: none;
+    border-radius: 50%;
+    transition: all $globalTransitionTiming ease-in-out;
+    margin: 12px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    width: 33px;
+    height: 33px;
+
+    &:focus {
+      border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
+      box-shadow: 0 0 6px 0 white;
+    }
+    &:hover {
+      color: orange;
+    }
+  }
 }
+
+// .round-button {
+//   position: absolute;
+//   top: 12px;
+//   left: 12px;
+//   outline: none;
+//   height: 2.4em;
+//   width: 2.4em;
+//   border: 1px solid transparent;
+//   border-radius: 50%;
+// }

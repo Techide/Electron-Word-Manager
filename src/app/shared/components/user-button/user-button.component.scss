@@ -2,6 +2,12 @@
 
 :host {
   border-radius: 3px;
+
+  &:focus {
+    border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
+    box-shadow: 0 0 6px 0 white;
+  }
+
   .user-button {
     display: block;
     box-shadow: $globalBoxShadow;
@@ -18,10 +24,6 @@
     &:hover {
       background-color: map-get($globalMainColors, main-highlight);
       cursor: pointer;
-
-      & .user-button-icon {
-        opacity: 1;
-      }
     }
 
     &:focus {
@@ -31,13 +33,13 @@
 
     & .user-button-content-container {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr;
       align-content: center;
       height: 100%;
 
       & .user-button-content {
         align-content: center;
-        grid-column: 2;
+        // grid-column: 2;
         text-align: center;
       }
     }

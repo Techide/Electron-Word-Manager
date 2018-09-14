@@ -1,0 +1,30 @@
+@import '~src/variables';
+
+.form-title {
+//   padding-top: 1em;
+  padding-bottom: 1em;
+  font-size: 1.2em;
+  border-bottom: 1px solid map-get($globalMainColors, main);
+  margin-bottom: 1em;
+}
+
+.form-field {
+  padding: 12px;
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-template-columns: 80px 1fr;
+
+  & label {
+    grid-column: 1;
+  }
+  & input {
+    grid-column: 2;
+    border-bottom: 1px solid map-get($globalMainColors, main);
+    transition-property: border-color;
+    transition: $globalTransitionTiming ease-in-out;
+
+    &:focus {
+      border-bottom-color: map-get($globalMainColors, main-highlight);
+    }
+  }
+}

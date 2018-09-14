@@ -29,8 +29,8 @@ export class RankSelectionComponent implements OnInit {
     this.ranks = result;
   }
 
-  onClicked(id: number) {
-    this.storage.set(StorageService.Keys.RANK_TYPE, id);
+  onClicked(rankType: IRankType) {
+    this.storage.set(StorageService.Keys.RANK_TYPE, rankType);
     this.router.navigate([this.navigateTo]);
   }
 }

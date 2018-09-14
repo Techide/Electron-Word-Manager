@@ -16,12 +16,21 @@ $picture-dimension: 24px;
     }
 
     & .list-add-button {
-      i {
+      & i {
+        border: 1px solid transparent;
         cursor: pointer;
+        transition: all $globalTransitionTiming ease-in-out;
+        border-radius: 50%;
+        outline: none;
       }
 
-      i:hover {
-        color: darkorange;
+      & i:hover {
+        color: orange;
+      }
+
+      & i:focus {
+        border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
+        box-shadow: 0 0 6px 0 white;
       }
     }
   }

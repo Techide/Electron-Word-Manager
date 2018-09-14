@@ -7,7 +7,8 @@
         <div class="list-add-button"
              *ngIf="anyItems()">
             <i class="fa fa-plus-circle"
-               (click)="createCardClicked()"></i>
+               tabindex="0"
+               (click)="createCardClicked('curriculum-form')"></i>
         </div>
     </div>
     <div class="card-grid">
@@ -18,7 +19,8 @@
                  tabindex="0">
                 <div class="empty-item-text">Tilføj graduering</div>
                 <div class="empty-item-icon">
-                    <i class="fa fa-plus-circle "></i>
+                    <i class="fa fa-plus-circle"
+                       (click)="createCardClicked('curriculum-form')"></i>
                 </div>
             </div>
         </div>
@@ -31,3 +33,8 @@
         </button>
     </div>
 </div>
+
+<ewm-modal id="curriculum-form"
+           #modal>
+    <ewm-curriculum-form [formClosing]="modal.closing"></ewm-curriculum-form>
+</ewm-modal>

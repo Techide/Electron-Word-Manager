@@ -3,7 +3,7 @@
   <div class="rank-selection-title">Vælg pensum</div>
   <div class="rank-selection-grid">
     <ewm-user-button class="rank-selection-button"
-                     (click)="onClicked(rank.Id)"
+                     (click)="onClicked(rank)"
                      *ngFor="let rank of ranks">
       {{rank.Name.toUpperCase()}}
     </ewm-user-button>

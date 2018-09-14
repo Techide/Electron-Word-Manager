@@ -1,3 +1,27 @@
-<p>
-  curriculum-form works!
-</p>
+<div class="form-title">OPRET GRADUERING</div>
+<form>
+  <div class="form-field">
+    <div>
+      Grad:
+    </div>
+    <div>
+      {{rankTypeName}}
+    </div>
+  </div>
+  <div class="form-field">
+    <label for="rank">Niveau:</label>
+    <input type="number"
+           id="rank"
+           placeholder="Indtast hvilket niveau graduering har"
+           min="1"
+           [(value)]="rank">
+  </div>
+  <div class="form-field">
+    <label for="color">Bælte:</label>
+    <input type="text"
+           id="color"
+           placeholder="Indtast farven på bæltet ved bestået graduering"
+           [(value)]="belt">
+  </div>
+  <ewm-user-button>Gem</ewm-user-button>
+</form>
