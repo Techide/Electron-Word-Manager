@@ -29,8 +29,8 @@ namespace WordManager.Api
                 {
                     o.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                })
-                .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining(typeof(CreateCurriculumValidator)));
+                });
+                // .AddFluentValidation(x => { x.RegisterValidatorsFromAssemblyContaining(typeof(CreateCurriculumValidator)); });
 
             ValidatorOptions.LanguageManager.Culture = new System.Globalization.CultureInfo("da");
 

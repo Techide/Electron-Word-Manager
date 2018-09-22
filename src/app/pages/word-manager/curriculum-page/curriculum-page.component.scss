@@ -16,18 +16,17 @@
   padding: 36px;
   grid-column-start: span 2;
   text-shadow: 0 0 6px #000, 0 0 3px #000;
+  cursor: default;
 }
 
 .back-button {
   position: absolute;
   top: 12px;
   left: 12px;
-  // height: 2.4em;
-  // width: 2.4em;
 
   & i {
     outline: none;
-    border-radius: 50%;
+    border-radius: 100%;
     transition: all $globalTransitionTiming ease-in-out;
     margin: 12px;
     cursor: pointer;
@@ -36,22 +35,10 @@
     height: 33px;
 
     &:focus {
-      border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
-      box-shadow: 0 0 6px 0 white;
+      color: map-get($globalMainColors, main-highlight);
     }
     &:hover {
-      color: orange;
+      color: map-get($globalMainColors, main-highlight);
     }
   }
 }
-
-// .round-button {
-//   position: absolute;
-//   top: 12px;
-//   left: 12px;
-//   outline: none;
-//   height: 2.4em;
-//   width: 2.4em;
-//   border: 1px solid transparent;
-//   border-radius: 50%;
-// }

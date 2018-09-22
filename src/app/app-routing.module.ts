@@ -6,7 +6,11 @@ import { WordManagerComponent } from './pages/word-manager/word-manager.componen
 const routes: Routes = [{ path: '', component: WordManagerComponent }];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      enableTracing: false
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

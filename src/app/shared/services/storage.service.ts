@@ -6,7 +6,8 @@ import * as underlyingStorage from '../helpers/local-storage.helper';
 export class StorageService {
   public static Keys = {
     RANK_TYPE: 'rank-type',
-    INITIAL_RANK_TYPE: 'initial-rank-type'
+    INITIAL_RANK_TYPE: 'initial-rank-type',
+    EDITING_ITEM: 'editing-item'
   };
 
   constructor() {}

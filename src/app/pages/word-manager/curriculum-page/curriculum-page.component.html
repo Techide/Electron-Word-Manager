@@ -1,14 +1,15 @@
 <div class="page-grid">
   <div class="back-button">
     <i class="fa fa-2x fa-angle-double-left"
-    tabindex="0"
+       tabindex="0"
        (click)="onBackButtonClicked()"></i>
   </div>
-  <!-- <ewm-user-button class="round-button"
-                   (click)="onBackButtonClicked()">
-  </ewm-user-button> -->
   <div class="page-title">PENSUM</div>
-  <ewm-curricula-list></ewm-curricula-list>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+  <!-- <ewm-curricula-list [rankType]="rankType">
+  </ewm-curricula-list> -->
   <div>
     <router-outlet name="details"></router-outlet>
   </div>

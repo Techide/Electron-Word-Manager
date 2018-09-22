@@ -4,6 +4,8 @@ import { WordManagerComponent } from './word-manager.component';
 import { RankSelectionComponent } from './rank-selection/rank-selection.component';
 import { CurriculumPageComponent } from './curriculum-page/curriculum-page.component';
 import { CurriculumDetailsComponent } from './curriculum-details/curriculum-details.component';
+import { CurriculumFormComponent } from './curriculum-form/curriculum-form.component';
+import { CurriculaListComponent } from './curricula-list/curricula-list.component';
 
 const routes: Routes = [
   {
@@ -16,11 +18,23 @@ const routes: Routes = [
         component: CurriculumPageComponent,
         children: [
           {
+            path: '',
+            component: CurriculaListComponent
+          },
+          {
             path: ':id',
             component: CurriculumDetailsComponent,
             outlet: 'details'
           }
         ]
+      },
+      {
+        path: 'curriculum/create',
+        component: CurriculumFormComponent
+      },
+      {
+        path: 'curriculum/edit',
+        component: CurriculumFormComponent
       }
     ]
   }

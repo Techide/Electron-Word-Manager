@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { UserButtonComponent } from './components/user-button/user-button.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { ContextMenuModule } from 'ngx-contextmenu';
 
 @NgModule({
   imports: [
@@ -13,7 +14,11 @@ import { ModalComponent } from './components/modal/modal.component';
     CommonModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ContextMenuModule.forRoot({
+      autoFocus: true,
+      useBootstrap4: false
+    })
   ],
   exports: [
     BrowserModule,
@@ -21,6 +26,7 @@ import { ModalComponent } from './components/modal/modal.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    ContextMenuModule,
     UserButtonComponent,
     ModalComponent
   ],

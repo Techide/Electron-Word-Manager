@@ -13,6 +13,7 @@ $picture-dimension: 24px;
     grid-template-columns: 1fr auto;
 
     & .list-title {
+      cursor: default;
     }
 
     & .list-add-button {
@@ -22,15 +23,13 @@ $picture-dimension: 24px;
         transition: all $globalTransitionTiming ease-in-out;
         border-radius: 50%;
         outline: none;
-      }
 
-      & i:hover {
-        color: orange;
-      }
-
-      & i:focus {
-        border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
-        box-shadow: 0 0 6px 0 white;
+        &:focus {
+          color: map-get($globalMainColors, main-highlight);
+        }
+        &:hover {
+          color: map-get($globalMainColors, main-highlight);
+        }
       }
     }
   }
@@ -57,13 +56,16 @@ $picture-dimension: 24px;
         transition: $globalElementTransition;
         outline: none;
 
-        &:hover {
-          background-color: map-get($globalMainColors, main-highlight);
+        &:active {
+          border: 1px solid white;
         }
 
         &:focus {
-          border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
-          box-shadow: 0 0 6px 0 white;
+          background-color: map-get($globalMainColors, main-highlight);
+        }
+
+        &:hover {
+          background-color: map-get($globalMainColors, main-highlight);
         }
 
         & .empty-item-icon {
@@ -88,17 +90,20 @@ $picture-dimension: 24px;
       transition: $globalTransitionTiming ease-in;
       outline: none;
 
-      &:focus {
-        border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
-        box-shadow: 0 0 6px 0 white;
-      }
-
-      &:hover {
-        background-color: map-get($globalMainColors, main-highlight);
+      &.selected {
+        background-color: map-get($globalMainColors, main-highlight-active);
       }
 
       &:active {
         border: 1px solid white;
+      }
+
+      &:focus {
+        background-color: map-get($globalMainColors, main-highlight);
+      }
+
+      &:hover {
+        background-color: map-get($globalMainColors, main-highlight);
       }
 
       & .card-level {

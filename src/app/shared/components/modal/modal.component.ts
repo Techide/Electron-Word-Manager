@@ -18,8 +18,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input()
   id: string;
 
-  @Output()
-  closing: EventEmitter<any> = new EventEmitter();
+  data: any;
 
   private element: any;
 
@@ -56,15 +55,15 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   // open modal
-  open(): void {
+  open(data?: any): void {
     window.addEventListener('keyup', this.keyupHandler);
     this.element.style.display = 'block';
+    this.data = data;
   }
 
   // close modal
   close(): void {
     window.removeEventListener('keyup', this.keyupHandler);
-    this.closing.emit();
     this.element.style.display = 'none';
   }
 

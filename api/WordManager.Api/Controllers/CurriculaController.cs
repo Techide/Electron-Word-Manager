@@ -1,6 +1,8 @@
 ﻿using System;
 using DP.CqsLite;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using WordManager.Api.Validators;
 using WordManager.Common.DTO;
 using WordManager.Domain;
 
@@ -11,25 +13,31 @@ namespace WordManager.Api.Controllers
     [ApiController]
     public class CurriculaController : ControllerBase
     {
-        private readonly IQueryHandler<GetCurriculaByRankTypeQuery, GetCurriculaByRankTypeQueryResult> _queryHandler;
-        private readonly IQueryHandler<GetCurriculumByRankAndTypeQuery, GetCurriculumByRankAndTypeQueryResult> _getCurriculumQueryHandler;
+        private readonly IQueryHandler<GetCurriculaByRankTypeQuery, GetCurriculaByRankTypeQueryResult> _getCurriculaQueryHandler;
+        private readonly IQueryHandler<GetCurriculumByRankAndTypeQuery, GetCurriculumByRankAndTypeQueryResult> _getByRankAndTypeQueryHandler;
         private readonly ICommandHandler<CreateCurriculumCommand> _createNewCommandHandler;
+        private readonly ICommandHandler<UpdateCurriculumCommand> _updateCommandHandler;
+        private readonly ICommandHandler<DeleteCurriculumCommand> _deleteCommandHandler;
 
         public CurriculaController(
             IQueryHandler<GetCurriculaByRankTypeQuery, GetCurriculaByRankTypeQueryResult> getCurriculaQueryHandler,
-            IQueryHandler<GetCurriculumByRankAndTypeQuery, GetCurriculumByRankAndTypeQueryResult> getCurriculumQueryHandler,
-            ICommandHandler<CreateCurriculumCommand> createNewCommandHandler
+            IQueryHandler<GetCurriculumByRankAndTypeQuery, GetCurriculumByRankAndTypeQueryResult> getByRankAndTypeQueryHandler,
+            ICommandHandler<CreateCurriculumCommand> createNewCommandHandler,
+            ICommandHandler<UpdateCurriculumCommand> updateCommandHandler,
+            ICommandHandler<DeleteCurriculumCommand> deleteCommandHandler
             )
         {
-            _queryHandler = getCurriculaQueryHandler ?? throw new System.ArgumentNullException(nameof(getCurriculaQueryHandler));
-            _getCurriculumQueryHandler = getCurriculumQueryHandler ?? throw new System.ArgumentNullException(nameof(getCurriculumQueryHandler));
-            _createNewCommandHandler = createNewCommandHandler ?? throw new System.ArgumentNullException(nameof(createNewCommandHandler));
+            _getCurriculaQueryHandler = getCurriculaQueryHandler ?? throw new ArgumentNullException(nameof(getCurriculaQueryHandler));
+            _getByRankAndTypeQueryHandler = getByRankAndTypeQueryHandler ?? throw new ArgumentNullException(nameof(getByRankAndTypeQueryHandler));
+            _createNewCommandHandler = createNewCommandHandler ?? throw new ArgumentNullException(nameof(createNewCommandHandler));
+            _updateCommandHandler = updateCommandHandler ?? throw new ArgumentNullException(nameof(updateCommandHandler));
+            _deleteCommandHandler = deleteCommandHandler ?? throw new ArgumentNullException(nameof(deleteCommandHandler));
         }
 
         [HttpGet("{id}")]
         public ActionResult GetByRankTypeId(ulong id)
         {
-            var result = _queryHandler.Handle(new GetCurriculaByRankTypeQuery((long)id));
+            var result = _getCurriculaQueryHandler.Handle(new GetCurriculaByRankTypeQuery((long)id));
             return Ok(result.Curricula);
         }
 
@@ -41,11 +49,17 @@ namespace WordManager.Api.Controllers
                 return Ok();
             }
 
-            var test = _getCurriculumQueryHandler.Handle(new GetCurriculumByRankAndTypeQuery(curriculum));
-            if (test.Curriculum != null)
+            var validator = new CreateCurriculumValidator();
+            var result = validator.Validate(curriculum);
+
+            if (_getByRankAndTypeQueryHandler.Handle(new GetCurriculumByRankAndTypeQuery(curriculum)).Curriculum != null)
             {
-                ModelState.AddModelError("Dual_Rank_&_RankTypeName", "Graduering findes allerede");
-                return ValidationProblem();
+                result.Errors.Add(new ValidationFailure("Dual_Rank_&_RankTypeName", CreateDuplicateRankMessage(curriculum), new { curriculum.Rank, curriculum.RankType }));
+            }
+
+            if (!result.IsValid)
+            {
+                return StatusCode(422, result);
             }
 
             try
@@ -55,10 +69,66 @@ namespace WordManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                //TODO: Log exception;
+                //TODO: Log exception and data;
                 return BadRequest("Unknown error");
             }
 
+        }
+
+        [HttpPut]
+        public ActionResult UpdateCurriculum(UpdateCurriculumDTO curriculum)
+        {
+
+            if (curriculum == null)
+            {
+                return Ok();
+            }
+
+            var validator = new CreateCurriculumValidator();
+            var result = validator.Validate(curriculum);
+
+            if (curriculum.Rank != curriculum.OriginalRank && _getByRankAndTypeQueryHandler.Handle(new GetCurriculumByRankAndTypeQuery(curriculum)).Curriculum != null)
+            {
+                result.Errors.Add(new ValidationFailure("Dual_Rank_&_RankTypeName", CreateDuplicateRankMessage(curriculum), new { curriculum.Rank, curriculum.RankType }));
+            }
+
+            if (!result.IsValid)
+            {
+                return StatusCode(422, result);
+            }
+
+            try
+            {
+                _updateCommandHandler.Handle(new UpdateCurriculumCommand(curriculum));
+                return Ok(curriculum);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Log exception and data;
+                return BadRequest("Unknown error");
+            }
+
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteCurriculum(ulong id)
+        {
+            try
+            {
+                _deleteCommandHandler.Handle(new DeleteCurriculumCommand(id));
+            }
+            catch (Exception ex)
+            {
+                //TODO: Log exception;
+                return BadRequest("Unknown error");
+            }
+            return Ok(id);
+        }
+
+
+        private string CreateDuplicateRankMessage(CurriculumDTO dto)
+        {
+            return $"En graduering med niveau {dto.Rank} findes allerede";
         }
     }
 }

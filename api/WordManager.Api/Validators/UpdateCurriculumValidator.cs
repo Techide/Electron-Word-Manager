@@ -3,10 +3,9 @@ using WordManager.Common.DTO;
 
 namespace WordManager.Api.Validators
 {
-    public class CreateCurriculumValidator : AbstractValidator<CurriculumDTO>
+    public class UpdateCurriculumValidator : AbstractValidator<UpdateCurriculumDTO>
     {
-
-        public CreateCurriculumValidator()
+        public UpdateCurriculumValidator()
         {
             CascadeMode = CascadeMode.StopOnFirstFailure;
             RuleFor(x => x.Rank)

@@ -39,3 +39,39 @@ input {
 button {
   padding: 0;
 }
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cdk-overlay-pane.ngx-contextmenu {
+  box-shadow: $globalBoxShadow;
+  background-color: map-get($globalMainColors, main);
+  // background: map-get($globalBackgroundColors, main);
+  border: 1px solid map-get($globalMainColors, main-highlight);
+  border-radius: 4px;
+  padding: 1em;
+
+  & .dropdown.open.show.ngx-contextmenu {
+    outline: none;
+
+    & * {
+      outline: none;
+    }
+
+    & li a {
+      text-decoration: none;
+      transition: color $globalTransitionTiming ease-in-out;
+
+      &:hover {
+        color: orange;
+      }
+    }
+
+    & li:not(:last-child) {
+      padding-bottom: 1em;
+    }
+  }
+}
