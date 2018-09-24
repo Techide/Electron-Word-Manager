@@ -8,7 +8,9 @@
   <div class="form-title">{{getTitle()}} GRADUERING</div>
 
   <form #curriculaForm="ngForm"
+        novalidate
         class="page-form"
+        (ngSubmit)="submitForm()"
         *ngIf="model !== undefined">
     <div class="form-body">
 
@@ -27,7 +29,15 @@
                placeholder="Indtast hvilket niveau graduering har"
                min="1"
                [(ngModel)]="model.Rank"
-               name="rank">
+               #Rank="ngModel"
+               name="rank"
+               [class.input-invalid]="Rank.touched && Rank.invalid"
+               [class.input-valid]="Rank.touched && Rank.valid"
+               required>
+        <div class="validation-message"
+             *ngIf="Rank.touched && Rank.invalid">
+          Niveau skal udfyldes
+        </div>
       </div>
       <div class="form-field">
         <label for="color">Bælte:</label>
@@ -35,13 +45,27 @@
                id="color"
                placeholder="Indtast farven på bæltet ved bestået graduering"
                [(ngModel)]="model.Color"
-               name="color">
+               #Color="ngModel"
+               name="color"
+               [class.input-invalid]="Color.touched && Color.invalid"
+               [class.input-valid]="Color.touched && Color.valid"
+               required>
+        <div class="validation-message"
+             *ngIf="Color.touched && Color.invalid">
+          Bælte skal udfyldes
+        </div>
       </div>
     </div>
     <div class="form-footer">
-      <a class="form-button"
-         tabindex="0"
-         (click)="submitForm()">Gem</a>
+      <button class="form-button"
+              [class.button-disabled]="curriculaForm.touched && curriculaForm.invalid"
+              [disabled]="curriculaForm.touched && curriculaForm.invalid"
+              type="submit">Gem
+      </button>
+    </div>
+    <div class="error-messages"
+         *ngIf="errors && errors.length > 0">
+      <div *ngFor="let error of errors">{{error.ErrorMessage}}</div>
     </div>
   </form>
 

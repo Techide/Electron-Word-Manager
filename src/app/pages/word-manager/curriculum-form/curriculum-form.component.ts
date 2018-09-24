@@ -14,6 +14,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Curriculum } from '../../../shared/models/curriculum.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
+class IErrorMessage {
+  PropertyName: string;
+  ErrorMessage: string;
+  AttemptedValue: any;
+}
+
 @Component({
   selector: 'ewm-curriculum-form',
   templateUrl: './curriculum-form.component.html',
@@ -21,6 +27,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class CurriculumFormComponent implements OnDestroy {
   model: ICurriculum;
+
+  errors: IErrorMessage[];
 
   constructor(
     private dataService: DataService,
@@ -77,6 +85,10 @@ export class CurriculumFormComponent implements OnDestroy {
   }
 
   private handleError(e: HttpErrorResponse) {
-    console.error(e);
+    this.errors = [];
+    const errors = e.error.Errors as IErrorMessage[];
+    errors.forEach(x => {
+      this.errors.push(x);
+    });
   }
 }
