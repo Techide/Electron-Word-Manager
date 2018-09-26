@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { UserButtonComponent } from './components/user-button/user-button.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ContextMenuModule } from 'ngx-contextmenu';
+import { MinValueDirective } from './directives/min-value.directive';
+import { ContainsNumberDirective } from './directives/contains-number.directive';
+import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 
 @NgModule({
   imports: [
@@ -28,8 +31,11 @@ import { ContextMenuModule } from 'ngx-contextmenu';
     FormsModule,
     ContextMenuModule,
     UserButtonComponent,
-    ModalComponent
+    ModalComponent,
+    MinValueDirective,
+    ContainsNumberDirective,
+    NumbersOnlyDirective
   ],
-  declarations: [UserButtonComponent, ModalComponent]
+  declarations: [UserButtonComponent, ModalComponent, MinValueDirective, ContainsNumberDirective, NumbersOnlyDirective]
 })
 export class SharedModule {}

@@ -10,8 +10,8 @@ namespace WordManager.Api.Validators
         {
             CascadeMode = CascadeMode.StopOnFirstFailure;
             RuleFor(x => x.Rank)
-                .NotEmpty().WithName("Niveau")
-                .GreaterThan(0).WithName("Niveau");
+                .GreaterThan(0).WithName("Niveau")
+                .NotEmpty().WithName("Niveau");
             RuleFor(x => x.Color).NotEmpty().WithName("Bælte");
         }
     }

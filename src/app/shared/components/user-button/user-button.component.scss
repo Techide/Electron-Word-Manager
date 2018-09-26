@@ -1,18 +1,13 @@
 @import '~src/variables';
 
 :host {
-  border-radius: 3px;
+  border-radius: $global-border-radius;
 
-  &:focus {
-    border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
-    box-shadow: 0 0 6px 0 white;
-  }
-
-  .user-button {
+  & .user-button {
     display: block;
     box-shadow: $globalBoxShadow;
     box-sizing: border-box;
-    background-color: map-get($globalMainColors, main);
+    background-color: inherit;
     border-radius: inherit;
     width: inherit;
     height: inherit;
@@ -20,15 +15,18 @@
     border: 1px solid transparent;
     transition-property: background-color, border;
     transition: $globalTransitionTiming ease-in;
+    cursor: pointer;
 
-    &:hover {
-      background-color: map-get($globalMainColors, main-highlight);
-      cursor: pointer;
+    &:active {
+      border: 1px solid white;
     }
 
     &:focus {
-      border: 1px solid rgba(map-get($globalMainColors, complement2), 0.6);
-      box-shadow: 0 0 6px 0 white;
+      background-color: map-get($globalMainColors, main-highlight);
+    }
+
+    &:hover {
+      background-color: map-get($globalMainColors, main-highlight);
     }
 
     & .user-button-content-container {

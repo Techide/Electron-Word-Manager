@@ -21,7 +21,7 @@ $picture-dimension: 24px;
         border: 1px solid transparent;
         cursor: pointer;
         transition: all $globalTransitionTiming ease-in-out;
-        border-radius: 50%;
+        border-radius: 100%;
         outline: none;
 
         &:focus {
@@ -51,7 +51,7 @@ $picture-dimension: 24px;
         padding: 1em;
         background-color: map-get($globalMainColors, main);
         border: 1px solid transparent;
-        border-radius: 3px;
+        border-radius: $global-border-radius;
         display: flex;
         transition: $globalElementTransition;
         outline: none;
@@ -79,32 +79,33 @@ $picture-dimension: 24px;
     }
 
     & .curriculum-card-item {
-      padding: 20px;
-      cursor: pointer;
       background-color: map-get($globalMainColors, main);
       border: 1px solid transparent;
-      border-radius: 3px;
-      box-shadow: $globalBoxShadow;
       box-sizing: border-box;
       transition-property: all;
       transition: $globalTransitionTiming ease-in;
       outline: none;
+      width: 100%;
+
+      & .card-content {
+        padding: 0.5em;
+      }
 
       &.selected {
         background-color: map-get($globalMainColors, main-highlight-active);
       }
 
-      &:active {
-        border: 1px solid white;
-      }
+      // &:active {
+      //   border: 1px solid white;
+      // }
 
-      &:focus {
-        background-color: map-get($globalMainColors, main-highlight);
-      }
+      // &:focus {
+      //   background-color: map-get($globalMainColors, main-highlight);
+      // }
 
-      &:hover {
-        background-color: map-get($globalMainColors, main-highlight);
-      }
+      // &:hover {
+      //   background-color: map-get($globalMainColors, main-highlight);
+      // }
 
       & .card-level {
         padding: 3px 1em;

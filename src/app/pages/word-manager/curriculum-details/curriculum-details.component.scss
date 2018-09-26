@@ -3,29 +3,67 @@
 .page-grid {
   display: grid;
   grid-template-columns: auto;
-  grid-auto-rows: min-content;
+  grid-template-rows: min-content;
   padding: 12px;
   height: 100%;
-  overflow: hidden;
+  overflow: scroll;
+  box-sizing: border-box;
 }
-
-.card-container {
-  overflow-y: auto;
-  height: -webkit-fill-available;
-  min-width: 474px;
+.grid-wrapper {
+  overflow-y: scroll;
+  height: 100%;
 }
 
 .details-layout-grid {
   display: grid;
   grid-template-columns: auto;
-  grid-auto-rows: auto;
+  grid-auto-rows: min-content;
   grid-row-gap: 1em;
   padding: 12px;
+  overflow-y: scroll;
+}
+
+.no-data-label {
+  color: gray;
+  margin-bottom: 1em;
+}
+
+.list-empty-item {
+  & .empty-item-card {
+    cursor: pointer;
+    padding: 1em;
+    background-color: map-get($globalMainColors, main);
+    border: 1px solid transparent;
+    border-radius: $global-border-radius;
+    display: flex;
+    transition: $globalElementTransition;
+    outline: none;
+
+    &:active {
+      border: 1px solid white;
+    }
+
+    &:focus {
+      background-color: map-get($globalMainColors, main-highlight);
+    }
+
+    &:hover {
+      background-color: map-get($globalMainColors, main-highlight);
+    }
+
+    & .empty-item-icon {
+      flex: 1;
+      text-align: right;
+      & i {
+        color: inherit;
+      }
+    }
+  }
 }
 
 .part {
   box-shadow: $globalBoxShadow;
-  border-radius: 3px;
+  border-radius: $global-border-radius;
   background-color: map-get($globalMainColors, main);
   transition: $globalElementTransition;
   &:hover {
@@ -41,6 +79,7 @@
 
   & .name {
     grid-column: 1;
+    cursor: default;
 
     & .has-sound:hover {
       cursor: pointer;
@@ -51,6 +90,7 @@
 
 .word {
   grid-column: 2;
+  cursor: default;
 }
 
 .subpart {

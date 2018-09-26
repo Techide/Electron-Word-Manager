@@ -19,6 +19,12 @@
   cursor: default;
 }
 
+.details-container,
+.list-container {
+  position: relative;
+  height: 100%;
+}
+
 .back-button {
   position: absolute;
   top: 12px;

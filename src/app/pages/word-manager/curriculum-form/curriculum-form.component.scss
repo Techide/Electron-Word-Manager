@@ -34,7 +34,7 @@
 
 .page-form {
   grid-column: 2;
-  grid-row: 2;
+  // grid-row: 2;
 }
 
 .form-title {
@@ -47,8 +47,25 @@
 
   grid-column: 2;
   border-bottom: 1px solid map-get($globalMainColors, main);
+  // margin-bottom: 36px;
+  cursor: default;
+}
+
+.form-subtitle {
+  font-size: 1.3em;
+  font-weight: 500;
+  align-self: center;
+  text-align: center;
+  // padding: 36px 0 0 0;
+  text-shadow: 0 0 6px #000, 0 0 3px #000;
+
+  grid-column: 2;
   margin-bottom: 36px;
   cursor: default;
+}
+
+.input-invalid {
+  color: $globalErrorColor;
 }
 
 .form-field {
@@ -65,78 +82,76 @@
   & .info-field {
     cursor: default;
     grid-column: 2;
+
+    &::-webkit-inner-spin-button {
+      color: red;
+    }
   }
 
   & label {
     grid-column: 1;
     transition-property: color;
     transition: $globalTransitionTiming ease-in-out;
+    justify-items: center;
     cursor: text;
   }
 
   & input {
-    grid-column: 2;
+    grid-column: span 2;
     border-bottom: 1px solid map-get($globalMainColors, main);
     transition-property: border-color;
     transition: $globalTransitionTiming ease-in-out;
   }
 
-  & .input-invalid {
-    border-color: $globalErrorColor;
-  }
+  $validation-message-padding: 6px;
+  $validation-message-height: calc(
+    1em + #{$validation-message-padding} + #{$validation-message-padding}
+  );
 
-  & .input-valid {
-    border-color: map-get($globalMainColors, main-highlight-active);
+  & .validation-messages {
+    grid-column: span 2;
+    height: $validation-message-height;
+    & .validation-message {
+      padding-top: $validation-message-padding;
+      color: $globalErrorColor;
+      border-bottom-left-radius: $global-border-radius;
+      border-bottom-right-radius: $global-border-radius;
+    }
   }
-
-  & .validation-message {
-    grid-column: 2;
-    background-color: map-get($globalMainColors, complement1);
-    padding: 6px;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-  }
-
   &:focus-within {
     & input {
-      border-bottom-color: map-get($globalMainColors, main-highlight);
+      border-bottom-color: map-get($globalMainColors, og);
     }
     & label {
-      color: map-get($globalMainColors, main-highlight);
+      color: map-get($globalMainColors, og);
     }
   }
 }
-
 .form-footer {
   display: grid;
   padding-top: 1em;
   margin-top: 1em;
   grid-template-columns: 1fr auto;
   margin-bottom: 1em;
-
   & .form-button {
     grid-column: 2;
     cursor: pointer;
     padding: 0.5em 1em;
     background-color: map-get($globalMainColors, main);
     border: 1px solid transparent;
-    border-radius: 3px;
+    border-radius: $global-border-radius;
     display: flex;
     transition: $globalElementTransition;
     outline: none;
-
     &:active {
       border: 1px solid white;
     }
-
     &:focus {
       background-color: map-get($globalMainColors, main-highlight);
     }
-
     &:hover {
       background-color: map-get($globalMainColors, main-highlight);
     }
-
     &.button-disabled {
       background-color: map-get($globalBackgroundColors, main);
       border-color: map-get($globalMainColors, main);
@@ -145,14 +160,12 @@
     }
   }
 }
-
 .error-messages {
   background-color: map-get($globalMainColors, complement1);
   cursor: default;
   grid-column: span 2;
   padding: 6px;
-  border-radius: 4px;
-
+  border-radius: $global-border-radius;
   & div:not(:last-child) {
     margin-bottom: 1em;
   }

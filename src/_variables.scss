@@ -2,9 +2,10 @@
 $globalMainColors: (
   main: #5e5e5e,
   complement1: #981a3e,
-  complement2: #421a98,
+  complement2: #654d9b,
   triad1: #741a98,
   triad2: #98741a,
+  og: orange,
   main-highlight: #1a9874,
   main-highlight-active: #2f7f68
 );
@@ -13,9 +14,10 @@ $globalTextColor: #ffffff;
 $globalBackgroundColors: (
   main: #343434
 );
-$globalErrorColor: #98291a;
+$globalErrorColor: #E62117;
 $globalTransitionTiming: 0.075s;
 $globalElementTransition: background-color $globalTransitionTiming ease-in-out;
 $globalBoxShadow: 0 0 4px -1px #000;
 
-$fa-font-path: '../node_modules/@fortawesome/fontawesome-free/webfonts'
+$global-border-radius: 3px;
+$fa-font-path: '../node_modules/@fortawesome/fontawesome-free/webfonts';

@@ -13,6 +13,7 @@ import { ICurriculum } from '../../../shared/interfaces/curriculum.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Curriculum } from '../../../shared/models/curriculum.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { getViewData } from '@angular/core/src/render3/instructions';
 
 class IErrorMessage {
   PropertyName: string;
@@ -25,8 +26,12 @@ class IErrorMessage {
   templateUrl: './curriculum-form.component.html',
   styleUrls: ['./curriculum-form.component.scss']
 })
-export class CurriculumFormComponent implements OnDestroy {
+export class CurriculumFormComponent implements OnDestroy, OnInit {
   model: ICurriculum;
+
+  originalModel: ICurriculum;
+
+  occupiedRanks: number[];
 
   errors: IErrorMessage[];
 
@@ -37,12 +42,28 @@ export class CurriculumFormComponent implements OnDestroy {
     private route: ActivatedRoute
   ) {
     if (!this.model) {
-      this.model = this.storageService.get(
-        StorageService.Keys.EDITING_ITEM
-      ) as ICurriculum;
-
-      this.model.RankType = this.model.RankType.toUpperCase();
+      this.model = this.getModelData();
     }
+    if (!this.originalModel) {
+      this.originalModel = this.getModelData();
+    }
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.occupiedRanks = await this.getData();
+  }
+
+  async getData(): Promise<number[]> {
+    const rank = this.storageService.get(
+      StorageService.Keys.RANK_TYPE
+    ) as IRankType;
+
+    const dataArray: number[] = [];
+    const data = await this.dataService.curricula.getByRankType(rank.Id);
+    data.forEach(x => {
+      dataArray.push(x.Rank);
+    });
+    return dataArray;
   }
 
   async submitForm() {
@@ -80,6 +101,18 @@ export class CurriculumFormComponent implements OnDestroy {
     this.router.navigate(['..'], { relativeTo: this.route });
   }
 
+  getDisableSubmit(formInvalid: boolean): boolean {
+    if (formInvalid) {
+      return formInvalid;
+    }
+
+    return this.equals(this.model, this.originalModel);
+  }
+
+  sanitize(value: string) {
+    return parseInt(value, 10);
+  }
+
   ngOnDestroy(): void {
     this.storageService.remove(StorageService.Keys.EDITING_ITEM);
   }
@@ -90,5 +123,18 @@ export class CurriculumFormComponent implements OnDestroy {
     errors.forEach(x => {
       this.errors.push(x);
     });
+  }
+
+  private getModelData(): ICurriculum {
+    const data = this.storageService.get(
+      StorageService.Keys.EDITING_ITEM
+    ) as ICurriculum;
+    data.RankType = data.RankType.toUpperCase();
+    return data;
+  }
+
+  private equals(a: ICurriculum, b: ICurriculum): boolean {
+    const equals = a.Rank === b.Rank && a.Color === b.Color;
+    return equals;
   }
 }

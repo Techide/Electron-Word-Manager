@@ -6,6 +6,7 @@
   </div>
 
   <div class="form-title">{{getTitle()}} GRADUERING</div>
+  <div class="form-subtitle">GRAD: {{model.RankType}}</div>
 
   <form #curriculaForm="ngForm"
         novalidate
@@ -14,59 +15,82 @@
         *ngIf="model !== undefined">
     <div class="form-body">
 
-      <div class="form-field">
+      <!-- <div class="form-field">
         <div class="info-label">
           Grad:
         </div>
         <div class="info-field">
           {{model.RankType}}
         </div>
-      </div>
+        <div class="validation-messages"></div>
+      </div> -->
+
       <div class="form-field">
         <label for="rank">Niveau:</label>
-        <input type="number"
+        <input type="text"
+               ewmNumbersOnly
                id="rank"
-               placeholder="Indtast hvilket niveau graduering har"
-               min="1"
+               placeholder="Indtast et nummer for niveauet på gradueringen"
                [(ngModel)]="model.Rank"
-               #Rank="ngModel"
+               #rank="ngModel"
                name="rank"
-               [class.input-invalid]="Rank.touched && Rank.invalid"
-               [class.input-valid]="Rank.touched && Rank.valid"
-               required>
-        <div class="validation-message"
-             *ngIf="Rank.touched && Rank.invalid">
-          Niveau skal udfyldes
+               required
+               ewmMinValue="1"
+               [ewmContainsNumber]="{collection: occupiedRanks, except : originalModel.Rank}" />
+        <div class="validation-messages">
+          <div *ngIf="(rank.dirty) && rank.invalid">
+            <div class="validation-message"
+                 *ngIf="rank.errors.required">
+              Niveau skal udfyldes
+            </div>
+            <div class="validation-message"
+                 *ngIf="rank.errors.minValue && rank.value">
+              Niveau skal være 1 eller derover
+            </div>
+            <div class="validation-message"
+                 *ngIf="rank.errors.containsNumber">
+              Gradueringen {{sanitize(rank.value)}}. {{model.RankType.toLocaleLowerCase()}} findes allerede
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="form-field">
         <label for="color">Bælte:</label>
         <input type="text"
                id="color"
                placeholder="Indtast farven på bæltet ved bestået graduering"
                [(ngModel)]="model.Color"
-               #Color="ngModel"
+               #color="ngModel"
                name="color"
-               [class.input-invalid]="Color.touched && Color.invalid"
-               [class.input-valid]="Color.touched && Color.valid"
-               required>
-        <div class="validation-message"
-             *ngIf="Color.touched && Color.invalid">
-          Bælte skal udfyldes
+               required />
+        <div class="validation-messages">
+          <div *ngIf="(color.dirty) && color.invalid">
+            <div class="validation-message"
+                 *ngIf="color.errors.required">
+              Bælte skal udfyldes
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
+    </div> <!-- form-body end -->
+
     <div class="form-footer">
+
       <button class="form-button"
-              [class.button-disabled]="curriculaForm.touched && curriculaForm.invalid"
-              [disabled]="curriculaForm.touched && curriculaForm.invalid"
+              [class.button-disabled]="getDisableSubmit(curriculaForm.invalid)"
+              [disabled]="getDisableSubmit(curriculaForm.invalid)"
               type="submit">Gem
       </button>
+
     </div>
+
     <div class="error-messages"
          *ngIf="errors && errors.length > 0">
       <div *ngFor="let error of errors">{{error.ErrorMessage}}</div>
     </div>
+
   </form>
 
 </div>

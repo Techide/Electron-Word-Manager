@@ -2,9 +2,21 @@
 
     <div>Detaljer</div>
 
-    <div class="card-container">
+    <div class="grid-wrapper">
 
         <div class="details-layout-grid">
+            <div class="list-empty-item"
+                 *ngIf="anyParts() === false">
+                <div class="no-data-label">Ingen detaljer fundet</div>
+                <div class="empty-item-card"
+                     tabindex="0"
+                     (click)="createPartClicked()">
+                    <div class="empty-item-text">Opret gruppe</div>
+                    <div class="empty-item-icon">
+                        <i class="fa fa-plus-circle"></i>
+                    </div>
+                </div>
+            </div>
             <div class="part"
                  *ngFor="let item of parts">
                 <div class="part-content">
@@ -24,9 +36,7 @@
                     <div class="part-content">
                         <div class="subpart-divider"></div>
                         <div class="name">
-                            <span>
-                                {{inner.Name}}
-                            </span>
+                            {{inner.Name}}
                         </div>
                         <div class="word"
                              *ngFor="let innerWord of inner.Words">
@@ -38,4 +48,5 @@
         </div>
 
     </div>
+
 </div>

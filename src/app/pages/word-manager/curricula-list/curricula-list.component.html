@@ -1,4 +1,5 @@
-<div class="menu-grid" *ngIf="curricula">
+<div class="menu-grid"
+     *ngIf="curricula">
     <div class="curriculum-selection-title">
         <div class="list-title">
             Graduering
@@ -12,7 +13,7 @@
     </div>
     <div class="card-grid">
         <div class="list-empty-item"
-             *ngIf="anyItems() == false">
+             *ngIf="anyItems() === false">
             <div class="no-data-label">Ingen gradueringer fundet</div>
             <div class="empty-item-card"
                  tabindex="0"
@@ -23,17 +24,18 @@
                 </div>
             </div>
         </div>
-        <button #card
-                class="curriculum-card-item"
-                tabindex="0"
-                (click)="onCardClicked(item.Id)"
-                [ngClass]="{selected: selectedItem === item.Id}"
-                [contextMenu]="cardMenu"
-                [contextMenuSubject]="item"
-                *ngFor="let item of curricula">
-            <div class="card-level">{{item.Rank}}.{{item.RankType.toUpperCase()}}</div>
-            <div class="card-color">{{item.Color}} bælte</div>
-        </button>
+        <ewm-user-button #card
+                         class="curriculum-card-item"
+                         (click)="onCardClicked(item.Id)"
+                         [ngClass]="{selected: selectedItem === item.Id}"
+                         [contextMenu]="cardMenu"
+                         [contextMenuSubject]="item"
+                         *ngFor="let item of curricula">
+            <div class="card-content">
+                <div class="card-level">{{item.Rank}}.{{item.RankType.toUpperCase()}}</div>
+                <div class="card-color">{{item.Color}} bælte</div>
+            </div>
+        </ewm-user-button>
         <context-menu #cardMenu>
             <ng-template contextMenuItem
                          (execute)="editItem($event.item)">

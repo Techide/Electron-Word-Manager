@@ -30,4 +30,12 @@ export class CurriculumDetailsComponent implements OnInit {
         this.parts = x;
       });
   }
+
+  anyParts(): boolean {
+    return this.parts !== undefined && this.parts.length >= 1;
+  }
+
+  createPartClicked() {
+    console.log('TODO: Create card...');
+  }
 }

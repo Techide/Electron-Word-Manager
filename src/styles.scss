@@ -51,7 +51,7 @@ ul {
   background-color: map-get($globalMainColors, main);
   // background: map-get($globalBackgroundColors, main);
   border: 1px solid map-get($globalMainColors, main-highlight);
-  border-radius: 4px;
+  border-radius: $global-border-radius;
   padding: 1em;
 
   & .dropdown.open.show.ngx-contextmenu {
