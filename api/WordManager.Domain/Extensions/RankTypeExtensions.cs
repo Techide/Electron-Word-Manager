@@ -10,7 +10,8 @@ namespace WordManager.Domain.Extensions
         public static Expression<Func<RankType, RankTypeDTO>> ToDTO = x => new RankTypeDTO
         {
             Id = x.Id,
-            Name = x.Name
+            Name = x.Name,
+            SortOrderId = x.SortOrderId
         };
     }
 }

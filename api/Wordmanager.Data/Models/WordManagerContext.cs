@@ -17,7 +17,7 @@ namespace Wordmanager.Data.Models
         public DbSet<Curriculum> Curricula { get; set; }
         public DbSet<Description> Descriptions { get; set; }
         public DbSet<Part> Parts { get; set; }
-        //public DbSet<PartCategory> PartCategories { get; set; }
+        public DbSet<RankSortOrder> RankSortOrders { get; set; }
         public DbSet<Word> Words { get; set; }
         public DbSet<RankType> RankTypes { get; set; }
 
@@ -29,7 +29,6 @@ namespace Wordmanager.Data.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Curriculum>().HasIndex(x => new { x.Rank, x.RankTypeId }).IsUnique(true);
-            //modelBuilder.Entity<PartCategory>().HasIndex(x => new { x.PartId, x.WordId }).IsUnique(true);
             modelBuilder.Entity<Part>().HasMany(x => x.SubParts).WithOne(x => x.ParentPart).HasForeignKey(x => x.ParentPartId);
             base.OnModelCreating(modelBuilder);
         }

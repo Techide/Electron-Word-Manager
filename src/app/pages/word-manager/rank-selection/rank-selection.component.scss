@@ -17,9 +17,31 @@
   padding: 36px;
 }
 
-.rank-selection-title {
+.rank-selection-title-wrapper {
   grid-column: 2;
-  align-self: end;
+  display: grid;
+  grid-template-columns: 1fr auto;
+
+  & .list-title {
+    cursor: default;
+  }
+
+  & .list-add-button {
+    & i {
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all $globalTransitionTiming ease-in-out;
+      border-radius: 100%;
+      outline: none;
+
+      &:focus {
+        color: map-get($globalMainColors, main-highlight);
+      }
+      &:hover {
+        color: map-get($globalMainColors, main-highlight);
+      }
+    }
+  }
 }
 
 .rank-selection-grid {

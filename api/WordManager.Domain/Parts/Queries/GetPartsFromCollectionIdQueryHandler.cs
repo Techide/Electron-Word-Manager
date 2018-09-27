@@ -3,6 +3,7 @@ using System.Linq;
 using DP.CqsLite;
 using Microsoft.EntityFrameworkCore;
 using Wordmanager.Data.Models;
+using WordManager.Domain.Extensions;
 
 namespace WordManager.Domain
 {
@@ -26,7 +27,7 @@ namespace WordManager.Domain
                 .Include(x => x.Words)
                 .Where(x => x.CurriculumId == query.Id)
                 .Where(x => x.ParentPartId == null)
-                .Select(Extensions.PartExtension.ToDTO);
+                .Select(PartExtension.ToDTO);
 
             return new GetPartsFromCollectionIdQueryResult { Data = result };
         }

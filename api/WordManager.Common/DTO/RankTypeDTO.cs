@@ -6,5 +6,7 @@
 
         public string Name { get; set; }
 
+        public long SortOrderId { get; set; }
+
     }
 }

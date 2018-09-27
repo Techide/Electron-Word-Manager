@@ -9,7 +9,7 @@ using Wordmanager.Data.Models;
 namespace WordManager.Api.Migrations
 {
     [DbContext(typeof(WordManagerContext))]
-    [Migration("20180906132913_Initial")]
+    [Migration("20180927113914_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,6 +88,20 @@ namespace WordManager.Api.Migrations
                     b.ToTable("Parts");
                 });
 
+            modelBuilder.Entity("Wordmanager.Data.Models.Entities.RankSortOrder", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Direction");
+
+                    b.Property<int>("Value");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RankSortOrders");
+                });
+
             modelBuilder.Entity("Wordmanager.Data.Models.Entities.RankType", b =>
                 {
                     b.Property<long>("Id")
@@ -95,7 +109,11 @@ namespace WordManager.Api.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<long>("SortOrderId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SortOrderId");
 
                     b.ToTable("RankTypes");
                 });
@@ -150,6 +168,14 @@ namespace WordManager.Api.Migrations
                     b.HasOne("Wordmanager.Data.Models.Entities.Part", "ParentPart")
                         .WithMany("SubParts")
                         .HasForeignKey("ParentPartId");
+                });
+
+            modelBuilder.Entity("Wordmanager.Data.Models.Entities.RankType", b =>
+                {
+                    b.HasOne("Wordmanager.Data.Models.Entities.RankSortOrder", "SortOrder")
+                        .WithMany()
+                        .HasForeignKey("SortOrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Wordmanager.Data.Models.Entities.Word", b =>

@@ -1,9 +1,24 @@
 <div class="page-grid">
   <div class="page-title">Ju Jutsu Pensum</div>
-  <div class="rank-selection-title">Vælg pensum</div>
+  <div class="rank-selection-title-wrapper">
+    <div class="list-title">
+      Vælg pensum
+    </div>
+    <div class="list-add-button">
+      <i class="fa fa-plus-circle"
+         tabindex="0"
+         (click)="onCreateRankClicked()"></i>
+    </div>
+  </div>
+
+  <div class="curriculum-selection-title">
+  </div>
+
+
+
   <div class="rank-selection-grid">
     <ewm-user-button class="rank-selection-button"
-                     (click)="onClicked(rank)"
+                     (click)="onRankClicked(rank)"
                      *ngFor="let rank of ranks">
       {{rank.Name.toUpperCase()}}
     </ewm-user-button>

@@ -21,16 +21,37 @@ namespace WordManager.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RankSortOrders",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Direction = table.Column<string>(nullable: true),
+                    Value = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RankSortOrders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RankTypes",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    SortOrderId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RankTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RankTypes_RankSortOrders_SortOrderId",
+                        column: x => x.SortOrderId,
+                        principalTable: "RankSortOrders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -160,6 +181,11 @@ namespace WordManager.Api.Migrations
                 column: "ParentPartId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RankTypes_SortOrderId",
+                table: "RankTypes",
+                column: "SortOrderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Words_PartId",
                 table: "Words",
                 column: "PartId");
@@ -184,6 +210,9 @@ namespace WordManager.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "RankTypes");
+
+            migrationBuilder.DropTable(
+                name: "RankSortOrders");
         }
     }
 }
