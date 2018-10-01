@@ -14,4 +14,8 @@ export class RankTypeRepository extends BaseRepository {
   all(): Promise<IRankType[]> {
     return this.client.get<IRankType[]>(this.API_URL).toPromise();
   }
+
+  async delete(id: number): Promise<void> {
+    this.client.delete(this.API_URL + `/${id}`).toPromise();
+  }
 }

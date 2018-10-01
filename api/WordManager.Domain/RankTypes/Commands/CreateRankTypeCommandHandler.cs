@@ -17,7 +17,12 @@ namespace WordManager.Domain
 
         public void Handle(CreateRankTypeCommand command)
         {
-            var newRankType = _db.RankTypes.Add(new RankType { Name = command.DTO.Name });
+            var newRankType = _db.RankTypes.Add(new RankType
+            {
+                Name = command.DTO.Name,
+                SortOrderId = command.DTO.SortOrderId
+            });
+
             _db.SaveChanges();
             command.DTO.Id = newRankType.Entity.Id;
         }

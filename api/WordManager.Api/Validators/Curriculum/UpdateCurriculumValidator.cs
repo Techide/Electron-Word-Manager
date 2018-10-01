@@ -8,6 +8,7 @@ namespace WordManager.Api.Validators
         public UpdateCurriculumValidator()
         {
             CascadeMode = CascadeMode.StopOnFirstFailure;
+            RuleFor(x => x.Id).NotEmpty().WithName("Id");
             RuleFor(x => x.Rank)
                 .NotEmpty().WithName("Niveau")
                 .GreaterThan(0).WithName("Niveau");

@@ -6,6 +6,7 @@ import { CurriculumPageComponent } from './curriculum-page/curriculum-page.compo
 import { CurriculumDetailsComponent } from './curriculum-details/curriculum-details.component';
 import { CurriculumFormComponent } from './curriculum-form/curriculum-form.component';
 import { CurriculaListComponent } from './curricula-list/curricula-list.component';
+import { RankTypeFormComponent } from './rank-type-form/rank-type-form.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,8 @@ const routes: Routes = [
     component: WordManagerComponent,
     children: [
       { path: '', component: RankSelectionComponent },
+      { path: 'create', component: RankTypeFormComponent },
+      { path: 'edit', component: RankTypeFormComponent },
       {
         path: 'curriculum',
         component: CurriculumPageComponent,

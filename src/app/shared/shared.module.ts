@@ -10,6 +10,7 @@ import { ContextMenuModule } from 'ngx-contextmenu';
 import { MinValueDirective } from './directives/min-value.directive';
 import { ContainsNumberDirective } from './directives/contains-number.directive';
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
+import { RadioButtonComponent } from './components/radio-button/radio-button.component';
 
 @NgModule({
   imports: [
@@ -32,10 +33,18 @@ import { NumbersOnlyDirective } from './directives/numbers-only.directive';
     ContextMenuModule,
     UserButtonComponent,
     ModalComponent,
+    RadioButtonComponent,
     MinValueDirective,
     ContainsNumberDirective,
     NumbersOnlyDirective
   ],
-  declarations: [UserButtonComponent, ModalComponent, MinValueDirective, ContainsNumberDirective, NumbersOnlyDirective]
+  declarations: [
+    UserButtonComponent,
+    ModalComponent,
+    MinValueDirective,
+    ContainsNumberDirective,
+    NumbersOnlyDirective,
+    RadioButtonComponent
+  ]
 })
 export class SharedModule {}

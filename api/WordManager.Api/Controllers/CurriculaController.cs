@@ -67,10 +67,10 @@ namespace WordManager.Api.Controllers
                 _createNewCommandHandler.Handle(new CreateCurriculumCommand(curriculum));
                 return CreatedAtRoute(RouteData.Values, curriculum);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //TODO: Log exception and data;
-                return BadRequest("Unknown error");
+                return StatusCode(500);
             }
 
         }
@@ -105,7 +105,7 @@ namespace WordManager.Api.Controllers
             catch (Exception ex)
             {
                 //TODO: Log exception and data;
-                return BadRequest("Unknown error");
+                return StatusCode(500);
             }
 
         }
@@ -116,13 +116,13 @@ namespace WordManager.Api.Controllers
             try
             {
                 _deleteCommandHandler.Handle(new DeleteCurriculumCommand(id));
+                return Ok(id);
             }
             catch (Exception ex)
             {
                 //TODO: Log exception;
-                return BadRequest("Unknown error");
+                return StatusCode(500);
             }
-            return Ok(id);
         }
 
 

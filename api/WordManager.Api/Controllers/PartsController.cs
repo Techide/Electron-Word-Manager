@@ -16,29 +16,25 @@ namespace WordManager.Api.Controllers
             _queryHandler = queryHandler ?? throw new System.ArgumentNullException(nameof(queryHandler));
         }
 
-        // GET: api/Parts/5
-        [HttpGet("{id}", Name = "Get")]
-        public ActionResult Get(long id)
+        [HttpGet("{id}", Name = nameof(GetParts))]
+        public ActionResult GetParts(long id)
         {
             var result = _queryHandler.Handle(new GetPartsFromCollectionIdQuery(id));
             return Ok(result.Data);
         }
 
-        // POST: api/Parts
         [HttpPost]
         public ActionResult Post(PartDTO part)
         {
             return Ok();
         }
 
-        // PUT: api/Parts/5
-        [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] string value)
+        [HttpPut]
+        public ActionResult Put(PartDTO part)
         {
             return Ok();
         }
 
-        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

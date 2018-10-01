@@ -14,14 +14,26 @@
   <div class="curriculum-selection-title">
   </div>
 
-
-
   <div class="rank-selection-grid">
     <ewm-user-button class="rank-selection-button"
                      (click)="onRankClicked(rank)"
+                     [contextMenu]="rankSelectionMenu"
+                     [contextMenuSubject]="rank"
                      *ngFor="let rank of ranks">
       {{rank.Name.toUpperCase()}}
     </ewm-user-button>
+
+    <context-menu #rankSelectionMenu>
+      <ng-template contextMenuItem
+                   (execute)="onEditRankClicked($event.item)">
+        Rediger
+      </ng-template>
+      <ng-template contextMenuItem
+                   (execute)="onDeleteRankClicked($event.item)">
+        Slet
+      </ng-template>
+    </context-menu>
+
   </div>
 
 </div>

@@ -15,10 +15,10 @@ import { CurriculumFormComponent } from './curriculum-form/curriculum-form.compo
   declarations: [
     WordManagerComponent,
     RankSelectionComponent,
+    RankTypeFormComponent,
     CurriculumPageComponent,
     CurriculaListComponent,
     CurriculumDetailsComponent,
-    RankTypeFormComponent,
     CurriculumFormComponent
   ]
 })

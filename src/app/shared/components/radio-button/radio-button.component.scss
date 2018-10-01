@@ -1,0 +1,22 @@
+@import '~src/variables';
+
+.radio-button-field {
+  & label {
+    transition-property: color;
+    transition: $globalTransitionTiming ease-in-out;
+    cursor: pointer;
+  }
+
+  & label:hover {
+    color: map-get($globalMainColors, og);
+  }
+
+  & .icon-wrapper {
+    margin-left: 12px;
+    display: inline-block;
+
+    & .radio-icon {
+      color: map-get($globalMainColors, main-hightlight-active);
+    }
+  }
+}

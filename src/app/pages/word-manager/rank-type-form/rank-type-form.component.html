@@ -1,3 +1,38 @@
-<p>
-  rank-type-form works!
-</p>
+<div class="page-grid">
+  <div class="back-button">
+    <i class="fa fa-2x fa-angle-double-left"
+       tabindex="0"
+       (click)="onBackButtonClicked()"></i>
+  </div>
+  <div class="form-title">{{getTitle()}} PENSUM</div>
+  <ng-container *ngIf="model !== undefined; else noForm">
+
+    <form class="page-form"
+          #rankTypeForm="ngForm"
+          novalidate>
+      <div class="form-body">
+
+        <div class="form-field">
+          <label for="rankName">Graduering</label>
+          <input id="rankName"
+                 placeholder="Indtast navnet på gradueringen"
+                 [(ngModel)]="model.Name"
+                 name="rankName" />
+        </div>
+
+        <div class="radio-button-group">
+          <label>Niveau rækkefølge</label>
+          <div class="buttons-container"
+               *ngFor="let sorting of sortOrders">
+            <ewm-radio-button groupId="{{sorting.Id}}"
+                              [selectedGroupId]="selected()"
+                              (clicked)="radioButtonClicked($event)">
+              {{sorting.Direction}}
+            </ewm-radio-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+  <ng-template #noForm></ng-template>
+</div>
