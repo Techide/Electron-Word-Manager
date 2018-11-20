@@ -1,48 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../../shared/services/data.service';
-import { IRankType } from '../../../shared/interfaces/rank-type.interface';
-import { Router, ActivatedRoute } from '@angular/router';
-import { StorageService } from '../../../shared/services/storage.service';
-import { RankType } from '../../../shared/models/rank-type.model';
+import { Component, OnInit } from "@angular/core";
+import { DataService } from "../../../shared/services/data.service";
+import { IRankType } from "../../../shared/interfaces/rank-type.interface";
+import { MemoryStorageService } from "../../../shared/services/memory-storage.service";
+import { NavigationService } from "src/app/shared/services/navigation.service";
 
 @Component({
-  selector: 'ewm-rank-selection',
-  templateUrl: './rank-selection.component.html',
-  styleUrls: ['./rank-selection.component.scss']
+  selector: "ewm-rank-selection",
+  templateUrl: "./rank-selection.component.html",
+  styleUrls: ["./rank-selection.component.scss"]
 })
 export class RankSelectionComponent implements OnInit {
   ranks: IRankType[];
-  private readonly navigateTo = 'curriculum';
+  private readonly navigateTo = "/curriculum";
 
   constructor(
     private dataService: DataService,
-    private storageService: StorageService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-    // if (this.storageService.get(StorageService.Keys.INITIAL_RANK_TYPE)) {
-    //   this.router.navigate([this.navigateTo]);
-    // }
-  }
+    private storageService: MemoryStorageService,
+    private navigation: NavigationService
+  ) {}
 
   async ngOnInit() {
     const result = await this.dataService.rankTypes.all();
     this.ranks = result;
+    this.storageService.rankTypes = result;
   }
 
   onRankClicked(rankType: IRankType) {
-    this.storageService.set(StorageService.Keys.RANK_TYPE, rankType);
-    this.router.navigate([this.navigateTo]);
+    this.storageService.rank = rankType;
+    this.navigation.navigate(
+      [this.navigateTo, { outlets: { list: [rankType.Id] } }],
+      { skipLocationChange: true }
+    );
   }
 
   onCreateRankClicked() {
-    this.storageService.set(StorageService.Keys.EDITING_ITEM, new RankType());
-    this.router.navigate(['create']);
+    this.navigation.navigate(["create"]);
   }
 
-  onEditRankClicked(item: IRankType) {
-    this.storageService.set(StorageService.Keys.EDITING_ITEM, item);
-    this.router.navigate(['edit']);
+  onEditRankClicked() {
+    this.navigation.navigate(["edit"]);
   }
 
   async onDeleteRankClicked(id: number) {

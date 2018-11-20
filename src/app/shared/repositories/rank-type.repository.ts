@@ -8,7 +8,7 @@ import { IRankType } from '../interfaces/rank-type.interface';
 })
 export class RankTypeRepository extends BaseRepository {
   constructor(private client: HttpClient) {
-    super('http://localhost:5000/api/ranktypes');
+    super('ranktypes');
   }
 
   all(): Promise<IRankType[]> {

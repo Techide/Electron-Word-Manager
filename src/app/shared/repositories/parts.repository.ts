@@ -9,7 +9,7 @@ import { IPart } from '../interfaces/part.interface';
 })
 export class PartsRepository extends BaseRepository {
   constructor(private client: HttpClient) {
-    super('http://localhost:5000/api/parts');
+    super('parts');
   }
 
   getByCurriculumId(curriculumId: number): Promise<IPart[]> {

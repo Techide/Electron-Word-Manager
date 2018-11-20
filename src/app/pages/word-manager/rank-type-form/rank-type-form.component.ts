@@ -29,11 +29,8 @@ export class RankTypeFormComponent implements OnInit, OnDestroy {
     const model = this.storageService.get(
       StorageService.Keys.EDITING_ITEM
     ) as IRankType;
-    this.model = model;
-    this.originalModel = Object.assign<IRankType, IRankType>(
-      new RankType(),
-      model
-    );
+    this.model = <IRankType>{ ...model };
+    this.originalModel = <IRankType>{ ...model };
 
     const promise = this.dataService.RankSortOrdes.all();
     promise.catch(x => {

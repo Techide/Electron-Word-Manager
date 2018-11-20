@@ -9,6 +9,7 @@ import { CurriculumDetailsComponent } from './curriculum-details/curriculum-deta
 import { CurriculumPageComponent } from './curriculum-page/curriculum-page.component';
 import { RankTypeFormComponent } from './rank-type-form/rank-type-form.component';
 import { CurriculumFormComponent } from './curriculum-form/curriculum-form.component';
+import { PartFormComponent } from './part-form/part-form.component';
 
 @NgModule({
   imports: [SharedModule, WordManagerRoutingModule],
@@ -19,7 +20,8 @@ import { CurriculumFormComponent } from './curriculum-form/curriculum-form.compo
     CurriculumPageComponent,
     CurriculaListComponent,
     CurriculumDetailsComponent,
-    CurriculumFormComponent
+    CurriculumFormComponent,
+    PartFormComponent
   ]
 })
 export class WordManagerModule {}

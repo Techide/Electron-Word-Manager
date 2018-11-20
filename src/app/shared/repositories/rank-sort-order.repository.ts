@@ -8,7 +8,7 @@ import { IRankSortOrder } from '../interfaces/rank-sort-order.interface';
 })
 export class RankSortOrderRepository extends BaseRepository {
   constructor(private client: HttpClient) {
-    super('http://localhost:5000/api/ranksortorder');
+    super('ranksortorder');
   }
 
   all(): Promise<IRankSortOrder[]> {

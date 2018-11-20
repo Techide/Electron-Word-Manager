@@ -1,12 +1,14 @@
 <div class="page-grid">
   <div class="back-button">
-    <i class="fa fa-2x fa-angle-double-left"
-       tabindex="0"
-       (click)="onBackButtonClicked()"></i>
+    <i
+      class="fa fa-2x fa-angle-double-left"
+      tabindex="0"
+      (click)="onBackButtonClicked()"
+    ></i>
   </div>
   <div class="page-title">PENSUM</div>
   <div class="list-container">
-    <router-outlet></router-outlet>
+    <router-outlet name="list"></router-outlet>
   </div>
   <div class="details-container">
     <router-outlet name="details"></router-outlet>

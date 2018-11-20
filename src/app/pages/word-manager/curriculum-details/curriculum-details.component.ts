@@ -11,6 +11,7 @@ import { switchMap } from 'rxjs/operators';
 })
 export class CurriculumDetailsComponent implements OnInit {
   parts: IPart[];
+  dataLoaded = false;
 
   constructor(
     private data: DataService,
@@ -28,14 +29,21 @@ export class CurriculumDetailsComponent implements OnInit {
       )
       .subscribe(x => {
         this.parts = x;
+        this.dataLoaded = true;
       });
   }
 
   anyParts(): boolean {
-    return this.parts !== undefined && this.parts.length >= 1;
+    return this.parts ? this.parts.length >= 1 : false;
   }
 
   createPartClicked() {
-    console.log('TODO: Create card...');
+    this.router.navigate([{ outlets: { details: 'createpart' } }], {
+      skipLocationChange: true
+    });
+  }
+
+  isDataLoaded(): boolean {
+    return this.dataLoaded;
   }
 }

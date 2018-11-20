@@ -1,45 +1,54 @@
+<div class="back-button">
+  <i
+    class="fa fa-2x fa-angle-double-left"
+    tabindex="0"
+    (click)="onBackButtonClicked()"
+  ></i>
+</div>
+
 <div class="page-grid">
-  <div class="back-button">
-    <i class="fa fa-2x fa-angle-double-left"
-       tabindex="0"
-       (click)="onBackButtonClicked()"></i>
-  </div>
+  <div class="form-title">{{ getTitle() }} GRADUERING</div>
+  <div class="form-subtitle">GRAD: {{ model.RankType }}</div>
 
-  <div class="form-title">{{getTitle()}} GRADUERING</div>
-  <div class="form-subtitle">GRAD: {{model.RankType}}</div>
-
-  <form #curriculaForm="ngForm"
-        novalidate
-        class="page-form"
-        (ngSubmit)="submitForm()"
-        *ngIf="model !== undefined">
+  <form
+    #curriculaForm="ngForm"
+    novalidate
+    class="page-form"
+    (ngSubmit)="submitForm()"
+    *ngIf="model !== undefined"
+  >
     <div class="form-body">
-
       <div class="form-field">
         <label for="rank">Niveau:</label>
-        <input type="text"
-               ewmNumbersOnly
-               id="rank"
-               placeholder="Indtast et nummer for niveauet på gradueringen"
-               [(ngModel)]="model.Rank"
-               #rank="ngModel"
-               name="rank"
-               required
-               ewmMinValue="1"
-               [ewmContainsNumber]="{collection: occupiedRanks, except : originalModel.Rank}" />
+        <input
+          type="text"
+          ewmNumbersOnly
+          id="rank"
+          placeholder="Indtast et nummer for niveauet på gradueringen"
+          [(ngModel)]="model.Rank"
+          #rank="ngModel"
+          name="rank"
+          required
+          ewmMinValue="1"
+          [ewmContainsNumber]="{
+            collection: occupiedRanks,
+            except: originalModel.Rank
+          }"
+        />
         <div class="validation-messages">
-          <div *ngIf="(rank.dirty) && rank.invalid">
-            <div class="validation-message"
-                 *ngIf="rank.errors.required">
+          <div *ngIf="rank.dirty && rank.invalid">
+            <div class="validation-message" *ngIf="rank.errors.required">
               Niveau skal udfyldes
             </div>
-            <div class="validation-message"
-                 *ngIf="rank.errors.minValue && rank.value">
+            <div
+              class="validation-message"
+              *ngIf="rank.errors.minValue && rank.value"
+            >
               Niveau skal være 1 eller derover
             </div>
-            <div class="validation-message"
-                 *ngIf="rank.errors.containsNumber">
-              Gradueringen {{sanitize(rank.value)}}. {{model.RankType.toLocaleLowerCase()}} findes allerede
+            <div class="validation-message" *ngIf="rank.errors.containsNumber">
+              Niveau {{ sanitize(rank.value) }}.
+              {{ model.RankType.toLocaleLowerCase() }} er allerede defineret
             </div>
           </div>
         </div>
@@ -47,40 +56,35 @@
 
       <div class="form-field">
         <label for="color">Bælte:</label>
-        <input type="text"
-               id="color"
-               placeholder="Indtast farven på bæltet ved bestået graduering"
-               [(ngModel)]="model.Color"
-               #color="ngModel"
-               name="color"
-               required />
+        <input
+          type="text"
+          id="color"
+          placeholder="Indtast farven på bæltet ved bestået graduering"
+          [(ngModel)]="model.Color"
+          #color="ngModel"
+          name="color"
+          required
+        />
         <div class="validation-messages">
-          <div *ngIf="(color.dirty) && color.invalid">
-            <div class="validation-message"
-                 *ngIf="color.errors.required">
+          <div *ngIf="color.dirty && color.invalid">
+            <div class="validation-message" *ngIf="color.errors.required">
               Bælte skal udfyldes
             </div>
           </div>
         </div>
       </div>
-
-    </div> <!-- form-body end -->
+    </div>
+    <!-- form-body end -->
 
     <div class="form-footer">
-
-      <button class="form-button"
-              [class.button-disabled]="getDisableSubmit(curriculaForm.invalid)"
-              [disabled]="getDisableSubmit(curriculaForm.invalid)"
-              type="submit">Gem
+      <button
+        class="form-button"
+        [class.button-disabled]="getDisableSubmit(curriculaForm.invalid)"
+        [disabled]="getDisableSubmit(curriculaForm.invalid)"
+        type="submit"
+      >
+        Gem
       </button>
-
     </div>
-
-    <div class="error-messages"
-         *ngIf="errors && errors.length > 0">
-      <div *ngFor="let error of errors">{{error.ErrorMessage}}</div>
-    </div>
-
   </form>
-
 </div>

@@ -3,7 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { CurriculaListComponent } from './pages/word-manager/curricula-list/curricula-list.component';
 import { WordManagerComponent } from './pages/word-manager/word-manager.component';
 
-const routes: Routes = [{ path: '', component: WordManagerComponent }];
+const routes: Routes = [
+  { path: '', component: WordManagerComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
+];
 
 @NgModule({
   imports: [

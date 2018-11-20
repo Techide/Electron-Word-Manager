@@ -1,19 +1,9 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  EventEmitter,
-  Output,
-  OnDestroy
-} from '@angular/core';
-import { StorageService } from '../../../shared/services/storage.service';
-import { IRankType } from '../../../shared/interfaces/rank-type.interface';
-import { DataService } from '../../../shared/services/data.service';
-import { ICurriculum } from '../../../shared/interfaces/curriculum.interface';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Curriculum } from '../../../shared/models/curriculum.model';
-import { HttpErrorResponse } from '@angular/common/http';
-import { getViewData } from '@angular/core/src/render3/instructions';
+import { DataService } from "../../../shared/services/data.service";
+import { ICurriculum } from "../../../shared/interfaces/curriculum.interface";
+import { HttpErrorResponse } from "@angular/common/http";
+import { MemoryStorageService } from "../../../shared/services/memory-storage.service";
+import { Component, OnInit } from "@angular/core";
+import { NavigationService } from "src/app/shared/services/navigation.service";
 
 class IErrorMessage {
   PropertyName: string;
@@ -22,11 +12,11 @@ class IErrorMessage {
 }
 
 @Component({
-  selector: 'ewm-curriculum-form',
-  templateUrl: './curriculum-form.component.html',
-  styleUrls: ['./curriculum-form.component.scss']
+  selector: "ewm-curriculum-form",
+  templateUrl: "./curriculum-form.component.html",
+  styleUrls: ["./curriculum-form.component.scss"]
 })
-export class CurriculumFormComponent implements OnDestroy, OnInit {
+export class CurriculumFormComponent implements OnInit {
   model: ICurriculum;
 
   originalModel: ICurriculum;
@@ -37,16 +27,11 @@ export class CurriculumFormComponent implements OnDestroy, OnInit {
 
   constructor(
     private dataService: DataService,
-    private storageService: StorageService,
-    private router: Router,
-    private route: ActivatedRoute
+    private storageService: MemoryStorageService,
+    private navigation: NavigationService
   ) {
-    if (!this.model) {
-      this.model = this.getModelData();
-    }
-    if (!this.originalModel) {
-      this.originalModel = this.getModelData();
-    }
+    this.model = <ICurriculum>{ ...this.storageService.Curriculum };
+    this.originalModel = this.storageService.Curriculum;
   }
 
   async ngOnInit(): Promise<void> {
@@ -54,10 +39,7 @@ export class CurriculumFormComponent implements OnDestroy, OnInit {
   }
 
   async getData(): Promise<number[]> {
-    const rank = this.storageService.get(
-      StorageService.Keys.RANK_TYPE
-    ) as IRankType;
-
+    const rank = this.storageService.rank;
     const dataArray: number[] = [];
     const data = await this.dataService.curricula.getByRankType(rank.Id);
     data.forEach(x => {
@@ -71,34 +53,24 @@ export class CurriculumFormComponent implements OnDestroy, OnInit {
 
     try {
       if (this.model.Id > 0) {
-        const originalModel = this.storageService.get(
-          StorageService.Keys.EDITING_ITEM
-        ) as ICurriculum;
-        const model = {
-          Id: originalModel.Id,
-          Color: this.model.Color,
-          Rank: this.model.Rank,
-          OriginalRank: originalModel.Rank,
-          RankType: originalModel.RankType,
-          RankTypeId: originalModel.RankTypeId
-        };
-        actionResult = await this.dataService.curricula.update(model);
+        actionResult = await this.dataService.curricula.update(this.model);
       } else {
         actionResult = await this.dataService.curricula.create(this.model);
       }
 
-      this.router.navigate(['..'], { relativeTo: this.route });
+      this.storageService.Curriculum = actionResult;
+      this.navigation.navigateBack();
     } catch (error) {
       this.handleError(error);
     }
   }
 
   getTitle(): string {
-    return this.model.Id > 0 ? 'REDIGER' : 'OPRET';
+    return this.model.Id > 0 ? "REDIGER" : "OPRET";
   }
 
   onBackButtonClicked() {
-    this.router.navigate(['..'], { relativeTo: this.route });
+    this.navigation.navigateBack();
   }
 
   getDisableSubmit(formInvalid: boolean): boolean {
@@ -113,24 +85,12 @@ export class CurriculumFormComponent implements OnDestroy, OnInit {
     return parseInt(value, 10);
   }
 
-  ngOnDestroy(): void {
-    this.storageService.remove(StorageService.Keys.EDITING_ITEM);
-  }
-
   private handleError(e: HttpErrorResponse) {
     this.errors = [];
     const errors = e.error.Errors as IErrorMessage[];
     errors.forEach(x => {
       this.errors.push(x);
     });
-  }
-
-  private getModelData(): ICurriculum {
-    const data = this.storageService.get(
-      StorageService.Keys.EDITING_ITEM
-    ) as ICurriculum;
-    data.RankType = data.RankType.toUpperCase();
-    return data;
   }
 
   private equals(a: ICurriculum, b: ICurriculum): boolean {

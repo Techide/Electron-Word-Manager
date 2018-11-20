@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { StorageService } from '../../../shared/services/storage.service';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IRankType } from '../../../shared/interfaces/rank-type.interface';
 
 @Component({
   selector: 'ewm-curriculum-page',
@@ -11,15 +9,7 @@ import { IRankType } from '../../../shared/interfaces/rank-type.interface';
 export class CurriculumPageComponent {
   rankType: any;
 
-  constructor(
-    private storageService: StorageService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-    if (this.storageService.get(StorageService.Keys.INITIAL_RANK_TYPE)) {
-      this.storageService.remove(StorageService.Keys.INITIAL_RANK_TYPE);
-    }
-  }
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   onBackButtonClicked(): void {
     this.router.navigate(['../'], { relativeTo: this.route });

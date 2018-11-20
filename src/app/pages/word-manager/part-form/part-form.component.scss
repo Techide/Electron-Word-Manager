@@ -1,0 +1,35 @@
+@import '~src/variables';
+
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(auto, 600px) 1fr;
+  grid-template-rows: auto 1fr;
+  justify-content: center;
+  grid-row-gap: 1em;
+  margin: 0 1em 0 1em;
+  min-width: 640px;
+}
+
+.back-button {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+
+  & i {
+    outline: none;
+    border-radius: 100%;
+    transition: all $globalTransitionTiming ease-in-out;
+    margin: 12px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    width: 33px;
+    height: 33px;
+
+    &:focus {
+      color: map-get($globalMainColors, main-highlight);
+    }
+    &:hover {
+      color: map-get($globalMainColors, main-highlight);
+    }
+  }
+}
