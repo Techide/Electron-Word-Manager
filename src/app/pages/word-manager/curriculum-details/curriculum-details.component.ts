@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../../shared/services/data.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { IPart } from '../../../shared/interfaces/part.interface';
 import { switchMap } from 'rxjs/operators';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 
 @Component({
   selector: 'ewm-curriculum-details',
@@ -15,9 +16,9 @@ export class CurriculumDetailsComponent implements OnInit {
 
   constructor(
     private data: DataService,
-    private router: Router,
+    private navigator: NavigationService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.paramMap
@@ -38,9 +39,7 @@ export class CurriculumDetailsComponent implements OnInit {
   }
 
   createPartClicked() {
-    this.router.navigate([{ outlets: { details: 'createpart' } }], {
-      skipLocationChange: true
-    });
+    this.navigator.navigate([{ outlets: { details: 'createpart' } }]);
   }
 
   isDataLoaded(): boolean {

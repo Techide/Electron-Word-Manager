@@ -10,6 +10,7 @@ export class MemoryStorageService {
 
   public Curricula: ICurriculum[];
   public Curriculum: ICurriculum;
+  public SelectedCurriculumId: number;
 
   public Details: IPart[];
   public Detail: IPart;

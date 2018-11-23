@@ -1,10 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { HttpErrorResponse } from "@angular/common/http";
 
 import { DataService } from "../../../shared/services/data.service";
 import { MemoryStorageService } from "../../../shared/services/memory-storage.service";
 import { ICurriculum } from "../../../shared/interfaces/curriculum.interface";
-import { Curriculum } from "../../../shared/models/curriculum.model";
 import { NavigationService } from "src/app/shared/services/navigation.service";
 
 @Component({
@@ -12,19 +11,18 @@ import { NavigationService } from "src/app/shared/services/navigation.service";
   templateUrl: "./curricula-list.component.html",
   styleUrls: ["./curricula-list.component.scss"]
 })
-export class CurriculaListComponent implements OnInit {
+export class CurriculaListComponent implements OnInit, AfterViewInit {
   curricula: ICurriculum[];
 
   selectedItem: number;
 
   constructor(
     private dataService: DataService,
-    private storageService: MemoryStorageService,
-    private navigation: NavigationService
-  ) {}
+    private storage: MemoryStorageService,
+    private navigation: NavigationService) { }
 
   async ngOnInit() {
-    const ranktype = this.storageService.rank;
+    const ranktype = this.storage.rank;
     this.curricula = await this.dataService.curricula
       .getByRankType(ranktype.Id)
       .then(x => {
@@ -38,11 +36,16 @@ export class CurriculaListComponent implements OnInit {
       });
   }
 
+  async ngAfterViewInit() {
+    this.selectedItem = this.storage.SelectedCurriculumId
+  }
+
   anyItems(): boolean {
     return this.curricula ? this.curricula.length > 0 : false;
   }
 
   onCardClicked(id: number): void {
+    this.storage.SelectedCurriculumId = id;
     this.selectedItem = id;
     this.navigation.navigate(["/curriculum", { outlets: { details: [id] } }], {
       skipLocationChange: true
@@ -50,33 +53,27 @@ export class CurriculaListComponent implements OnInit {
   }
 
   createCardClicked() {
-    const model = new Curriculum();
-    model.RankType = this.storageService.rank.Name;
-    model.RankTypeId = this.storageService.rank.Id;
-    this.storageService.Curriculum = model;
-    this.navigation.navigateByUrl("/curriculum/create", {
-      skipLocationChange: true
-    });
+    const model = <ICurriculum> {
+      RankType: this.storage.rank.Name,
+      RankTypeId: this.storage.rank.Id
+    };
+    this.storage.Curriculum = model;
+    this.navigation.navigateByUrl("/curriculum/create");
   }
 
   editItem(item: ICurriculum) {
-    this.storageService.Curriculum = item;
-    this.navigation.navigateByUrl("/curriculum/edit", {
-      skipLocationChange: true
-    });
+    this.storage.Curriculum = item;
+    this.navigation.navigateByUrl("/curriculum/edit");
   }
 
-  async deleteItem(item: ICurriculum) {
-    try {
-      this.dataService.curricula.delete(item.Id);
-      this.curricula.forEach((x, i) => {
-        if (x.Id === item.Id) {
-          this.curricula.splice(i, 1);
-        }
+  deleteItem(item: ICurriculum) {
+    this.dataService.curricula.delete(item.Id)
+      .then(id => {
+        this.curricula = this.curricula.filter(x => { return x.Id !== id });
+      }).catch(error => {
+        const e = error as HttpErrorResponse;
+        console.error(e.error);
       });
-    } catch (error) {
-      const e = error as HttpErrorResponse;
-      console.error(e.error);
-    }
   }
+
 }

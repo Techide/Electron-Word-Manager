@@ -4,14 +4,12 @@
        tabindex="0"
        (click)="onBackButtonClicked()"></i>
   </div>
-  <div class="form-title">{{getTitle()}} PENSUM</div>
-  <ng-container *ngIf="model !== undefined; else noForm">
-
+  <div class="form-title">{{ getTitle() }} PENSUM</div>
+  <ng-container *ngIf="model">
     <form class="page-form"
           #rankTypeForm="ngForm"
           novalidate>
       <div class="form-body">
-
         <div class="form-field">
           <label for="rankName">Graduering</label>
           <input id="rankName"
@@ -25,14 +23,22 @@
           <div class="buttons-container"
                *ngFor="let sorting of sortOrders">
             <ewm-radio-button groupId="{{sorting.Id}}"
-                              [selectedGroupId]="selected()"
+                              [selectedGroupId]="model.SortOrderId"
                               (clicked)="radioButtonClicked($event)">
-              {{sorting.Direction}}
+              {{ sorting.Direction }}
             </ewm-radio-button>
           </div>
         </div>
       </div>
+
+      <div class="form-footer">
+        <button class="form-button"
+                [class.button-disabled]="getDisableSubmit(rankTypeForm.invalid)"
+                [disabled]="getDisableSubmit(rankTypeForm.invalid)"
+                type="submit">
+          Gem
+        </button>
+      </div>
     </form>
   </ng-container>
-  <ng-template #noForm></ng-template>
 </div>

@@ -1,17 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../../shared/services/data.service';
-import { StorageService } from '../../../shared/services/storage.service';
 import { IRankType } from '../../../shared/interfaces/rank-type.interface';
 import { IRankSortOrder } from '../../../shared/interfaces/rank-sort-order.interface';
-import { RankType } from '../../../shared/models/rank-type.model';
+import { MemoryStorageService } from 'src/app/shared/services/memory-storage.service';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 
 @Component({
   selector: 'ewm-rank-type-form',
   templateUrl: './rank-type-form.component.html',
   styleUrls: ['./rank-type-form.component.scss']
 })
-export class RankTypeFormComponent implements OnInit, OnDestroy {
+export class RankTypeFormComponent implements OnInit {
   model: IRankType;
   originalModel: IRankType;
   sortOrders: IRankSortOrder[];
@@ -19,18 +18,15 @@ export class RankTypeFormComponent implements OnInit, OnDestroy {
   selectedSortOrderId: number;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
+    private navigator: NavigationService,
     private dataService: DataService,
-    private storageService: StorageService
-  ) {}
+    private storage: MemoryStorageService
+  ) {
+    this.model = <IRankType> { ...this.storage.rank };
+    this.originalModel = <IRankType> { ...this.storage.rank };
+  }
 
   async ngOnInit() {
-    const model = this.storageService.get(
-      StorageService.Keys.EDITING_ITEM
-    ) as IRankType;
-    this.model = <IRankType>{ ...model };
-    this.originalModel = <IRankType>{ ...model };
 
     const promise = this.dataService.RankSortOrdes.all();
     promise.catch(x => {
@@ -45,18 +41,29 @@ export class RankTypeFormComponent implements OnInit, OnDestroy {
   }
 
   onBackButtonClicked() {
-    this.router.navigate(['..'], { relativeTo: this.route });
+    this.storage.rank = null;
+    this.navigator.navigateBack();
   }
 
   selected() {
     return this.selectedSortOrderId;
   }
 
+  getDisableSubmit(formInvalid: boolean): boolean {
+    if (formInvalid) {
+      return formInvalid;
+    }
+
+    return this.equals(this.model, this.originalModel);
+  }
+
   radioButtonClicked(groupId: number) {
     this.selectedSortOrderId = groupId;
   }
 
-  ngOnDestroy(): void {
-    this.storageService.remove(StorageService.Keys.EDITING_ITEM);
+  private equals(a: IRankType, b: IRankType): boolean {
+    const equals = a.Name === b.Name && a.SortOrderId === b.SortOrderId;
+    return equals;
   }
+
 }

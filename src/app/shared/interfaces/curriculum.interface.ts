@@ -4,4 +4,6 @@ export interface ICurriculum {
   RankTypeId: number;
   RankType: string;
   Color: string;
+  OriginalRank: number;
+  OriginalColor: string;
 }

@@ -6,10 +6,8 @@ export class RankType implements IRankType {
   SortOrderId: number;
 
   constructor(data?: IRankType) {
-    if (data) {
-      this.Id = data.Id;
-      this.Name = data.Name;
-      this.SortOrderId = data.SortOrderId;
-    }
+    this.Id = data ? data.Id : null;
+    this.Name = data ? data.Name : "";
+    this.SortOrderId = data ? data.SortOrderId : null;
   }
 }

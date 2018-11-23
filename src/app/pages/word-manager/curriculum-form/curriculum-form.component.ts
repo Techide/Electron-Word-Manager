@@ -19,7 +19,7 @@ class IErrorMessage {
 export class CurriculumFormComponent implements OnInit {
   model: ICurriculum;
 
-  originalModel: ICurriculum;
+  // originalModel: ICurriculum;
 
   occupiedRanks: number[];
 
@@ -30,8 +30,11 @@ export class CurriculumFormComponent implements OnInit {
     private storageService: MemoryStorageService,
     private navigation: NavigationService
   ) {
-    this.model = <ICurriculum>{ ...this.storageService.Curriculum };
-    this.originalModel = this.storageService.Curriculum;
+    this.model = <ICurriculum> {
+      ...this.storageService.Curriculum,
+      OriginalRank: this.storageService.Curriculum.Rank,
+      OriginalColor: this.storageService.Curriculum.Color
+    };
   }
 
   async ngOnInit(): Promise<void> {
@@ -51,6 +54,7 @@ export class CurriculumFormComponent implements OnInit {
   async submitForm() {
     let actionResult = null;
 
+    this.model.OriginalRank
     try {
       if (this.model.Id > 0) {
         actionResult = await this.dataService.curricula.update(this.model);
@@ -78,7 +82,7 @@ export class CurriculumFormComponent implements OnInit {
       return formInvalid;
     }
 
-    return this.equals(this.model, this.originalModel);
+    return this.equals(this.model);
   }
 
   sanitize(value: string) {
@@ -93,8 +97,7 @@ export class CurriculumFormComponent implements OnInit {
     });
   }
 
-  private equals(a: ICurriculum, b: ICurriculum): boolean {
-    const equals = a.Rank === b.Rank && a.Color === b.Color;
-    return equals;
+  private equals(curriculum: ICurriculum): boolean {
+    return curriculum.Rank === curriculum.OriginalRank && curriculum.Color === curriculum.OriginalColor;
   }
 }

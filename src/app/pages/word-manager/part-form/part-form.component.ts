@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { NavigationService } from "src/app/shared/services/navigation.service";
 
 @Component({
-  selector: 'ewm-part-form',
-  templateUrl: './part-form.component.html',
-  styleUrls: ['./part-form.component.scss']
+  selector: "ewm-part-form",
+  templateUrl: "./part-form.component.html",
+  styleUrls: ["./part-form.component.scss"]
 })
 export class PartFormComponent implements OnInit {
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private navigator: NavigationService) {}
 
   ngOnInit() {}
 
   onBackButtonClicked() {
-    this.router.navigate(['..'], { relativeTo: this.route });
+    this.navigator.navigateBack();
   }
 }

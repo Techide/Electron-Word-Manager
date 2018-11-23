@@ -3,6 +3,7 @@ import { DataService } from "../../../shared/services/data.service";
 import { IRankType } from "../../../shared/interfaces/rank-type.interface";
 import { MemoryStorageService } from "../../../shared/services/memory-storage.service";
 import { NavigationService } from "src/app/shared/services/navigation.service";
+import { RankType } from "src/app/shared/models/rank-type.model";
 
 @Component({
   selector: "ewm-rank-selection",
@@ -16,8 +17,8 @@ export class RankSelectionComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private storageService: MemoryStorageService,
-    private navigation: NavigationService
-  ) {}
+    private navigator: NavigationService
+  ) { }
 
   async ngOnInit() {
     const result = await this.dataService.rankTypes.all();
@@ -27,18 +28,19 @@ export class RankSelectionComponent implements OnInit {
 
   onRankClicked(rankType: IRankType) {
     this.storageService.rank = rankType;
-    this.navigation.navigate(
-      [this.navigateTo, { outlets: { list: [rankType.Id] } }],
-      { skipLocationChange: true }
+    this.navigator.navigate(
+      [this.navigateTo, { outlets: { list: [rankType.Id] } }]
     );
   }
 
   onCreateRankClicked() {
-    this.navigation.navigate(["create"]);
+    this.storageService.rank = new RankType();
+    this.navigator.navigate(["create"]);
   }
 
-  onEditRankClicked() {
-    this.navigation.navigate(["edit"]);
+  onEditRankClicked(rankType: IRankType) {
+    this.storageService.rank = rankType;
+    this.navigator.navigate(["edit"]);
   }
 
   async onDeleteRankClicked(id: number) {

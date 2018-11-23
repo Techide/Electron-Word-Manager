@@ -84,12 +84,12 @@ namespace WordManager.Api.Controllers
                 return Ok();
             }
 
-            var validator = new CreateCurriculumValidator();
+            var validator = new UpdateCurriculumValidator();
             var result = validator.Validate(curriculum);
 
-            if (curriculum.Rank != curriculum.OriginalRank && _getByRankAndTypeQueryHandler.Handle(new GetCurriculumByRankAndTypeQuery(curriculum)).Curriculum != null)
+            if (_getByRankAndTypeQueryHandler.Handle(new GetCurriculumByRankAndTypeQuery(curriculum)).Curriculum == null)
             {
-                result.Errors.Add(new ValidationFailure("Dual_Rank_&_RankTypeName", CreateDuplicateRankMessage(curriculum), new { curriculum.Rank, curriculum.RankType }));
+                result.Errors.Add(new ValidationFailure("Invalid_Curriculum_Data", "Forkert data for gradueringen."));
             }
 
             if (!result.IsValid)
