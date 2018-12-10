@@ -9,14 +9,14 @@ using Wordmanager.Data.Models;
 namespace WordManager.Api.Migrations
 {
     [DbContext(typeof(WordManagerContext))]
-    [Migration("20180927113914_Initial")]
-    partial class Initial
+    [Migration("20181210072851_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932");
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
 
             modelBuilder.Entity("Wordmanager.Data.Models.Entities.Category", b =>
                 {
@@ -100,6 +100,11 @@ namespace WordManager.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RankSortOrders");
+
+                    b.HasData(
+                        new { Id = 1L, Direction = "Opadgående", Value = 1 },
+                        new { Id = 2L, Direction = "Nedadgående", Value = 2 }
+                    );
                 });
 
             modelBuilder.Entity("Wordmanager.Data.Models.Entities.RankType", b =>

@@ -22,8 +22,8 @@ export class RankTypeFormComponent implements OnInit {
     private dataService: DataService,
     private storage: MemoryStorageService
   ) {
-    this.model = <IRankType> { ...this.storage.rank };
-    this.originalModel = <IRankType> { ...this.storage.rank };
+    this.model = <IRankType>{ ...this.storage.rank };
+    this.originalModel = <IRankType>{ ...this.storage.rank };
   }
 
   async ngOnInit() {
@@ -59,6 +59,10 @@ export class RankTypeFormComponent implements OnInit {
 
   radioButtonClicked(groupId: number) {
     this.selectedSortOrderId = groupId;
+  }
+
+  submitForm(formData: any) {
+    console.log(formData);
   }
 
   private equals(a: IRankType, b: IRankType): boolean {

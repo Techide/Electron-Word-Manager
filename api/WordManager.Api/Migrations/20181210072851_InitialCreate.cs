@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WordManager.Api.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -147,6 +147,16 @@ namespace WordManager.Api.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "RankSortOrders",
+                columns: new[] { "Id", "Direction", "Value" },
+                values: new object[] { 1L, "Opadgående", 1 });
+
+            migrationBuilder.InsertData(
+                table: "RankSortOrders",
+                columns: new[] { "Id", "Direction", "Value" },
+                values: new object[] { 2L, "Nedadgående", 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Curricula_RankTypeId",

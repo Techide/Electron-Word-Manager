@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Wordmanager.Data.Models;
 
 namespace WordManager.Domain
@@ -10,7 +11,15 @@ namespace WordManager.Domain
         {
             using (var db = new WordManagerContext())
             {
-                db.Database.Migrate();
+                try
+                {
+                    db.Database.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
             }
         }
     }

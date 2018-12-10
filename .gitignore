@@ -105,3 +105,4 @@ Thumbs.db
 *.dtbcache
 api/.vs/
 *.db
+/.vscode
