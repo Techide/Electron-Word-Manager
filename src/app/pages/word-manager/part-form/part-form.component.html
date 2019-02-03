@@ -1,7 +1,28 @@
+<div class="back-button">
+  <i class="fa fa-2x fa-angle-double-left"
+     tabindex="0"
+     (click)="onBackButtonClicked()"></i>
+</div>
+
 <div class="page-grid">
-  <div class="back-button">
-    <i class="fa fa-2x fa-angle-double-left"
-       tabindex="0"
-       (click)="onBackButtonClicked()"></i>
-  </div>
+  <div class="form-title">{{ getTitle() }} GRUPPE</div>
+  <div class="form-subtitle">GRADUERING: {{ model.CategoryId }}</div>
+
+  <form #partForm="ngForm"
+        novalidate
+        class="page-form"
+        (ngSubmit)="submitForm()"
+        *ngIf="model">
+    <div class="form-body">
+      <div class="form-field">
+        <label for="name"></label>
+        <input type="text"
+               #name="ngModel"
+               [(ngModel)]="model.Name"
+               name="Name">
+      </div>
+
+    </div>
+  </form>
+
 </div>

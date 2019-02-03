@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseRepository } from './base-repository.abstract';
-import { ICurriculum } from '../interfaces/curriculum.interface';
 import { IPart } from '../interfaces/part.interface';
 
 @Injectable({
@@ -12,9 +11,11 @@ export class PartsRepository extends BaseRepository {
     super('parts');
   }
 
-  getByCurriculumId(curriculumId: number): Promise<IPart[]> {
-    return this.client
-      .get<IPart[]>(this.API_URL + '/' + curriculumId, {})
-      .toPromise<IPart[]>();
+  getByCurriculumId(curriculumId: number) {
+    return this.client.get<IPart[]>(this.API_URL + '/' + curriculumId);
+  }
+
+  delete(id: number): any {
+    return this.client.delete(this.API_URL + '/' + id);
   }
 }

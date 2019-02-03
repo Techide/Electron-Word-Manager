@@ -11,7 +11,7 @@ export class RankSortOrderRepository extends BaseRepository {
     super('ranksortorder');
   }
 
-  all(): Promise<IRankSortOrder[]> {
-    return this.client.get<IRankSortOrder[]>(this.API_URL).toPromise();
+  all() {
+    return this.client.get<IRankSortOrder[]>(this.API_URL);
   }
 }

@@ -2,6 +2,9 @@
   "name": "electron-word-manager",
   "productName": "Jiu Jutsu Gradueringer",
   "version": "0.0.0",
+  "browserslist": [
+    "last 2 chrome versions"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

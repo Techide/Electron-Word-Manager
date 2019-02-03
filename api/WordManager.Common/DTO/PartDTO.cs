@@ -10,6 +10,8 @@ namespace WordManager.Common.DTO
 
         public string Name { get; set; }
 
+        public long CurriculumId { get; set; }
+
         public long CategoryId { get; set; }
 
         public long? ParentPartId { get; set; }

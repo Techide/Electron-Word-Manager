@@ -1,4 +1,4 @@
-import { FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { ValidationErrors } from '@angular/forms';
 
 export function minValueValidator(
   val: number,

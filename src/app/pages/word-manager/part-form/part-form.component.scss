@@ -10,6 +10,35 @@
   min-width: 640px;
 }
 
+.page-form {
+  grid-row: 2;
+}
+
+.form-title {
+  font-size: 2em;
+  font-weight: 700;
+  align-self: center;
+  text-align: center;
+  padding: 36px 0 0 0;
+  text-shadow: 0 0 6px #000, 0 0 3px #000;
+
+  grid-column: 2;
+  border-bottom: 1px solid map-get($globalMainColors, main);
+  cursor: default;
+}
+
+.form-subtitle {
+  font-size: 1.3em;
+  font-weight: 500;
+  align-self: center;
+  text-align: center;
+  text-shadow: 0 0 6px #000, 0 0 3px #000;
+
+  grid-column: 2;
+  margin-bottom: 36px;
+  cursor: default;
+}
+
 .back-button {
   position: absolute;
   top: 12px;
@@ -28,6 +57,7 @@
     &:focus {
       color: map-get($globalMainColors, main-highlight);
     }
+
     &:hover {
       color: map-get($globalMainColors, main-highlight);
     }

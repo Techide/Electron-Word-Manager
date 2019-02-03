@@ -1,37 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { DataService } from '../../../shared/services/data.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
 import { IPart } from '../../../shared/interfaces/part.interface';
-import { switchMap } from 'rxjs/operators';
-import { NavigationService } from 'src/app/shared/services/navigation.service';
+import { MemoryStorageService } from 'src/app/shared/services/memory-storage.service';
+
+export enum PartLoadStatus {
+  initial,
+  loading,
+  ready
+}
 
 @Component({
   selector: 'ewm-curriculum-details',
   templateUrl: './curriculum-details.component.html',
   styleUrls: ['./curriculum-details.component.scss']
 })
-export class CurriculumDetailsComponent implements OnInit {
-  parts: IPart[];
+export class CurriculumDetailsComponent implements OnChanges {
   dataLoaded = false;
+  PartLoadStatuses: typeof PartLoadStatus = PartLoadStatus;
+  partLoadStatus: PartLoadStatus = PartLoadStatus.initial;
+  @Input() parts: IPart[];
 
   constructor(
     private data: DataService,
-    private navigator: NavigationService,
-    private route: ActivatedRoute
-  ) { }
+    private storage: MemoryStorageService
+  ) {
+    console.log(this.parts);
+  }
 
-  ngOnInit() {
-    this.route.paramMap
-      .pipe(
-        switchMap((x: ParamMap) => {
-          const id = parseInt(x.get('id'), 10);
-          return this.data.parts.getByCurriculumId(id);
-        })
-      )
-      .subscribe(x => {
-        this.parts = x;
-        this.dataLoaded = true;
-      });
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.parts && changes.parts.currentValue) {
+      this.partLoadStatus = PartLoadStatus.ready;
+    }
+    console.log(changes);
+  }
+
+  get selected(): any {
+    return this.storage.curriculum.selectedItem;
   }
 
   anyParts(): boolean {
@@ -39,10 +43,16 @@ export class CurriculumDetailsComponent implements OnInit {
   }
 
   createPartClicked() {
-    this.navigator.navigate([{ outlets: { details: 'createpart' } }]);
+    this.storage.part.editingItem = <IPart> {};
+    // this.navigator.navigate(['/part']);
   }
 
-  isDataLoaded(): boolean {
-    return this.dataLoaded;
+  editPart(item: IPart): void {
+    this.storage.part.editingItem = item;
+    // this.navigator.navigate(['/part']);
+  }
+
+  deletePart(item: IPart): void {
+    this.data.parts.delete(item.Id);
   }
 }

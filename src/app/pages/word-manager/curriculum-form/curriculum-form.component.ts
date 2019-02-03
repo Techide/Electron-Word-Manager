@@ -1,9 +1,8 @@
-import { DataService } from "../../../shared/services/data.service";
-import { ICurriculum } from "../../../shared/interfaces/curriculum.interface";
-import { HttpErrorResponse } from "@angular/common/http";
-import { MemoryStorageService } from "../../../shared/services/memory-storage.service";
-import { Component, OnInit } from "@angular/core";
-import { NavigationService } from "src/app/shared/services/navigation.service";
+import { DataService } from '../../../shared/services/data.service';
+import { ICurriculum } from '../../../shared/interfaces/curriculum.interface';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MemoryStorageService } from '../../../shared/services/memory-storage.service';
+import { Component, OnInit } from '@angular/core';
 
 class IErrorMessage {
   PropertyName: string;
@@ -12,14 +11,14 @@ class IErrorMessage {
 }
 
 @Component({
-  selector: "ewm-curriculum-form",
-  templateUrl: "./curriculum-form.component.html",
-  styleUrls: ["./curriculum-form.component.scss"]
+  selector: 'ewm-curriculum-form',
+  templateUrl: './curriculum-form.component.html',
+  styleUrls: ['./curriculum-form.component.scss']
 })
 export class CurriculumFormComponent implements OnInit {
   model: ICurriculum;
 
-  // originalModel: ICurriculum;
+  originalModel: ICurriculum;
 
   occupiedRanks: number[];
 
@@ -27,54 +26,43 @@ export class CurriculumFormComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private storageService: MemoryStorageService,
-    private navigation: NavigationService
+    private storageService: MemoryStorageService
   ) {
-    this.model = <ICurriculum> {
-      ...this.storageService.Curriculum,
-      OriginalRank: this.storageService.Curriculum.Rank,
-      OriginalColor: this.storageService.Curriculum.Color
-    };
+    this.model = this.storageService.curriculum.editingItem;
+    this.originalModel = <ICurriculum> { ... this.storageService.curriculum.editingItem };
   }
 
-  async ngOnInit(): Promise<void> {
-    this.occupiedRanks = await this.getData();
-  }
-
-  async getData(): Promise<number[]> {
-    const rank = this.storageService.rank;
+  ngOnInit() {
+    const rank = this.storageService.rank.selectedItem;
     const dataArray: number[] = [];
-    const data = await this.dataService.curricula.getByRankType(rank.Id);
-    data.forEach(x => {
-      dataArray.push(x.Rank);
-    });
-    return dataArray;
+    this.dataService.curricula.getByRankType(rank.Id)
+      .subscribe(data => {
+        data.forEach(x => {
+          dataArray.push(x.Rank);
+        });
+      });
   }
 
-  async submitForm() {
-    let actionResult = null;
-
-    this.model.OriginalRank
-    try {
-      if (this.model.Id > 0) {
-        actionResult = await this.dataService.curricula.update(this.model);
-      } else {
-        actionResult = await this.dataService.curricula.create(this.model);
-      }
-
-      this.storageService.Curriculum = actionResult;
-      this.navigation.navigateBack();
-    } catch (error) {
-      this.handleError(error);
+  submitForm() {
+    let observable = null;
+    if (this.model.Id > 0) {
+      observable = this.dataService.curricula.update(this.model);
+    } else {
+      observable = this.dataService.curricula.create(this.model);
     }
+
+    observable.subscribe(x => {
+      this.storageService.curriculum.editingItem = x;
+    }, (error: HttpErrorResponse) => this.handleError(error));
+
   }
 
   getTitle(): string {
-    return this.model.Id > 0 ? "REDIGER" : "OPRET";
+    return this.model.Id > 0 ? 'REDIGER' : 'OPRET';
   }
 
   onBackButtonClicked() {
-    this.navigation.navigateBack();
+    this.storageService.curriculum.editingItem = null;
   }
 
   getDisableSubmit(formInvalid: boolean): boolean {
@@ -98,6 +86,6 @@ export class CurriculumFormComponent implements OnInit {
   }
 
   private equals(curriculum: ICurriculum): boolean {
-    return curriculum.Rank === curriculum.OriginalRank && curriculum.Color === curriculum.OriginalColor;
+    return curriculum.Rank === this.originalModel.Rank && curriculum.Color === this.originalModel.Color;
   }
 }

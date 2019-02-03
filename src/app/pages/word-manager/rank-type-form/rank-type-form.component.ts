@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { DataService } from '../../../shared/services/data.service';
-import { IRankType } from '../../../shared/interfaces/rank-type.interface';
-import { IRankSortOrder } from '../../../shared/interfaces/rank-sort-order.interface';
 import { MemoryStorageService } from 'src/app/shared/services/memory-storage.service';
-import { NavigationService } from 'src/app/shared/services/navigation.service';
+import { IRankType, IRankSortOrder } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'ewm-rank-type-form',
@@ -15,25 +15,20 @@ export class RankTypeFormComponent implements OnInit {
   originalModel: IRankType;
   sortOrders: IRankSortOrder[];
 
-  selectedSortOrderId: number;
-
   constructor(
-    private navigator: NavigationService,
-    private dataService: DataService,
-    private storage: MemoryStorageService
+    private data: DataService,
+    private storage: MemoryStorageService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
-    this.model = <IRankType> { ...this.storage.rank };
-    this.originalModel = <IRankType> { ...this.storage.rank };
+    this.originalModel = <IRankType> { ...this.storage.rank.editingItem };
+    this.model = this.storage.rank.editingItem;
+    this.route.data
+      .pipe<IRankSortOrder[]>(map(res => res['ranksortorders']))
+      .subscribe(x => { this.sortOrders = x; });
   }
 
-  async ngOnInit() {
-
-    const promise = this.dataService.RankSortOrdes.all();
-    promise.catch(x => {
-      console.error(x);
-    });
-    this.sortOrders = await promise;
-    this.selectedSortOrderId = this.model.SortOrderId;
+  ngOnInit() {
   }
 
   getTitle() {
@@ -41,12 +36,8 @@ export class RankTypeFormComponent implements OnInit {
   }
 
   onBackButtonClicked() {
-    this.storage.rank = null;
-    this.navigator.navigateBack();
-  }
-
-  selected() {
-    return this.selectedSortOrderId;
+    this.storage.rank.editingItem = null;
+    this.router.navigate(['..'], { relativeTo: this.route });
   }
 
   getDisableSubmit(formInvalid: boolean): boolean {
@@ -58,7 +49,7 @@ export class RankTypeFormComponent implements OnInit {
   }
 
   radioButtonClicked(groupId: number) {
-    this.selectedSortOrderId = groupId;
+    this.model.SortOrderId = Number(groupId);
   }
 
   private equals(a: IRankType, b: IRankType): boolean {

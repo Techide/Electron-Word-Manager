@@ -10,10 +10,12 @@ namespace WordManager.Api.Controllers
     public class PartsController : ControllerBase
     {
         private readonly IQueryHandler<GetPartsFromCollectionIdQuery, GetPartsFromCollectionIdQueryResult> _queryHandler;
+        private readonly ICommandHandler<CreatePartCommand> _createPartCommandHandler;
 
-        public PartsController(IQueryHandler<GetPartsFromCollectionIdQuery, GetPartsFromCollectionIdQueryResult> queryHandler)
+        public PartsController(IQueryHandler<GetPartsFromCollectionIdQuery, GetPartsFromCollectionIdQueryResult> queryHandler, ICommandHandler<CreatePartCommand> createPartCommandHandler)
         {
             _queryHandler = queryHandler ?? throw new System.ArgumentNullException(nameof(queryHandler));
+            _createPartCommandHandler = createPartCommandHandler ?? throw new System.ArgumentNullException(nameof(createPartCommandHandler));
         }
 
         [HttpGet("{id}", Name = nameof(GetParts))]
@@ -26,7 +28,13 @@ namespace WordManager.Api.Controllers
         [HttpPost]
         public ActionResult Post(PartDTO part)
         {
-            return Ok();
+            if (part == null)
+            {
+                return Ok();
+            }
+
+            _createPartCommandHandler.Handle(new CreatePartCommand(part));
+            return CreatedAtRoute(RouteData.Values, new { part.Id });
         }
 
         [HttpPut]

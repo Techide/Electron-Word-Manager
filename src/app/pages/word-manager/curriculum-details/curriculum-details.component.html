@@ -1,43 +1,86 @@
-<div class="page-grid">
-  <div>Detaljer</div>
+<div *ngIf="selected"
+     class="page-grid">
+  <div class="page-header">
+    <div class="page-header-label">Detaljer</div>
+    <div class="page-header-button"
+         title="Opret en ny gruppe"
+         *ngIf="anyParts()">
+      <i class="fa fa-plus-circle"
+         tabindex="0"
+         (click)="createPartClicked()"></i>
+    </div>
+  </div>
 
-  <div class="grid-wrapper" *ngIf="isDataLoaded()">
-    <div class="details-layout-grid">
-      <ng-container *ngIf="!anyParts(); else: itemPartTemplate">
-        <div class="list-empty-item">
-          <div class="no-data-label">Ingen detaljer fundet</div>
-          <div
-            class="empty-item-card"
-            tabindex="0"
-            (click)="createPartClicked()"
-          >
-            <div class="empty-item-text">Opret gruppe</div>
-            <div class="empty-item-icon"><i class="fa fa-plus-circle"></i></div>
-          </div>
-        </div>
-      </ng-container>
-      <ng-template #itemPartTemplate>
-        <div class="part" *ngFor="let item of parts">
-          <div class="part-content">
-            <div class="name">
-              <span> {{ item.Name }} </span>
-            </div>
-            <div class="word" *ngFor="let word of item.Words">
-              {{ word.Name }}
-              <div class="description">{{ word.Description }}</div>
-            </div>
-          </div>
-          <div class="subpart" *ngFor="let inner of item.SubParts">
-            <div class="part-content">
-              <div class="subpart-divider"></div>
-              <div class="name">{{ inner.Name }}</div>
-              <div class="word" *ngFor="let innerWord of inner.Words">
-                {{ innerWord.Name }}
+  <div class="grid-wrapper">
+    <!-- <div > -->
+
+    <ng-container [ngSwitch]="partLoadStatus">
+      <div *ngSwitchCase="PartLoadStatuses.initial">
+      </div>
+
+      <div *ngSwitchCase="PartLoadStatuses.ready">
+
+        <ng-container *ngIf="!parts.length; else itemPartTemplate">
+          <div class="details-layout-grid">
+            <div class="list-empty-item">
+              <div class="no-data-label">Ingen detaljer fundet</div>
+              <div class="empty-item-card"
+                   tabindex="0"
+                   (click)="createPartClicked()">
+                <div class="empty-item-text">Opret gruppe</div>
+                <div class="empty-item-icon"><i class="fa fa-plus-circle"></i></div>
               </div>
             </div>
           </div>
-        </div>
-      </ng-template>
-    </div>
+
+        </ng-container>
+
+        <ng-template #itemPartTemplate>
+          <div class="details-layout-grid">
+            <div class="part"
+                 [contextMenu]="partContextMenu"
+                 [contextMenuSubject]="item"
+                 *ngFor="let item of parts">
+              <div class="part-content">
+                <div class="name">
+                  <span> {{ item.Name }} </span>
+                </div>
+                <div class="word"
+                     *ngFor="let word of item.Words">
+                  {{ word.Name }}
+                  <div class="description">{{ word.Description }}</div>
+                </div>
+              </div>
+              <div class="subpart"
+                   *ngFor="let inner of item.SubParts">
+                <div class="part-content">
+                  <div class="subpart-divider"></div>
+                  <div class="name">{{ inner.Name }}</div>
+                  <div class="word"
+                       *ngFor="let innerWord of inner.Words">
+                    {{ innerWord.Name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <context-menu #partContextMenu>
+            <ng-template contextMenuItem
+                         (execute)="editPart($event.item)">
+              Rediger
+            </ng-template>
+            <ng-template contextMenuItem
+                         (execute)="deletePart($event.item)">
+              Slet
+            </ng-template>
+          </context-menu>
+        </ng-template>
+
+      </div>
+
+    </ng-container>
+
+    <!-- </div> -->
   </div>
 </div>

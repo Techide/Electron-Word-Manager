@@ -17,16 +17,15 @@ namespace WordManager.Domain.Curricula.Commands
 
         public void Handle(CreateCurriculumCommand command)
         {
-            var rankType = _db.RankTypes.Where(x => x.Name.ToLower() == command.DTO.RankType.ToLower()).Single();
-            //var rankType = _db.RankTypes.Single(x => x.Id == command.DTO.RankTypeId);
-            var created = _db.Curricula.Add(new Wordmanager.Data.Models.Entities.Curriculum
+            var rankType = _db.RankTypes.Single(x => x.Name.ToLower() == command.DTO.RankType.ToLower());
+            var change = _db.Curricula.Add(new Wordmanager.Data.Models.Entities.Curriculum
             {
                 Color = command.DTO.Color,
                 Rank = command.DTO.Rank,
                 RankTypeId = rankType.Id
             });
             _db.SaveChanges();
-            command.DTO.Id = created.Entity.Id;
+            command.DTO.Id = change.Entity.Id;
         }
     }
 }

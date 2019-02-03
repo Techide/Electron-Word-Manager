@@ -5,13 +5,49 @@
   grid-template-columns: auto;
   grid-template-rows: min-content;
   padding: 12px;
+  padding-bottom: 0;
   height: 100%;
   box-sizing: border-box;
 }
+
+.page-header {
+  display: flex;
+}
+
+.page-header-label {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.page-header-button {
+  flex-grow: 0;
+  flex-shrink: 1;
+
+  & i {
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all $globalTransitionTiming ease-in-out;
+    border-radius: 100%;
+    outline: none;
+
+    &:focus {
+      color: map-get($globalMainColors, main-highlight);
+    }
+
+    &:hover {
+      color: map-get($globalMainColors, main-highlight);
+    }
+  }
+
+}
+
 .grid-wrapper {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 1em - 110px - 24px);
+  height: calc(100vh - 1em - 110px - 36px - 20px);
+  overflow-y: scroll;
+  margin-top: 12px;
+  // margin-bottom: 12px;
 }
 
 .details-layout-grid {
@@ -20,7 +56,8 @@
   grid-auto-rows: min-content;
   grid-row-gap: 1em;
   padding: 12px;
-  overflow-y: scroll;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .no-data-label {
@@ -54,6 +91,7 @@
     & .empty-item-icon {
       flex: 1;
       text-align: right;
+
       & i {
         color: inherit;
       }
@@ -66,6 +104,7 @@
   border-radius: $global-border-radius;
   background-color: map-get($globalMainColors, main);
   transition: $globalElementTransition;
+
   &:hover {
     background-color: map-get($globalMainColors, main-highlight);
   }

@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CurriculaListComponent } from './pages/word-manager/curricula-list/curricula-list.component';
 import { WordManagerComponent } from './pages/word-manager/word-manager.component';
 
 const routes: Routes = [
   { path: '', component: WordManagerComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '**', redirectTo: '', pathMatch: 'full', component: WordManagerComponent }
 ];
 
 @NgModule({
@@ -16,4 +15,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

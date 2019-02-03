@@ -15,14 +15,18 @@
   </div>
 
   <div class="rank-selection-grid">
-    <ewm-user-button class="rank-selection-button"
-                     (click)="onRankClicked(rank)"
-                     [contextMenu]="rankSelectionMenu"
-                     [contextMenuSubject]="rank"
-                     *ngFor="let rank of ranks">
-      {{rank.Name.toUpperCase()}}
-    </ewm-user-button>
-
+    <ng-container *ngIf="ranks.length > 0; else noRanksTemplate">
+      <ewm-user-button class="rank-selection-button"
+                       (click)="onRankClicked(rank)"
+                       [contextMenu]="rankSelectionMenu"
+                       [contextMenuSubject]="rank"
+                       *ngFor="let rank of ranks">
+        {{rank.Name.toUpperCase()}}
+      </ewm-user-button>
+    </ng-container>
+    <ng-template #noRanksTemplate>
+      <div>Intet pensum fundet.</div>
+    </ng-template>
     <context-menu #rankSelectionMenu>
       <ng-template contextMenuItem
                    (execute)="onEditRankClicked($event.item)">

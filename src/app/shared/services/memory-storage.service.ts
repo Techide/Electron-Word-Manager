@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ICurriculum } from '../interfaces/curriculum.interface';
-import { IPart } from '../interfaces/part.interface';
-import { IRankType } from '../interfaces/rank-type.interface';
+import { IMemproperty, IRankType, ICurriculum, IPart } from '../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class MemoryStorageService {
-  public rankTypes: IRankType[];
-  public rank: IRankType;
 
-  public Curricula: ICurriculum[];
-  public Curriculum: ICurriculum;
-  public SelectedCurriculumId: number;
+  public rank: IMemproperty<IRankType> = <IMemproperty<IRankType>> {};
 
-  public Details: IPart[];
-  public Detail: IPart;
+  public curriculum: IMemproperty<ICurriculum> = <IMemproperty<ICurriculum>> {};
+
+  public part: IMemproperty<IPart> = <IMemproperty<IPart>> {};
 }

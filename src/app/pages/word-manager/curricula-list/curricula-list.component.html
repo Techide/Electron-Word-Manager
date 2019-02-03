@@ -1,56 +1,50 @@
-<div class="menu-grid"
-     *ngIf="curricula">
-    <div class="curriculum-selection-title">
-        <div class="list-title">
-            Graduering
-        </div>
-        <div class="list-add-button"
-             *ngIf="anyItems()">
-            <i class="fa fa-plus-circle"
-               tabindex="0"
-               (click)="createCardClicked()"></i>
-        </div>
+<div class="menu-grid">
+  <div class="curriculum-selection-title">
+    <div class="list-title">
+      Graduering
     </div>
-    <div class="card-grid">
-        <div class="list-empty-item"
-             *ngIf="anyItems() === false">
-            <div class="no-data-label">Ingen gradueringer fundet</div>
-            <div class="empty-item-card"
-                 tabindex="0"
-                 (click)="createCardClicked()">
-                <div class="empty-item-text">Opret graduering</div>
-                <div class="empty-item-icon">
-                    <i class="fa fa-plus-circle"></i>
-                </div>
-            </div>
-        </div>
-        <ewm-user-button #card
-                         class="curriculum-card-item"
-                         (click)="onCardClicked(item.Id)"
-                         [ngClass]="{selected: selectedItem === item.Id}"
-                         [contextMenu]="cardMenu"
-                         [contextMenuSubject]="item"
-                         *ngFor="let item of curricula">
-            <div class="card-content">
-                <div class="card-level">{{item.Rank}}.{{item.RankType.toUpperCase()}}</div>
-                <div class="card-color">{{item.Color}} bælte</div>
-            </div>
-        </ewm-user-button>
-        <context-menu #cardMenu>
-            <ng-template contextMenuItem
-                         (execute)="editItem($event.item)">
-                Rediger
-            </ng-template>
-            <ng-template contextMenuItem
-                         (execute)="deleteItem($event.item)">
-                Slet
-            </ng-template>
-        </context-menu>
+    <div class="list-add-button"
+         *ngIf="anyItems()">
+      <i class="fa fa-plus-circle"
+         tabindex="0"
+         (click)="createCardClicked()"></i>
     </div>
+  </div>
+  <div class="card-grid">
+    <div class="list-empty-item"
+         *ngIf="anyItems() === false">
+      <div class="no-data-label">Ingen gradueringer fundet</div>
+      <div class="empty-item-card"
+           tabindex="0"
+           (click)="createCardClicked()">
+        <div class="empty-item-text">Opret graduering</div>
+        <div class="empty-item-icon">
+          <i class="fa fa-plus-circle"></i>
+        </div>
+      </div>
+    </div>
+    <ewm-user-button #card
+                     class="curriculum-card-item"
+                     (click)="onCardClicked(item)"
+                     [ngClass]="{selected: checkSelectedItem(item)}"
+                     [contextMenu]="cardMenu"
+                     [contextMenuSubject]="item"
+                     *ngFor="let item of curricula">
+      <div class="card-content">
+        <div class="card-level">{{item.Rank}}.{{item.RankType.toUpperCase()}}</div>
+        <div class="card-color">{{item.Color}} bælte</div>
+      </div>
+    </ewm-user-button>
+    <context-menu #cardMenu>
+      <ng-template contextMenuItem
+                   (execute)="editItem($event.item)">
+        Rediger
+      </ng-template>
+      <ng-template contextMenuItem
+                   (execute)="deleteItem($event.item)">
+        Slet
+      </ng-template>
+    </context-menu>
+  </div>
 </div>
-
-<!-- <ewm-modal id="curriculum-form"
-           #modal>
-    <ewm-curriculum-form (formDataSubmitted)="onFormDataSubmitted($event, modal.id)"
-                         [model]="modal.data"></ewm-curriculum-form>
-</ewm-modal> -->
+<router-outlet></router-outlet>

@@ -5,8 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WordManagerModule } from './pages/word-manager/word-manager.module';
 
-import { ContextMenuModule } from 'ngx-contextmenu';
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,4 +15,4 @@ import { ContextMenuModule } from 'ngx-contextmenu';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

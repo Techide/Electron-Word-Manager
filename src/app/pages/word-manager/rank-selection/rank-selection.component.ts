@@ -1,49 +1,53 @@
-import { Component, OnInit } from "@angular/core";
-import { DataService } from "../../../shared/services/data.service";
-import { IRankType } from "../../../shared/interfaces/rank-type.interface";
-import { MemoryStorageService } from "../../../shared/services/memory-storage.service";
-import { NavigationService } from "src/app/shared/services/navigation.service";
-import { RankType } from "src/app/shared/models/rank-type.model";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+
+import { DataService } from '../../../shared/services/data.service';
+import { MemoryStorageService } from '../../../shared/services/memory-storage.service';
+import { RankType } from 'src/app/shared/models/rank-type.model';
+import { IRankType, IMemproperty, ICurriculum } from 'src/app/shared/interfaces';
 
 @Component({
-  selector: "ewm-rank-selection",
-  templateUrl: "./rank-selection.component.html",
-  styleUrls: ["./rank-selection.component.scss"]
+  selector: 'ewm-rank-selection',
+  templateUrl: './rank-selection.component.html',
+  styleUrls: ['./rank-selection.component.scss']
 })
 export class RankSelectionComponent implements OnInit {
-  ranks: IRankType[];
-  private readonly navigateTo = "/curriculum";
+  ranks: IRankType[] = [];
 
   constructor(
-    private dataService: DataService,
-    private storageService: MemoryStorageService,
-    private navigator: NavigationService
+    private data: DataService,
+    private storage: MemoryStorageService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
-  async ngOnInit() {
-    const result = await this.dataService.rankTypes.all();
-    this.ranks = result;
-    this.storageService.rankTypes = result;
+  ngOnInit() {
+    this.route.data
+      .pipe<IRankType[]>(map(data => data['ranks']))
+      .subscribe(x => { this.ranks = x; });
   }
 
   onRankClicked(rankType: IRankType) {
-    this.storageService.rank = rankType;
-    this.navigator.navigate(
-      [this.navigateTo, { outlets: { list: [rankType.Id] } }]
-    );
+    if (this.storage.rank.selectedItem && this.storage.rank.selectedItem.Id !== rankType.Id) {
+      this.storage.curriculum = <IMemproperty<ICurriculum>> {};
+    }
+
+    this.storage.rank.selectedItem = rankType;
+    this.router.navigate(['curricula', rankType.Id]);
   }
 
   onCreateRankClicked() {
-    this.storageService.rank = new RankType();
-    this.navigator.navigate(["create"]);
+    this.storage.rank.editingItem = new RankType();
+    this.router.navigate(['ranktype', 'edit']);
   }
 
   onEditRankClicked(rankType: IRankType) {
-    this.storageService.rank = rankType;
-    this.navigator.navigate(["edit"]);
+    this.storage.rank.editingItem = rankType;
+    this.router.navigate(['ranktype', 'edit']);
   }
 
   async onDeleteRankClicked(id: number) {
-    await this.dataService.rankTypes.delete(id);
+    await this.data.rankTypes.delete(id);
   }
 }

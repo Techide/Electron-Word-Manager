@@ -1,4 +1,4 @@
-@import '~src/variables';
+@import "~src/variables";
 
 .page-grid {
   display: grid;
@@ -28,6 +28,7 @@
     &:focus {
       color: map-get($globalMainColors, main-highlight);
     }
+
     &:hover {
       color: map-get($globalMainColors, main-highlight);
     }
@@ -36,7 +37,6 @@
 
 .page-form {
   grid-column: 2;
-  // grid-row: 2;
 }
 
 .form-title {
@@ -49,7 +49,6 @@
 
   grid-column: 2;
   border-bottom: 1px solid map-get($globalMainColors, main);
-  // margin-bottom: 36px;
   cursor: default;
 }
 
@@ -58,7 +57,6 @@
   font-weight: 500;
   align-self: center;
   text-align: center;
-  // padding: 36px 0 0 0;
   text-shadow: 0 0 6px #000, 0 0 3px #000;
 
   grid-column: 2;
@@ -106,13 +104,12 @@
   }
 
   $validation-message-padding: 6px;
-  $validation-message-height: calc(
-    1em + #{$validation-message-padding} + #{$validation-message-padding}
-  );
+  $validation-message-height: calc(1em + #{$validation-message-padding} + #{$validation-message-padding});
 
   & .validation-messages {
     grid-column: span 2;
     height: $validation-message-height;
+
     & .validation-message {
       padding-top: $validation-message-padding;
       color: $globalErrorColor;
@@ -120,21 +117,25 @@
       border-bottom-right-radius: $global-border-radius;
     }
   }
+
   &:focus-within {
     & input {
       border-bottom-color: map-get($globalMainColors, og);
     }
+
     & label {
       color: map-get($globalMainColors, og);
     }
   }
 }
+
 .form-footer {
   display: grid;
   padding-top: 1em;
   margin-top: 1em;
   grid-template-columns: 1fr auto;
   margin-bottom: 1em;
+
   & .form-button {
     grid-column: 2;
     cursor: pointer;
@@ -145,15 +146,19 @@
     display: flex;
     transition: $globalElementTransition;
     outline: none;
+
     &:active {
       border: 1px solid white;
     }
+
     &:focus {
       background-color: map-get($globalMainColors, main-highlight);
     }
+
     &:hover {
       background-color: map-get($globalMainColors, main-highlight);
     }
+
     &.button-disabled {
       background-color: map-get($globalBackgroundColors, main);
       border-color: map-get($globalMainColors, main);
@@ -162,12 +167,14 @@
     }
   }
 }
+
 .error-messages {
   background-color: map-get($globalMainColors, complement1);
   cursor: default;
   grid-column: span 2;
   padding: 6px;
   border-radius: $global-border-radius;
+
   & div:not(:last-child) {
     margin-bottom: 1em;
   }

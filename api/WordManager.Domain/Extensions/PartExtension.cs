@@ -17,5 +17,6 @@ namespace WordManager.Domain.Extensions
             Words = x.Words?.Select(WordExtensions.ToDTO),
             SubParts = x.SubParts?.Select(ToDTO)
         };
+
     }
 }

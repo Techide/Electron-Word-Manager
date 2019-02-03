@@ -72,7 +72,7 @@
     <div class="form-footer">
       <button class="form-button"
               [class.button-disabled]="getDisableSubmit(curriculaForm.invalid)"
-              [disabled]="getDisableSubmit(curriculaForm.invalid)"
+              [disabled]="getDisableSubmit(curriculaForm.invalid) || !curriculaForm.form.valid"
               type="submit">
         Gem
       </button>

@@ -19,20 +19,19 @@ export class CurriculumRepository extends BaseRepository {
 
   getByRankType(rankTypeId: number) {
     return this.client
-      .get<ICurriculum[]>(this.API_URL + '/' + rankTypeId, {})
-      .toPromise();
+      .get<ICurriculum[]>(this.API_URL + '/' + rankTypeId);
   }
 
   create(curriculum: ICurriculum) {
-    return this.client.post<ICurriculum>(this.API_URL, curriculum).toPromise();
+    return this.client.post<ICurriculum>(this.API_URL, curriculum);
   }
 
   update(curriculum: ICurriculum) {
-    return this.client.put<ICurriculum>(this.API_URL, curriculum).toPromise();
+    return this.client.put<ICurriculum>(this.API_URL, curriculum);
   }
 
   delete(id: number) {
-    return this.client.delete(this.API_URL + '/' + id).toPromise();
+    return this.client.delete(this.API_URL + '/' + id);
   }
 
 }
