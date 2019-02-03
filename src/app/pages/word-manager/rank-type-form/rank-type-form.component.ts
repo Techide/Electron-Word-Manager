@@ -52,6 +52,10 @@ export class RankTypeFormComponent implements OnInit {
     this.model.SortOrderId = Number(groupId);
   }
 
+  submitForm(formData: any) {
+    console.log(formData);
+  }
+
   private equals(a: IRankType, b: IRankType): boolean {
     const equals = a.Name === b.Name && a.SortOrderId === b.SortOrderId;
     return equals;

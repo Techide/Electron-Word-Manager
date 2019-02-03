@@ -30,7 +30,11 @@ namespace Wordmanager.Data.Models
         {
             modelBuilder.Entity<Curriculum>().HasIndex(x => new { x.Rank, x.RankTypeId }).IsUnique(true);
             modelBuilder.Entity<Part>().HasMany(x => x.SubParts).WithOne(x => x.ParentPart).HasForeignKey(x => x.ParentPartId);
-            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<RankSortOrder>().HasData(
+                new RankSortOrder { Id = 1, Direction = "Opadgående", Value = 1 },
+                new RankSortOrder { Id = 2, Direction = "Nedadgående", Value = 2 }
+            );
         }
     }
 }

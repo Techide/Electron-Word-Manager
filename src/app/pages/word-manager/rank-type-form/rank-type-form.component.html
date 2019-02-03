@@ -8,7 +8,8 @@
   <ng-container *ngIf="model">
     <form class="page-form"
           #rankTypeForm="ngForm"
-          novalidate>
+          novalidate
+          (submit)="submitForm($event)">
       <div class="form-body">
         <div class="form-field">
           <label for="rankName">Graduering</label>

@@ -20,6 +20,7 @@ export class RadioButtonComponent {
   }
 
   showIcon() {
+    console.log("show:", this.selectedGroupId, this.groupId);
     return Number(this.selectedGroupId) === Number(this.groupId);
   }
 }
