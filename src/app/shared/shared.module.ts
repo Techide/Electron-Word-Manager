@@ -9,7 +9,6 @@ import { ContextMenuModule } from 'ngx-contextmenu';
 import { MinValueDirective } from './directives/min-value.directive';
 import { ContainsNumberDirective } from './directives/contains-number.directive';
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
-import { RadioButtonComponent } from './components/radio-button/radio-button.component';
 
 @NgModule({
   imports: [
@@ -31,7 +30,6 @@ import { RadioButtonComponent } from './components/radio-button/radio-button.com
     FormsModule,
     ContextMenuModule,
     UserButtonComponent,
-    RadioButtonComponent,
     MinValueDirective,
     ContainsNumberDirective,
     NumbersOnlyDirective
@@ -41,7 +39,6 @@ import { RadioButtonComponent } from './components/radio-button/radio-button.com
     MinValueDirective,
     ContainsNumberDirective,
     NumbersOnlyDirective,
-    RadioButtonComponent,
   ]
 })
 export class SharedModule { }

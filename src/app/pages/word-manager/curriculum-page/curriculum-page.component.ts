@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Data } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ICurriculum } from 'src/app/shared/interfaces/curriculum.interface';
 import { MemoryStorageService } from 'src/app/shared/services/memory-storage.service';
@@ -17,10 +17,13 @@ export class CurriculumPageComponent {
     private route: ActivatedRoute,
     public storage: MemoryStorageService
   ) {
-    this.route.data.pipe(map(res => {
-      return res['curricula'];
-    }))
-      .subscribe((x: ICurriculum[]) => {
+    this.route.data
+      .pipe(
+        map<Data, ICurriculum[]>(res => {
+          return res['curricula'];
+        })
+      )
+      .subscribe(x => {
         this.storage.curriculum.items = x;
       });
   }

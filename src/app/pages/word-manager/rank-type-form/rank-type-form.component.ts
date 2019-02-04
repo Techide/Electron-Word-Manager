@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { DataService } from '../../../shared/services/data.service';
 import { MemoryStorageService } from 'src/app/shared/services/memory-storage.service';
 import { IRankType, IRankSortOrder } from 'src/app/shared/interfaces';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ewm-rank-type-form',
   templateUrl: './rank-type-form.component.html',
   styleUrls: ['./rank-type-form.component.scss']
 })
-export class RankTypeFormComponent implements OnInit {
+export class RankTypeFormComponent implements OnInit, OnDestroy {
   model: IRankType;
   originalModel: IRankType;
   sortOrders: IRankSortOrder[];
+
+  currentSub: Subscription;
 
   constructor(
     private data: DataService,
@@ -26,9 +29,19 @@ export class RankTypeFormComponent implements OnInit {
     this.route.data
       .pipe<IRankSortOrder[]>(map(res => res['ranksortorders']))
       .subscribe(x => { this.sortOrders = x; });
+
+    this.currentSub = router.events.subscribe(x => {
+      if (x instanceof NavigationStart) {
+        this.storage.rank.editingItem = null;
+      }
+    });
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.currentSub.unsubscribe();
   }
 
   getTitle() {
@@ -36,7 +49,6 @@ export class RankTypeFormComponent implements OnInit {
   }
 
   onBackButtonClicked() {
-    this.storage.rank.editingItem = null;
     this.router.navigate(['..'], { relativeTo: this.route });
   }
 
@@ -48,12 +60,13 @@ export class RankTypeFormComponent implements OnInit {
     return this.equals(this.model, this.originalModel);
   }
 
-  radioButtonClicked(groupId: number) {
-    this.model.SortOrderId = Number(groupId);
-  }
-
   submitForm(formData: any) {
     console.log(formData);
+    // if () {
+    //   this.data.rankTypes.create()
+    // } else {
+    //   this.data.rankTypes.create()
+    // }
   }
 
   private equals(a: IRankType, b: IRankType): boolean {

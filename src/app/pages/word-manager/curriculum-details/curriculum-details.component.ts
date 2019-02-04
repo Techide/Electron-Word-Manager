@@ -23,15 +23,12 @@ export class CurriculumDetailsComponent implements OnChanges {
   constructor(
     private data: DataService,
     private storage: MemoryStorageService
-  ) {
-    console.log(this.parts);
-  }
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.parts && changes.parts.currentValue) {
       this.partLoadStatus = PartLoadStatus.ready;
     }
-    console.log(changes);
   }
 
   get selected(): any {

@@ -9,25 +9,32 @@
     <form class="page-form"
           #rankTypeForm="ngForm"
           novalidate
-          (submit)="submitForm($event)">
+          (submit)="submitForm(rankTypeForm.value)">
       <div class="form-body">
         <div class="form-field">
           <label for="rankName">Graduering</label>
           <input id="rankName"
+                 required
                  placeholder="Indtast navnet på gradueringen"
                  [(ngModel)]="model.Name"
                  name="rankName" />
         </div>
 
         <div class="radio-button-group">
-          <label>Niveau rækkefølge</label>
-          <div class="buttons-container"
-               *ngFor="let sorting of sortOrders">
-            <ewm-radio-button groupId="{{sorting.Id}}"
-                              [selectedGroupId]="model.SortOrderId"
-                              (clicked)="radioButtonClicked($event)">
-              {{ sorting.Direction }}
-            </ewm-radio-button>
+          <label class="button-group-label">Niveau rækkefølge</label>
+          <div class="buttons-container">
+            <div class="radio-button"
+                 *ngFor="let sorting of sortOrders">
+              <label [for]="sorting.Direction">
+                {{sorting.Direction}}
+                <input type="radio"
+                       [id]="sorting.Direction"
+                       name="sortOrderId"
+                       [value]="sorting.Id"
+                       [(ngModel)]="model.SortOrderId">
+                <span class="check-mark fa fa-check"></span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
