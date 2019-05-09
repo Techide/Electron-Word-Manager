@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WordManager.Common\WordManager.Common.csproj" />
     <ProjectReference Include="..\Wordmanager.Data\Wordmanager.Data.csproj" />
   </ItemGroup>
 

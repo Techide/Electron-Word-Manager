@@ -41,7 +41,7 @@ namespace WordManager.Api.Controllers
         }
 
         [HttpPost(Name = nameof(CreateNewRankType))]
-        public ActionResult CreateNewRankType(RankTypeDTO rankType)
+        public ActionResult CreateNewRankType(RankTypeModel rankType)
         {
             if (rankType == null)
             {
@@ -76,7 +76,7 @@ namespace WordManager.Api.Controllers
         }
 
         [HttpPut(Name = nameof(UpdateRankType))]
-        public ActionResult UpdateRankType(RankTypeDTO rankType)
+        public ActionResult UpdateRankType(RankTypeModel rankType)
         {
             if (rankType == null)
             {

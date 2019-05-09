@@ -1,15 +1,21 @@
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Wordmanager.Data.Models;
 
-namespace Wordmanager.Data {
-  public static class IServiceCollectionExtension {
+namespace Wordmanager.Data
+{
+    public static class IServiceCollectionExtension
+    {
 
-    public static IServiceCollection AddSQLite(this IServiceCollection services) {
+        public static IServiceCollection AddSQLite(this IServiceCollection services)
+        {
+            string connectionString = "Data Source = WordManagerDataBase.db";
+            services.AddDbContext<WordManagerContext>(optionsBuilder =>
+            {
+                optionsBuilder.UseSqlite(connectionString, options => { options.MigrationsAssembly("WordManager.Api"); });
+            }, ServiceLifetime.Scoped);
 
-      services.AddDbContext<WordManagerContext>(ServiceLifetime.Transient);
+            return services;
+        }
 
-      return services;
     }
-
-  }
 }

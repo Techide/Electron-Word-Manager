@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using DP.CqsLite;
 using Microsoft.Extensions.DependencyInjection;
 using Wordmanager.Data;
+using WordManager.Domain.ReadServices;
 
 namespace WordManager.Domain
 {
@@ -14,8 +14,7 @@ namespace WordManager.Domain
         public static IServiceCollection AddCQS(this IServiceCollection services)
         {
 
-            services.Scan(Assembly.GetExecutingAssembly(), typeof(IQueryHandler<,>), ServiceLifetime.Transient);
-            services.Scan(Assembly.GetExecutingAssembly(), typeof(ICommandHandler<>), ServiceLifetime.Transient);
+            services.Scan(Assembly.GetExecutingAssembly(), typeof(IBaseService<>), ServiceLifetime.Transient);
             services.AddSQLite();
 
             return services;

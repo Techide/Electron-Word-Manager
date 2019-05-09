@@ -9,10 +9,10 @@ namespace WordManager.Api.Controllers
     [ApiController]
     public class PartsController : ControllerBase
     {
-        private readonly IQueryHandler<GetPartsFromCollectionIdQuery, GetPartsFromCollectionIdQueryResult> _queryHandler;
+        private readonly IQueryHandler<GetPartsFromCollectionIdQuery, PartsQueryResult> _queryHandler;
         private readonly ICommandHandler<CreatePartCommand> _createPartCommandHandler;
 
-        public PartsController(IQueryHandler<GetPartsFromCollectionIdQuery, GetPartsFromCollectionIdQueryResult> queryHandler, ICommandHandler<CreatePartCommand> createPartCommandHandler)
+        public PartsController(IQueryHandler<GetPartsFromCollectionIdQuery, PartsQueryResult> queryHandler, ICommandHandler<CreatePartCommand> createPartCommandHandler)
         {
             _queryHandler = queryHandler ?? throw new System.ArgumentNullException(nameof(queryHandler));
             _createPartCommandHandler = createPartCommandHandler ?? throw new System.ArgumentNullException(nameof(createPartCommandHandler));
@@ -26,7 +26,7 @@ namespace WordManager.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post(PartDTO part)
+        public ActionResult Post(PartModel part)
         {
             if (part == null)
             {
@@ -38,7 +38,7 @@ namespace WordManager.Api.Controllers
         }
 
         [HttpPut]
-        public ActionResult Put(PartDTO part)
+        public ActionResult Put(PartModel part)
         {
             return Ok();
         }

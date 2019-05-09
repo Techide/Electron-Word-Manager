@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wordmanager.Data", "Wordman
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordManager.Domain", "WordManager.Domain\WordManager.Domain.csproj", "{8E9BC10A-4383-4AE3-9EDE-05EC5CC80D8E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordManager.Common", "WordManager.Common\WordManager.Common.csproj", "{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F2DE2F70-63CC-4005-BA83-CD571AA07E0B}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -62,18 +60,6 @@ Global
 		{8E9BC10A-4383-4AE3-9EDE-05EC5CC80D8E}.Release|x64.Build.0 = Release|Any CPU
 		{8E9BC10A-4383-4AE3-9EDE-05EC5CC80D8E}.Release|x86.ActiveCfg = Release|Any CPU
 		{8E9BC10A-4383-4AE3-9EDE-05EC5CC80D8E}.Release|x86.Build.0 = Release|Any CPU
-		{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}.Debug|x64.Build.0 = Debug|Any CPU
-		{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}.Debug|x86.Build.0 = Debug|Any CPU
-		{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}.Release|x64.ActiveCfg = Release|Any CPU
-		{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}.Release|x64.Build.0 = Release|Any CPU
-		{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}.Release|x86.ActiveCfg = Release|Any CPU
-		{76B76596-0EB2-45DE-BB3B-A5C6BEA49B7A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

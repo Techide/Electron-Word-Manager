@@ -3,7 +3,7 @@ using WordManager.Common.DTO;
 
 namespace WordManager.Api.Validators
 {
-    public class CreateRankTypeValidator : AbstractValidator<RankTypeDTO>
+    public class CreateRankTypeValidator : AbstractValidator<RankTypeModel>
     {
         public CreateRankTypeValidator()
         {

@@ -8,9 +8,9 @@ namespace WordManager.Api.Controllers
     [ApiController]
     public class RankSortOrderController : ControllerBase
     {
-        private readonly IQueryHandler<GetAllRankSortOrdersQuery, GetAllRankSortOrdersQueryResult> _getAllQueryHandler;
+        private readonly IQueryHandler<GetAllRankSortOrdersQuery, RankSortOrderQueryResult> _getAllQueryHandler;
 
-        public RankSortOrderController(IQueryHandler<GetAllRankSortOrdersQuery, GetAllRankSortOrdersQueryResult> getAllQueryHandler)
+        public RankSortOrderController(IQueryHandler<GetAllRankSortOrdersQuery, RankSortOrderQueryResult> getAllQueryHandler)
         {
             _getAllQueryHandler = getAllQueryHandler ?? throw new System.ArgumentNullException(nameof(getAllQueryHandler));
         }
