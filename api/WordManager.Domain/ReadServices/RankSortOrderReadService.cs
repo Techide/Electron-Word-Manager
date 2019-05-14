@@ -4,7 +4,7 @@ using Wordmanager.Data.Entities;
 
 namespace WordManager.Domain.ReadServices
 {
-    public class RankSortOrderReadService : ABaseService<RankSortOrder>
+    public class RankSortOrderReadService : ABaseService<RankSortOrder>, IReadService<RankSortOrder>
     {
         public RankSortOrderReadService(WordManagerContext context) : base(context) { }
 
@@ -12,6 +12,5 @@ namespace WordManager.Domain.ReadServices
         {
             return _context.RankSortOrders;
         }
-
     }
 }

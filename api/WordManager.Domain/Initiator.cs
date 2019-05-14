@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Wordmanager.Data.Models;
+using Wordmanager.Data;
 
 namespace WordManager.Domain
 {

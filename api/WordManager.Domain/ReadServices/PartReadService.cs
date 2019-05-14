@@ -5,7 +5,7 @@ using Wordmanager.Data.Entities;
 
 namespace WordManager.Domain.ReadServices
 {
-    public class PartReadService : ABaseService<Part>
+    public class PartReadService : ABaseService<Part>, IReadService<Part>
     {
         public PartReadService(WordManagerContext context) : base(context) { }
 

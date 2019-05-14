@@ -3,7 +3,7 @@ using Wordmanager.Data.Entities;
 
 namespace WordManager.Domain
 {
-    public abstract class ABaseService<T> : IBaseService<T> where T : IEntity
+    public abstract class ABaseService<T> where T : IEntity
     {
         protected readonly WordManagerContext _context;
 
@@ -11,11 +11,5 @@ namespace WordManager.Domain
         {
             _context = context;
         }
-
-        public abstract T Create(T entity);
-
-        public abstract bool Delete(T entity);
-
-        public abstract T Update(T entity);
     }
 }

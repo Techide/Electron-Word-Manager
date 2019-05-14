@@ -3,21 +3,21 @@ using Wordmanager.Data.Entities;
 
 namespace WordManager.Domain.WriteServices
 {
-    public class RankTypeWriteService : ABaseService<RankType>
+    public class RankTypeWriteService : ABaseService<RankType>, IWriteService<RankType>
     {
         public RankTypeWriteService(WordManagerContext context) : base(context) { }
 
-        public override RankType Create(RankType entity)
+        public RankType Create(RankType entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public override bool Delete(RankType entity)
+        public bool Delete(RankType entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public override RankType Update(RankType entity)
+        public RankType Update(RankType entity)
         {
             throw new System.NotImplementedException();
         }

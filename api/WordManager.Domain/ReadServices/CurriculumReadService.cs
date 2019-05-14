@@ -5,7 +5,7 @@ using Wordmanager.Data.Entities;
 
 namespace WordManager.Domain.ReadServices
 {
-    public class CurriculumReadService : ABaseService<Curriculum>
+    public class CurriculumReadService : ABaseService<Curriculum>, IReadService<Curriculum>
     {
         public CurriculumReadService(WordManagerContext context) : base(context) { }
 

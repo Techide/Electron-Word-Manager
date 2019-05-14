@@ -1,25 +1,52 @@
-﻿using Wordmanager.Data;
+﻿using System.Threading.Tasks;
+using Wordmanager.Data;
 using Wordmanager.Data.Entities;
 
 namespace WordManager.Domain.WriteServices
 {
-    public class CurriculumWriteService : ABaseService<Curriculum>
+    public class CurriculumWriteService : ABaseService<Curriculum>, IWriteService<Curriculum>
     {
         public CurriculumWriteService(WordManagerContext context) : base(context) { }
 
-        public override Curriculum Create(Curriculum entity)
+        public Curriculum Create(Curriculum entity)
         {
-            throw new System.NotImplementedException();
+            return CreateAsync(entity).Result;
         }
 
-        public override bool Delete(Curriculum entity)
+        private async Task<Curriculum> CreateAsync(Curriculum entity)
         {
-            throw new System.NotImplementedException();
+            var rankType = _context.RankTypes.Find(entity.RankTypeId);
+            entity.RankType = rankType;
+            var change = _context.Curricula.Add(entity);
+            await _context.SaveChangesAsync();
+            return change.Entity;
         }
 
-        public override Curriculum Update(Curriculum entity)
+        public bool Delete(Curriculum entity)
         {
-            throw new System.NotImplementedException();
+            return DeleteAsync(entity).Result;
         }
+
+        private async Task<bool> DeleteAsync(Curriculum entity)
+        {
+            var change = _context.Curricula.Remove(entity);
+            var count = await _context.SaveChangesAsync();
+            return count == 1;
+        }
+
+        public Curriculum Update(Curriculum entity)
+        {
+            return UpdateAsync(entity).Result;
+        }
+
+        private async Task<Curriculum> UpdateAsync(Curriculum entity)
+        {
+            var change = _context.Curricula.Update(entity);
+            await _context.SaveChangesAsync();
+            return change.Entity;
+
+        }
+
+
     }
 }

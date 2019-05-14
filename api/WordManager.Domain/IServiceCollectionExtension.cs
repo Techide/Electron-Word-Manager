@@ -5,6 +5,7 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Wordmanager.Data;
 using WordManager.Domain.ReadServices;
+using WordManager.Domain.WriteServices;
 
 namespace WordManager.Domain
 {
@@ -14,7 +15,8 @@ namespace WordManager.Domain
         public static IServiceCollection AddCQS(this IServiceCollection services)
         {
 
-            services.Scan(Assembly.GetExecutingAssembly(), typeof(IBaseService<>), ServiceLifetime.Transient);
+            services.Scan(Assembly.GetExecutingAssembly(), typeof(IWriteService<>), ServiceLifetime.Scoped);
+            services.Scan(Assembly.GetExecutingAssembly(), typeof(IReadService<>), ServiceLifetime.Scoped);
             services.AddSQLite();
 
             return services;
