@@ -1,23 +1,47 @@
-﻿using Wordmanager.Data;
+﻿using System.Threading.Tasks;
+using Wordmanager.Data;
 using Wordmanager.Data.Entities;
+using WordManager.Common.DTO;
 
 namespace WordManager.Domain.WriteServices
 {
-    public class PartWriteService : ABaseService<Part>, IWriteService<Part>
+    public class PartWriteService : ABaseService, IWriteService<PartModel, Part>
     {
         public PartWriteService(WordManagerContext context) : base(context) { }
 
-        public Part Create(Part entity)
+        public Part Create(PartModel model)
         {
-            throw new System.NotImplementedException();
+            var entity = new Part
+            {
+                CategoryId = model.CategoryId,
+                CurriculumId = model.CurriculumId,
+                ParentPartId = model.ParentPartId,
+            };
+
+            return CreateAsync(entity).Result;
         }
 
-        public bool Delete(Part entity)
+        private async Task<Part> CreateAsync(Part entity)
         {
-            throw new System.NotImplementedException();
+            var change = _context.Parts.Add(entity);
+            await _context.SaveChangesAsync();
+            return change.Entity;
         }
 
-        public Part Update(Part entity)
+        public bool Delete(dynamic id)
+        {
+            var entity = _context.Parts.Find(id);
+            return DeleteAsync(entity).Result;
+        }
+
+        private async Task<bool> DeleteAsync(Part entity)
+        {
+            _context.Remove(entity);
+            var count = await _context.SaveChangesAsync();
+            return count == 1;
+        }
+
+        public Part Update(PartModel model)
         {
             throw new System.NotImplementedException();
         }

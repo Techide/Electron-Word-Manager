@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpClient,
-  HttpResponse,
-  HttpErrorResponse
+  HttpClient
 } from '@angular/common/http';
 import { BaseRepository } from './base-repository.abstract';
 import { ICurriculum } from '../interfaces/curriculum.interface';
-import { BehaviorSubject } from 'rxjs';
-import { subscribeOn } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

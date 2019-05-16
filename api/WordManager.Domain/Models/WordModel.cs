@@ -1,6 +1,6 @@
 ﻿namespace WordManager.Common.DTO
 {
-    public class WordModel
+    public class WordModel : IModel
     {
         public long Id { get; set; }
 

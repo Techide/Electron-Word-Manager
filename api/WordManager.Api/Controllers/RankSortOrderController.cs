@@ -17,14 +17,14 @@ namespace WordManager.Api.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-            var result = _readService.GetAll();
+            var result = _readService.All();
             return Ok(result);
         }
 
         [HttpGet("{id}", Name = nameof(Get))]
         public ActionResult Get(long id)
         {
-            var result = _readService.GetById(id);
+            var result = _readService.Find(id);
             return Ok(result);
         }
     }

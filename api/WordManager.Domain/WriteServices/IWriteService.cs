@@ -1,11 +1,12 @@
 ﻿using Wordmanager.Data.Entities;
+using WordManager.Common.DTO;
 
 namespace WordManager.Domain.WriteServices
 {
-    public interface IWriteService<T> where T : IEntity
+    public interface IWriteService<Tmodel, Tentity> where Tentity : IEntity where Tmodel : IModel
     {
-        T Create(T entity);
-        bool Delete(T entity);
-        T Update(T entity);
+        Tentity Create(Tmodel model);
+        bool Delete(dynamic id);
+        Tentity Update(Tmodel model);
     }
 }

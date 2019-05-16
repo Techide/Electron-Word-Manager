@@ -20,7 +20,7 @@ namespace WordManager.Api.Controllers
         [HttpGet("{id}", Name = nameof(GetParts))]
         public ActionResult GetParts(long id)
         {
-            var result = _readService.GetManyFromCollectionId(id);
+            var result = _readService.GetAllByCollectionId(id);
             return Ok(result);
         }
 

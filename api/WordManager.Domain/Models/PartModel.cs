@@ -2,7 +2,7 @@
 
 namespace WordManager.Common.DTO
 {
-    public class PartModel
+    public class PartModel : IModel
     {
 
         public long Id { get; set; }

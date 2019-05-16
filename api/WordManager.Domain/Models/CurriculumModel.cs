@@ -1,6 +1,6 @@
 ﻿namespace WordManager.Common.DTO
 {
-    public class CurriculumModel
+    public class CurriculumModel : IModel
     {
         public long Id { get; set; }
 

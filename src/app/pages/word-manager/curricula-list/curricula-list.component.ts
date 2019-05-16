@@ -1,17 +1,18 @@
-import { Component, OnInit, AfterContentInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterContentInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { DataService } from '../../../shared/services/data.service';
 import { ICurriculum } from '../../../shared/interfaces/curriculum.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, Data } from '@angular/router';
 import { IPart } from 'src/app/shared/interfaces';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ewm-curricula-list',
   templateUrl: './curricula-list.component.html',
   styleUrls: ['./curricula-list.component.scss']
 })
-export class CurriculaListComponent {
+export class CurriculaListComponent implements OnInit, OnChanges {
   @Input() curricula: ICurriculum[] = [];
 
   @Output() selectedItemChange: EventEmitter<ICurriculum> = new EventEmitter();
@@ -19,8 +20,25 @@ export class CurriculaListComponent {
 
   constructor(
     private data: DataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
+
+  ngOnInit(): void {
+    const selectedId = Number(this.route.snapshot.queryParams.selected);
+    if (isNaN(selectedId)) {
+      return;
+    }
+
+    const card = this.curricula.find(x => x.Id === selectedId);
+    if (card) {
+      this.onCardClicked(card);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
 
   anyItems(): boolean {
     return this.curricula.length > 0;
@@ -29,6 +47,12 @@ export class CurriculaListComponent {
   onCardClicked(card: ICurriculum): void {
     this.selectedCard = card;
     this.selectedItemChange.emit(card);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { selected: card.Id },
+      queryParamsHandling: 'merge',
+      replaceUrl: true
+    });
   }
 
   createCardClicked(): void {

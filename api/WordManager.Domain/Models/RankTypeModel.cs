@@ -1,6 +1,6 @@
 ﻿namespace WordManager.Common.DTO
 {
-    public class RankTypeModel
+    public class RankTypeModel : IModel
     {
         public long Id { get; set; }
 

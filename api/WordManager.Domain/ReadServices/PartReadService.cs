@@ -5,11 +5,16 @@ using Wordmanager.Data.Entities;
 
 namespace WordManager.Domain.ReadServices
 {
-    public class PartReadService : ABaseService<Part>, IReadService<Part>
+    public class PartReadService : ABaseService
     {
         public PartReadService(WordManagerContext context) : base(context) { }
 
-        public IQueryable<Part> GetManyFromCollectionId(long id)
+        /// <summary>
+        /// Returns all instances of <see cref="Part" /> belonging to the given <see cref="Curriculum"/> id and all their associated navigable entities.
+        /// </summary>
+        /// <param name="id">The id of the parent <see cref="Curriculum"/></param>
+        /// <returns></returns>
+        public IQueryable<Part> GetAllByCollectionId(long id)
         {
             var result = _context.Parts
                 .Include(x => x.Category)

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
+using WordManager.Api.Validators;
 using WordManager.Common.DTO;
 using WordManager.Domain.ReadServices;
 using WordManager.Domain.WriteServices;
@@ -21,7 +23,7 @@ namespace WordManager.Api.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-            var result = _readService.GetAll();
+            var result = _readService.All();
             return Ok(result);
         }
 
@@ -33,19 +35,22 @@ namespace WordManager.Api.Controllers
             //    return BadRequest("rankType");
             //}
 
-            //var validator = new CreateRankTypeValidator();
-            //var validation = validator.Validate(rankType);
+            var validator = new CreateRankTypeValidator();
+            var validation = validator.Validate(rankType);
 
+            var existing = _readService.SingleOrDefault(rankType.Name);
             //var existing = _getByNameQueryHandler.Handle(new GetRankTypeByNameQuery(rankType.Name));
-            //if (existing.Result != null)
-            //{
-            //    validation.Errors.Add(new ValidationFailure(nameof(rankType.Name), $"En graduering med navnet: {rankType.Name}, findes allerede", new { rankType.Name }));
-            //}
+            if (existing != null)
+            {
+                validation.Errors.Add(new ValidationFailure(nameof(rankType.Name), $"En graduering med navnet: {rankType.Name}, findes allerede", new { rankType.Name }));
+            }
 
-            //if (!validation.IsValid)
-            //{
-            //    return StatusCode(422, validation);
-            //}
+            if (!validation.IsValid)
+            {
+                return StatusCode(422, validation);
+            }
+
+            //_writeService.Create()
 
             //try
             //{

@@ -1,9 +1,8 @@
 ﻿using Wordmanager.Data;
-using Wordmanager.Data.Entities;
 
 namespace WordManager.Domain
 {
-    public abstract class ABaseService<T> where T : IEntity
+    public abstract class ABaseService
     {
         protected readonly WordManagerContext _context;
 

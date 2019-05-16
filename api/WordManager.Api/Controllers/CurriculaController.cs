@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using WordManager.Api.Validators;
 using WordManager.Common.DTO;
 using WordManager.Domain.ReadServices;
 using WordManager.Domain.WriteServices;
@@ -22,95 +25,68 @@ namespace WordManager.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetByRankTypeId(long id)
         {
-            var result = _readService.GetByRankType(id);
+            var result = _readService.Get(id);
             return Ok(result);
         }
 
         [HttpPost(Name = nameof(CreateNewCurriculum))]
         public ActionResult CreateNewCurriculum(CurriculumModel curriculum)
         {
-            //if (curriculum == null)
-            //{
-            //    return Ok();
-            //}
+            if (curriculum == null)
+            {
+                return Ok();
+            }
 
-            //var validator = new CurriculumValidator();
-            //var result = validator.Validate(curriculum);
+            var validator = new CurriculumValidator();
+            var validation = validator.Validate(curriculum);
 
-            //if (_readService.GetByRankAndRankTypeName(curriculum.Rank, curriculum.RankType) != null)
-            //{
-            //    result.Errors.Add(new ValidationFailure("Dual_Rank_&_RankTypeName", CreateDuplicateRankMessage(curriculum), new { curriculum.Rank, curriculum.RankType }));
-            //}
+            if (_readService.Get(curriculum.Rank, curriculum.RankType) != null)
+            {
+                validation.Errors.Add(new ValidationFailure("Dual_Rank_&_RankTypeName", CreateDuplicateRankMessage(curriculum), new { curriculum.Rank, curriculum.RankType }));
+            }
 
-            //if (!result.IsValid)
-            //{
-            //    return StatusCode(422, result);
-            //}
+            if (!validation.IsValid)
+            {
+                return StatusCode(422, validation);
+            }
 
-            //try
-            //{
-            //    _createNewCommandHandler.Handle();
-            //    return CreatedAtRoute(RouteData.Values, curriculum);
-            //}
-            //catch (Exception)
-            //{
-            //    //TODO: Log exception and data;
-            //    return StatusCode(500);
-            //}
-            return Ok();
+            var result = _writeService.Create(curriculum);
+
+            return CreatedAtAction(nameof(GetByRankTypeId), result);
         }
 
         [HttpPut]
         public ActionResult UpdateCurriculum(CurriculumModel curriculum)
         {
 
-            //if (curriculum == null)
-            //{
-            //    return Ok();
-            //}
+            if (curriculum == null)
+            {
+                return Ok();
+            }
 
-            //var validator = new CurriculumValidator();
-            //var result = validator.Validate(curriculum);
+            var validator = new CurriculumValidator();
+            var validation = validator.Validate(curriculum);
 
-            //if (_getByRankAndTypeQueryHandler.Handle(new GetCurriculumByRankAndRankTypeQuery(curriculum)).Curriculum == null)
-            //{
-            //    result.Errors.Add(new ValidationFailure("Invalid_Curriculum_Data", "Forkert data for gradueringen."));
-            //}
+            if (_readService.Get(curriculum.Rank, curriculum.RankType) == null)
+            {
+                validation.Errors.Add(new ValidationFailure("Invalid_Curriculum_Data", "Forkert data for gradueringen."));
+            }
 
-            //if (!result.IsValid)
-            //{
-            //    return StatusCode(422, result);
-            //}
+            if (!validation.IsValid)
+            {
+                return BadRequest(validation);
+            }
 
-            //try
-            //{
-            //    _updateCommandHandler.Handle(new UpdateCurriculumCommand(curriculum));
-            //    return Ok(curriculum);
-            //}
-            //catch (Exception ex)
-            //{
-            //    //TODO: Log exception and data;
-            //    return StatusCode(500);
-            //}
-            return Ok();
+            var result = _writeService.Update(curriculum);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
         public ActionResult DeleteCurriculum(ulong id)
         {
-            //try
-            //{
-            //    _deleteCommandHandler.Handle(new DeleteCurriculumCommand(id));
-            //    return Ok(id);
-            //}
-            //catch (Exception ex)
-            //{
-            //    //TODO: Log exception;
-            //    return StatusCode(500);
-            //}
-            return Ok();
+            var result = _writeService.Delete(id);
+            return result ? Ok(id) : StatusCode(StatusCodes.Status500InternalServerError, id);
         }
-
 
         private string CreateDuplicateRankMessage(CurriculumModel dto)
         {

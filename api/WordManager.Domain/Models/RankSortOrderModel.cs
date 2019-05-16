@@ -1,6 +1,6 @@
 ﻿namespace WordManager.Common.DTO
 {
-    public class RankSortOrderModel
+    public class RankSortOrderModel : IModel
     {
         public long Id { get; set; }
 

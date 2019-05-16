@@ -28,14 +28,9 @@ export class CurriculumDetailsComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.parts && changes.parts.currentValue) {
-      console.log(changes);
       this.partLoadStatus = PartLoadStatus.ready;
     }
   }
-
-  // get selected(): any {
-  //   return this.storage.curriculum.selectedItem;
-  // }
 
   anyParts(): boolean {
     return this.parts ? this.parts.length > 0 : false;

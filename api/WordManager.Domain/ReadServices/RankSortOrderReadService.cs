@@ -4,16 +4,16 @@ using Wordmanager.Data.Entities;
 
 namespace WordManager.Domain.ReadServices
 {
-    public class RankSortOrderReadService : ABaseService<RankSortOrder>, IReadService<RankSortOrder>
+    public class RankSortOrderReadService : ABaseService
     {
         public RankSortOrderReadService(WordManagerContext context) : base(context) { }
 
-        public IQueryable<RankSortOrder> GetAll()
+        public IQueryable<RankSortOrder> All()
         {
             return _context.RankSortOrders;
         }
 
-        public RankSortOrder GetById(long id)
+        public RankSortOrder Find(long id)
         {
             return _context.RankSortOrders.Find(id);
         }
