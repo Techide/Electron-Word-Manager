@@ -1,15 +1,15 @@
-// 1a9874
-$globalMainColors: (main: #5e5e5e,
-complement1: #981a3e,
-complement2: #654d9b,
-triad1: #741a98,
-triad2: #98741a,
-og: orange,
-main-highlight: #1a9874,
-main-highlight-active: #2f7f68);
+// 5e5e5e
+$globalMainColors: (main: #424242,
+  complement1: #981a3e,
+  complement2: #654d9b,
+  triad1: #741a98,
+  triad2: #98741a,
+  og: orange,
+  main-highlight: #1a9874,
+  main-highlight-active: #2f7f68);
 
 $globalTextColor: #ffffff;
-$globalBackgroundColors: (main: #343434);
+$globalBackgroundColors: (main: #242424); // 343434
 $globalErrorColor: #E62117;
 $globalTransitionTiming: 0.075s;
 $globalElementTransition: background-color $globalTransitionTiming ease-in-out;

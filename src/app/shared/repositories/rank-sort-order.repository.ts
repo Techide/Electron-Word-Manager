@@ -14,4 +14,8 @@ export class RankSortOrderRepository extends BaseRepository {
   all() {
     return this.client.get<IRankSortOrder[]>(this.API_URL);
   }
+
+  get(id: number) {
+    return this.client.get<IRankSortOrder>(`${this.API_URL}/${id}`);
+  }
 }

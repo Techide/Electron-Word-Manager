@@ -1,6 +1,5 @@
-﻿using DP.CqsLite;
-using Microsoft.AspNetCore.Mvc;
-using WordManager.Domain;
+﻿using Microsoft.AspNetCore.Mvc;
+using WordManager.Domain.ReadServices;
 
 namespace WordManager.Api.Controllers
 {
@@ -8,18 +7,25 @@ namespace WordManager.Api.Controllers
     [ApiController]
     public class RankSortOrderController : ControllerBase
     {
-        private readonly IQueryHandler<GetAllRankSortOrdersQuery, RankSortOrderQueryResult> _getAllQueryHandler;
+        private readonly RankSortOrderReadService _readService;
 
-        public RankSortOrderController(IQueryHandler<GetAllRankSortOrdersQuery, RankSortOrderQueryResult> getAllQueryHandler)
+        public RankSortOrderController(RankSortOrderReadService readService)
         {
-            _getAllQueryHandler = getAllQueryHandler ?? throw new System.ArgumentNullException(nameof(getAllQueryHandler));
+            _readService = readService;
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            var result = _getAllQueryHandler.Handle(new GetAllRankSortOrdersQuery());
-            return Ok(result.Data);
+            var result = _readService.GetAll();
+            return Ok(result);
+        }
+
+        [HttpGet("{id}", Name = nameof(Get))]
+        public ActionResult Get(long id)
+        {
+            var result = _readService.GetById(id);
+            return Ok(result);
         }
     }
 }

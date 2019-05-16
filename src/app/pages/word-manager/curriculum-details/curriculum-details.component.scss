@@ -108,11 +108,17 @@
   &:hover {
     background-color: map-get($globalMainColors, main-highlight);
   }
+
+  & .has-sound:hover {
+    cursor: pointer;
+    color: purple;
+  }
+
 }
 
 .part-content {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 2fr;
   grid-gap: 1em;
   padding: 20px;
 
@@ -120,16 +126,22 @@
     grid-column: 1;
     cursor: default;
 
-    & .has-sound:hover {
-      cursor: pointer;
-      color: purple;
-    }
   }
 }
 
 .word {
   grid-column: 2;
   cursor: default;
+  display: flex;
+
+  .play-button {
+    min-width: 19px;
+  }
+
+  .word-name {
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
 }
 
 .subpart {

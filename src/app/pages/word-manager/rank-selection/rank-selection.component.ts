@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { DataService } from '../../../shared/services/data.service';
-import { MemoryStorageService } from '../../../shared/services/memory-storage.service';
+// import { MemoryStorageService } from '../../../shared/services/memory-storage.service';
 import { RankType } from 'src/app/shared/models/rank-type.model';
 import { IRankType, IMemproperty, ICurriculum } from 'src/app/shared/interfaces';
 
@@ -17,7 +17,7 @@ export class RankSelectionComponent implements OnInit {
 
   constructor(
     private data: DataService,
-    private storage: MemoryStorageService,
+    // private storage: MemoryStorageService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
@@ -29,21 +29,21 @@ export class RankSelectionComponent implements OnInit {
   }
 
   onRankClicked(rankType: IRankType) {
-    if (this.storage.rank.selectedItem && this.storage.rank.selectedItem.Id !== rankType.Id) {
-      this.storage.curriculum = <IMemproperty<ICurriculum>> {};
-    }
+    // if (this.storage.rank.selectedItem && this.storage.rank.selectedItem.Id !== rankType.Id) {
+    //   this.storage.curriculum = <IMemproperty<ICurriculum>> {};
+    // }
 
-    this.storage.rank.selectedItem = rankType;
-    this.router.navigate(['curricula', rankType.Id]);
+    // this.storage.rank.selectedItem = rankType;
+    this.router.navigate(['curricula', rankType.Id], { queryParams: { sortOrder: rankType.SortOrderId } });
   }
 
   onCreateRankClicked() {
-    this.storage.rank.editingItem = new RankType();
+    // this.storage.rank.editingItem = new RankType();
     this.router.navigate(['ranktype', 'edit']);
   }
 
   onEditRankClicked(rankType: IRankType) {
-    this.storage.rank.editingItem = rankType;
+    // this.storage.rank.editingItem = rankType;
     this.router.navigate(['ranktype', 'edit']);
   }
 

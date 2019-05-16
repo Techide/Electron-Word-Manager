@@ -1,10 +1,10 @@
-import { Component, OnInit, AfterContentInit, Input } from '@angular/core';
+import { Component, OnInit, AfterContentInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { DataService } from '../../../shared/services/data.service';
-import { MemoryStorageService } from '../../../shared/services/memory-storage.service';
 import { ICurriculum } from '../../../shared/interfaces/curriculum.interface';
 import { ActivatedRoute } from '@angular/router';
+import { IPart } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'ewm-curricula-list',
@@ -12,41 +12,36 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./curricula-list.component.scss']
 })
 export class CurriculaListComponent {
-  @Input() curricula: ICurriculum[];
+  @Input() curricula: ICurriculum[] = [];
+
+  @Output() selectedItemChange: EventEmitter<ICurriculum> = new EventEmitter();
+  private selectedCard: ICurriculum | null = null;
 
   constructor(
     private data: DataService,
-    private storage: MemoryStorageService,
     private route: ActivatedRoute
   ) { }
 
   anyItems(): boolean {
-    return this.curricula && this.curricula.length > 0;
+    return this.curricula.length > 0;
   }
 
   onCardClicked(card: ICurriculum): void {
-    if (this.storage.curriculum.selectedItem && this.storage.curriculum.selectedItem.Id === card.Id) {
-      return;
-    }
-
-    this.storage.curriculum.selectedItem = card;
-    this.data.parts.getByCurriculumId(this.storage.curriculum.selectedItem.Id)
-      .subscribe(x => {
-        this.storage.part.items = x;
-      });
+    this.selectedCard = card;
+    this.selectedItemChange.emit(card);
   }
 
   createCardClicked(): void {
-    const model = <ICurriculum> {
-      RankType: this.storage.rank.selectedItem.Name,
-      RankTypeId: this.storage.rank.selectedItem.Id
-    };
-    this.storage.curriculum.editingItem = model;
+    // const model = <ICurriculum> {
+    //   RankType: this.storage.rank.selectedItem,
+    //   RankTypeId: this.storage.rank.selectedItem.Id
+    // };
+    // this.storage.curriculum.editingItem = model;
     // this.navigation.navigateByUrl('/curriculum');
   }
 
   editItem(item: ICurriculum): void {
-    this.storage.curriculum.editingItem = item;
+    // this.storage.curriculum.editingItem = item;
     // this.navigation.navigateByUrl('/curriculum');
   }
 
@@ -60,7 +55,7 @@ export class CurriculaListComponent {
       });
   }
 
-  checkSelectedItem(item: ICurriculum): boolean {
-    return this.storage.curriculum.selectedItem ? this.storage.curriculum.selectedItem.Id === item.Id : false;
+  checkSelectedItem(card: ICurriculum): boolean {
+    return this.selectedCard ? this.selectedCard.Id === card.Id : false;
   }
 }

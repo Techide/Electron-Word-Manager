@@ -14,9 +14,15 @@ namespace WordManager.Domain
 
         public static IServiceCollection AddCQS(this IServiceCollection services)
         {
+            services.AddScoped<CurriculumWriteService>();
+            services.AddScoped<PartWriteService>();
+            services.AddScoped<RankTypeWriteService>();
 
-            services.Scan(Assembly.GetExecutingAssembly(), typeof(IWriteService<>), ServiceLifetime.Scoped);
-            services.Scan(Assembly.GetExecutingAssembly(), typeof(IReadService<>), ServiceLifetime.Scoped);
+            services.AddScoped<CurriculumReadService>();
+            services.AddScoped<PartReadService>();
+            services.AddScoped<RankSortOrderReadService>();
+            services.AddScoped<RankTypeReadService>();
+
             services.AddSQLite();
 
             return services;

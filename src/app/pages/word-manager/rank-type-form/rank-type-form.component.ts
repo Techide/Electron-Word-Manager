@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { DataService } from '../../../shared/services/data.service';
-import { MemoryStorageService } from 'src/app/shared/services/memory-storage.service';
+// import { MemoryStorageService } from 'src/app/shared/services/memory-storage.service';
 import { IRankType, IRankSortOrder } from 'src/app/shared/interfaces';
 import { Subscription } from 'rxjs';
 
@@ -20,19 +20,19 @@ export class RankTypeFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private data: DataService,
-    private storage: MemoryStorageService,
+    // private storage: MemoryStorageService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.originalModel = <IRankType> { ...this.storage.rank.editingItem };
-    this.model = this.storage.rank.editingItem;
+    // this.originalModel = <IRankType> { ...this.storage.rank.editingItem };
+    // this.model = this.storage.rank.editingItem;
     this.route.data
       .pipe<IRankSortOrder[]>(map(res => res['ranksortorders']))
       .subscribe(x => { this.sortOrders = x; });
 
     this.currentSub = router.events.subscribe(x => {
       if (x instanceof NavigationStart) {
-        this.storage.rank.editingItem = null;
+        // this.storage.rank.editingItem = null;
       }
     });
   }

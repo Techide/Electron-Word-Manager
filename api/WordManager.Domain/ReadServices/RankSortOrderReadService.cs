@@ -12,5 +12,10 @@ namespace WordManager.Domain.ReadServices
         {
             return _context.RankSortOrders;
         }
+
+        public RankSortOrder GetById(long id)
+        {
+            return _context.RankSortOrders.Find(id);
+        }
     }
 }

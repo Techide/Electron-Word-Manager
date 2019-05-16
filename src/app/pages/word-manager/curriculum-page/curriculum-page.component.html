@@ -6,9 +6,12 @@
   </div>
   <div class="page-title">PENSUM</div>
   <div class="list-container">
-    <ewm-curricula-list [curricula]="storage.curriculum.items"></ewm-curricula-list>
+    <ewm-curricula-list [curricula]="curricula"
+                        (selectedItemChange)="selectedItemChanged($event)">
+    </ewm-curricula-list>
   </div>
   <div class="details-container">
-    <ewm-curriculum-details [parts]="storage.part.items"></ewm-curriculum-details>
+    <ewm-curriculum-details [parts]="parts"
+                            [cardSelected]="selectedCurriculum !== null"></ewm-curriculum-details>
   </div>
 </div>

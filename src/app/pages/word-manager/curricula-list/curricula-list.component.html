@@ -31,7 +31,7 @@
                      [contextMenuSubject]="item"
                      *ngFor="let item of curricula">
       <div class="card-content">
-        <div class="card-level">{{item.Rank}}.{{item.RankType.toUpperCase()}}</div>
+        <div class="card-level">{{item.Rank}}.{{item.RankType.Name.toUpperCase()}}</div>
         <div class="card-color">{{item.Color}} bælte</div>
       </div>
     </ewm-user-button>

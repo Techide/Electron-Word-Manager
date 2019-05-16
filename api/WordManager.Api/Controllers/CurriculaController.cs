@@ -1,11 +1,7 @@
-﻿using System;
-using DP.CqsLite;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Mvc;
-using WordManager.Api.Validators;
+﻿using Microsoft.AspNetCore.Mvc;
 using WordManager.Common.DTO;
-using WordManager.Domain;
 using WordManager.Domain.ReadServices;
+using WordManager.Domain.WriteServices;
 
 namespace WordManager.Api.Controllers
 {
@@ -15,21 +11,12 @@ namespace WordManager.Api.Controllers
     public class CurriculaController : ControllerBase
     {
         private readonly CurriculumReadService _readService;
-        private readonly ICommandHandler<CreateCurriculumCommand> _createNewCommandHandler;
-        private readonly ICommandHandler<UpdateCurriculumCommand> _updateCommandHandler;
-        private readonly ICommandHandler<DeleteCurriculumCommand> _deleteCommandHandler;
+        private readonly CurriculumWriteService _writeService;
 
-        public CurriculaController(
-            CurriculumReadService readService,
-            ICommandHandler<CreateCurriculumCommand> createNewCommandHandler,
-            ICommandHandler<UpdateCurriculumCommand> updateCommandHandler,
-            ICommandHandler<DeleteCurriculumCommand> deleteCommandHandler
-            )
+        public CurriculaController(CurriculumReadService readService, CurriculumWriteService writeService)
         {
             _readService = readService;
-            _createNewCommandHandler = createNewCommandHandler ?? throw new ArgumentNullException(nameof(createNewCommandHandler));
-            _updateCommandHandler = updateCommandHandler ?? throw new ArgumentNullException(nameof(updateCommandHandler));
-            _deleteCommandHandler = deleteCommandHandler ?? throw new ArgumentNullException(nameof(deleteCommandHandler));
+            _writeService = writeService;
         }
 
         [HttpGet("{id}")]
@@ -42,85 +29,86 @@ namespace WordManager.Api.Controllers
         [HttpPost(Name = nameof(CreateNewCurriculum))]
         public ActionResult CreateNewCurriculum(CurriculumModel curriculum)
         {
-            if (curriculum == null)
-            {
-                return Ok();
-            }
+            //if (curriculum == null)
+            //{
+            //    return Ok();
+            //}
 
-            var validator = new CurriculumValidator();
-            var result = validator.Validate(curriculum);
+            //var validator = new CurriculumValidator();
+            //var result = validator.Validate(curriculum);
 
-            if (_readService.GetByRankAndRankTypeName(curriculum.Rank, curriculum.RankType) != null)
-            {
-                result.Errors.Add(new ValidationFailure("Dual_Rank_&_RankTypeName", CreateDuplicateRankMessage(curriculum), new { curriculum.Rank, curriculum.RankType }));
-            }
+            //if (_readService.GetByRankAndRankTypeName(curriculum.Rank, curriculum.RankType) != null)
+            //{
+            //    result.Errors.Add(new ValidationFailure("Dual_Rank_&_RankTypeName", CreateDuplicateRankMessage(curriculum), new { curriculum.Rank, curriculum.RankType }));
+            //}
 
-            if (!result.IsValid)
-            {
-                return StatusCode(422, result);
-            }
+            //if (!result.IsValid)
+            //{
+            //    return StatusCode(422, result);
+            //}
 
-            try
-            {
-                _createNewCommandHandler.Handle();
-                return CreatedAtRoute(RouteData.Values, curriculum);
-            }
-            catch (Exception)
-            {
-                //TODO: Log exception and data;
-                return StatusCode(500);
-            }
-
+            //try
+            //{
+            //    _createNewCommandHandler.Handle();
+            //    return CreatedAtRoute(RouteData.Values, curriculum);
+            //}
+            //catch (Exception)
+            //{
+            //    //TODO: Log exception and data;
+            //    return StatusCode(500);
+            //}
+            return Ok();
         }
 
         [HttpPut]
         public ActionResult UpdateCurriculum(CurriculumModel curriculum)
         {
 
-            if (curriculum == null)
-            {
-                return Ok();
-            }
+            //if (curriculum == null)
+            //{
+            //    return Ok();
+            //}
 
-            var validator = new CurriculumValidator();
-            var result = validator.Validate(curriculum);
+            //var validator = new CurriculumValidator();
+            //var result = validator.Validate(curriculum);
 
-            if (_getByRankAndTypeQueryHandler.Handle(new GetCurriculumByRankAndRankTypeQuery(curriculum)).Curriculum == null)
-            {
-                result.Errors.Add(new ValidationFailure("Invalid_Curriculum_Data", "Forkert data for gradueringen."));
-            }
+            //if (_getByRankAndTypeQueryHandler.Handle(new GetCurriculumByRankAndRankTypeQuery(curriculum)).Curriculum == null)
+            //{
+            //    result.Errors.Add(new ValidationFailure("Invalid_Curriculum_Data", "Forkert data for gradueringen."));
+            //}
 
-            if (!result.IsValid)
-            {
-                return StatusCode(422, result);
-            }
+            //if (!result.IsValid)
+            //{
+            //    return StatusCode(422, result);
+            //}
 
-            try
-            {
-                _updateCommandHandler.Handle(new UpdateCurriculumCommand(curriculum));
-                return Ok(curriculum);
-            }
-            catch (Exception ex)
-            {
-                //TODO: Log exception and data;
-                return StatusCode(500);
-            }
-
+            //try
+            //{
+            //    _updateCommandHandler.Handle(new UpdateCurriculumCommand(curriculum));
+            //    return Ok(curriculum);
+            //}
+            //catch (Exception ex)
+            //{
+            //    //TODO: Log exception and data;
+            //    return StatusCode(500);
+            //}
+            return Ok();
         }
 
         [HttpDelete("{id}")]
         public ActionResult DeleteCurriculum(ulong id)
         {
-            try
-            {
-                _deleteCommandHandler.Handle(new DeleteCurriculumCommand(id));
-                return Ok(id);
-            }
-            catch (Exception ex)
-            {
-                //TODO: Log exception;
-                return StatusCode(500);
-            }
+            //try
+            //{
+            //    _deleteCommandHandler.Handle(new DeleteCurriculumCommand(id));
+            //    return Ok(id);
+            //}
+            //catch (Exception ex)
+            //{
+            //    //TODO: Log exception;
+            //    return StatusCode(500);
+            //}
+            return Ok();
         }
 
 

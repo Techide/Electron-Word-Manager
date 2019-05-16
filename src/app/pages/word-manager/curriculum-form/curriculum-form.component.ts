@@ -1,7 +1,7 @@
 import { DataService } from '../../../shared/services/data.service';
 import { ICurriculum } from '../../../shared/interfaces/curriculum.interface';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MemoryStorageService } from '../../../shared/services/memory-storage.service';
+// import { MemoryStorageService } from '../../../shared/services/memory-storage.service';
 import { Component, OnInit } from '@angular/core';
 
 class IErrorMessage {
@@ -26,21 +26,20 @@ export class CurriculumFormComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private storageService: MemoryStorageService
   ) {
-    this.model = this.storageService.curriculum.editingItem;
-    this.originalModel = <ICurriculum> { ... this.storageService.curriculum.editingItem };
+    // this.model = this.storageService.curriculum.editingItem;
+    // this.originalModel = <ICurriculum> { ... this.storageService.curriculum.editingItem };
   }
 
   ngOnInit() {
-    const rank = this.storageService.rank.selectedItem;
+    // const rank = this.storageService.rank.selectedItem;
     const dataArray: number[] = [];
-    this.dataService.curricula.getByRankType(rank.Id)
-      .subscribe(data => {
-        data.forEach(x => {
-          dataArray.push(x.Rank);
-        });
-      });
+    // this.dataService.curricula.getByRankType(rank.Id)
+    //   .subscribe(data => {
+    //     data.forEach(x => {
+    //       dataArray.push(x.Rank);
+    //     });
+    //   });
   }
 
   submitForm() {
@@ -51,9 +50,9 @@ export class CurriculumFormComponent implements OnInit {
       observable = this.dataService.curricula.create(this.model);
     }
 
-    observable.subscribe(x => {
-      this.storageService.curriculum.editingItem = x;
-    }, (error: HttpErrorResponse) => this.handleError(error));
+    // observable.subscribe(x => {
+    //   this.storageService.curriculum.editingItem = x;
+    // }, (error: HttpErrorResponse) => this.handleError(error));
 
   }
 
@@ -62,7 +61,7 @@ export class CurriculumFormComponent implements OnInit {
   }
 
   onBackButtonClicked() {
-    this.storageService.curriculum.editingItem = null;
+    // this.storageService.curriculum.editingItem = null;
   }
 
   getDisableSubmit(formInvalid: boolean): boolean {

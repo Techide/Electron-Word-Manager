@@ -1,4 +1,4 @@
-<div *ngIf="selected"
+<div *ngIf="cardSelected"
      class="page-grid">
   <div class="page-header">
     <div class="page-header-label">Detaljer</div>
@@ -43,11 +43,15 @@
                  *ngFor="let item of parts">
               <div class="part-content">
                 <div class="name">
-                  <span> {{ item.Name }} </span>
+                  <span> {{ item.Category.Name }} </span>
                 </div>
                 <div class="word"
                      *ngFor="let word of item.Words">
-                  {{ word.Name }}
+                  <div>
+                    <span class="word-name"
+                          [ngClass]="{'has-sound': hasPlaybackData}">{{ word.Name }}</span>
+                    <div></div>
+                  </div>
                   <div class="description">{{ word.Description }}</div>
                 </div>
               </div>
@@ -58,7 +62,11 @@
                   <div class="name">{{ inner.Name }}</div>
                   <div class="word"
                        *ngFor="let innerWord of inner.Words">
-                    {{ innerWord.Name }}
+                    <div>
+                      <span class="word-name"
+                            [ngClass]="{'has-sound': hasPlaybackData}">{{ innerWord.Name }}</span>
+                      <div></div>
+                    </div>
                   </div>
                 </div>
               </div>
